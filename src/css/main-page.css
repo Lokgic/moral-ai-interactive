@@ -1,0 +1,9 @@
+
+.app-container {
+  height:100vh;
+  display:flex
+}
+.main-container {
+
+  margin: auto;
+}

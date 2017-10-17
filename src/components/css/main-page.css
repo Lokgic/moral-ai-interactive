@@ -1,9 +1,9 @@
 
-.flex-container {
+.app-container {
   height:100vh;
   display:flex
 }
-.flex-auto-margin {
+.main-container {
 
   margin: auto;
 }

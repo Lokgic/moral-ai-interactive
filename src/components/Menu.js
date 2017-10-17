@@ -11,8 +11,8 @@ import {
 
 
  export default props =>(
-      <div className = "app-container">
-      <Container className = "main-container">
+      <div className = "flex-container">
+      <Container className = "flex-auto-margin">
       <Header size ="large"
           dividing
         >Moral AI Prototypes</Header>
@@ -20,7 +20,7 @@ import {
 
         <LinkContainer
           external = {true}
-          img ='./imgs/htmldemo.png'
+          img ='./sequence1.png'
           title = 'Sequential Prototype 1'
           description = "Sequential"
           url = "/sequence1"

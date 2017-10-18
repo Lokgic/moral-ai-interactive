@@ -1,6 +1,7 @@
 {
   "name": "moral-ai-interactive",
   "version": "0.1.0",
+    "homepage": "https://lokgic.github.io/moral-ai-interactive",
   "private": true,
   "devDependencies": {
     "react-scripts": "1.0.14",
@@ -24,6 +25,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+       "predeploy": "npm run build",
+   "deploy": "gh-pages -d build",
   }
 }

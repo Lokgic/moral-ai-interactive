@@ -1,22 +1,25 @@
-import React,{Component} from 'react'
-import { Button, Card, Image, List,Divider,Icon } from 'semantic-ui-react'
-import Chance from 'chance'
+import React from 'react'
+import { Button, Card, Image, List,Divider } from 'semantic-ui-react'
+
 
 
 
 
 export default props => {
-  const chance = new Chance()
-  const gender = chance.gender()
-  const name = chance.name({gender})
-  const age = chance.age()
-  const img = '/heads/'+gender+'/'+chance.integer({min:1,max:2})+'.png'
+  const {features} = props.person
+  const {gender,name,age,img,} = features
+  const {makeSelection, currentChosen,showingFeatures} = props
+
+  //
+  // const gender = chance.gender()
+  // const name = chance.name({gender})
+  // const age = chance.age()
+  // const img = '/heads/'+gender+'/'+chance.integer({min:1,max:2})+'.png'
 
   return (
 
 
-    <Card>
-
+    <Card raised = {currentChosen===name}>
       <Card.Content>
         <Image
           floated="right"
@@ -26,17 +29,22 @@ export default props => {
       <Card.Description>
         <List bulleted>
           <List.Item>
-            {age}
+            {"Age :" +age}
           </List.Item>
           <List.Item>
             {gender}
           </List.Item>
+          {showingFeatures.map((d,i)=>(
+            <List.Item key = {d}>
+              {d+" :" + features[d]}
+            </List.Item>
+          ))}
         </List>
 
       </Card.Description>
       <Divider />
-      <Button animated fluid>
-      <Button.Content basic color='green' visible>Choose</Button.Content>
+      <Button color='green' animated fluid onClick={()=>makeSelection(name)}>
+      <Button.Content  visible>Choose</Button.Content>
       <Button.Content hidden>
         {name + " should receive the kidney."}
       </Button.Content>

@@ -19,7 +19,7 @@ import {
       <Item.Group divided>
 
         <LinkContainer
-          external = {true}
+          external = "false"
           img ='./sequence1.png'
           title = 'Sequential Prototype 1'
           description = "Sequential"

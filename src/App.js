@@ -36,7 +36,7 @@ class App extends Component {
       <Provider store={sdStore}>
       <BrowserRouter>
         <div>
-      <Route exact path = '/' component = {Menu}/>
+      <Route path = '/' component = {Menu}/>
 
 
       <Route path = '/sequence1' component = {SequentialDecision1}/>

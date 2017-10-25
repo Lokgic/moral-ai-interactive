@@ -4,9 +4,6 @@ import {Header,Image,Table} from 'semantic-ui-react'
 
 export default props => {
   const {person,
-
-
-,
         showingFeatures,
 
         icons

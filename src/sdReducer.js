@@ -38,7 +38,8 @@ export const initialState = {
   currentChosen:"none",
   hit:[],
   miss:[],
-  featurePreference:[]
+  featurePreference:[],
+  displayMode:"FeatureListView"
 }
 
 
@@ -89,6 +90,11 @@ export const reducer = (state = initialState, action)=>{
         person:[new Person(), new Person()]
 
        }
+    case "CHANGE_DISPLAY":
+      return {
+        ...state,
+        displayMode:action.displayMode
+      }
     default:
       return state
   }

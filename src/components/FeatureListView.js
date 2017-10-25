@@ -23,14 +23,14 @@ export default props => {
 
   return (
     <Card.Group itemsPerRow = "2">
-      {person.map(d=>(
+      {person.map((d,i)=>(
         <FeatureList
          person={d}
          currentChosen={currentChosen}
          makeSelection={makeSelection}
          showingFeatures={showingFeatures}
          icons={icons}
-
+         key={"personcard"+i}
          />
       ))
     }

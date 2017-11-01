@@ -6,11 +6,17 @@ import {
     Card,
     Container,
     Header,
-    Button
+    Button,
+    Label
 } from 'semantic-ui-react'
 import FeatureListView from '../components/FeatureListView'
 import TableView from '../components/TableView'
 import DataView from '../components/DataView'
+import PreferenceOrdering from '../components/PreferenceOrdering'
+import {  Redirect } from 'react-router'
+import DiscreteChoices from '../components/DiscreteChoices'
+import ContinuousChoices from '../components/ContinuousChoices'
+
 
 import DataIcon from 'react-icons/lib/fa/database'
 import CakeIcon from 'react-icons/lib/fa/birthday-cake'
@@ -30,21 +36,30 @@ const icons = {
     drinking: <DrinkIcon/>
 }
 
-class SequentialDecision1 extends Component {
+class DecisionPage extends Component {
     constructor(props) {
         super(props)
         this.choice = props.currentChosen
         this.makeDecision = this.makeDecision.bind(this)
+        this.beIndfferent = this.beIndfferent.bind(this)
+
+
+    }
+    beIndfferent(){
+      let choice = [0,0]
+      choice[Math.floor(Math.random() * 2)] = 1
+      this.props.addData(choice,1)
     }
     makeDecision() {
         const {currentChosen, addFeature, nextFeature, addData, person} = this.props
 
-        if (currentChosen === "More Info") {
+        if (currentChosen === "none"){
+
+        }
+        else if (currentChosen === "More Info") {
             addFeature(nextFeature)
-        } else if (currentChosen === person[0].features.name) {
-            addData(0)
-        } else if (currentChosen === person[1].features.name) {
-            addData(1)
+        } else {
+          addData(currentChosen)
         }
     }
     render() {
@@ -55,15 +70,23 @@ class SequentialDecision1 extends Component {
             chooseFeature,
             showingFeatures,
             availableFeatures,
+            nextFeature,
             displayMode,
             changeDisplay,
-            hit,
-            miss,
-            featurePreference
+            featurePreference,
+            features,
+            labels,
+            parms,
+            randomChoices
         } = this.props
         const name0 = person[0].features.name
         const name1 = person[1].features.name
         let view
+        if (Object.keys(parms).length === 0) return (<Redirect to="/"/>)
+        const {decType,indiff,preferenceOrdering} = parms
+
+
+
         if (displayMode === "FeatureListView") {
             view = (<FeatureListView person={person}
                                     currentChosen={currentChosen}
@@ -74,7 +97,10 @@ class SequentialDecision1 extends Component {
         } else if (displayMode === "TableView") {
             view = (<TableView person={person} currentChosen={currentChosen} makeSelection={makeSelection} showingFeatures={showingFeatures} availableFeatures={availableFeatures} icons={icons}/>)
         } else if (displayMode === "DataView") {
-          view = (<DataView hit={hit} miss={miss} featurePreference={featurePreference}/>)
+          view = (<DataView features={features} featurePreference={featurePreference} labels={labels}
+          randomChoices={randomChoices}
+
+          />)
         }
         return (
             <div className="flex-container">
@@ -102,37 +128,56 @@ class SequentialDecision1 extends Component {
                     </Header>
                     {view}
                     <Divider/>
-                    <Button.Group fluid>
 
-                        <Button color={currentChosen === name0
-                            ? "teal"
-                            : "grey"} onClick={() => makeSelection(name0)}>
-                            {name0}
-                        </Button>
-                        <Button.Or/>
-                        <Button color={currentChosen === name1
-                            ? "teal"
-                            : "grey"} onClick={() => makeSelection(name1)}>
-                            {name1}
-                        </Button>
-                        <Button.Or/>
-                        <Button color={currentChosen === "More Info"
-                            ? "orange"
-                            : "grey"} onClick={() => makeSelection("More Info")}>{"I need to know about "}
-                            <Dropdown placeholder=" select feature here" inline options={Object.keys(availableFeatures).sort(() => Math.random() - 0.5).map(d => {
-                                return {text: availableFeatures[d], value: d}
-                            })} onChange= {(e,{value})=>chooseFeature(value)}/>
-                        </Button>
-                    </Button.Group>
+                    {
+                      decType === "discrete"? <DiscreteChoices
+                        currentChosen={currentChosen}
+                        name0={name0}
+                        name1={name1}
+                        makeSelection={makeSelection}
+                      />:<ContinuousChoices
+                        currentChosen={currentChosen}
+                        name0={name0}
+                        name1={name1}
+                        makeSelection={makeSelection}
+                      />
+                    }
+
+
                     <Divider/>
                     <Container fluid textAlign="center">
-
-                        <Button animated fluid onClick={this.makeDecision}>
-                            <Button.Content color='green' visible>Confirm</Button.Content>
+                      <Button.Group fluid>
+                        <Button animated  onClick={this.makeDecision}>
+                            <Button.Content color='green' visible>Decide</Button.Content>
                             <Button.Content hidden>
-                                {"Current Selection: " + currentChosen}
+                                {currentChosen === "none"? "Please make your decision":"Confirm decision"}
                             </Button.Content>
                         </Button>
+
+                        {
+                          indiff?(<Button.Or/>):null
+                        }
+                        {
+                          indiff?
+                            (<Button animated  onClick={this.beIndfferent}>
+                                <Button.Content color='green' visible>Indifference</Button.Content>
+                                <Button.Content hidden>
+                                    {"A Choice will be made randomly"}
+                                </Button.Content>
+                            </Button>): null
+                        }
+
+                      </Button.Group>
+
+
+                      {
+                        preferenceOrdering? <PreferenceOrdering
+                            availableFeatures={availableFeatures}
+                            nextFeature={nextFeature}
+                            chooseFeature={chooseFeature}
+                            icons={icons}
+                        />:null
+                      }
                     </Container>
                 </div>
             </div>
@@ -146,7 +191,7 @@ const mapDispatchToProps = dispatch => {
         makeSelection: choice => dispatch({type: "SELECTION", choice}),
         chooseFeature: feature => dispatch({type: "CHOOSE_FEATURE", feature}),
         addFeature: feature => dispatch({type: "ADD_FEATURE", feature}),
-        addData: choice => dispatch({type: "ADD_DATA", choice}),
+        addData: (data,random=0) => dispatch({type: "ADD_DATA", data,random}),
         changeDisplay: displayMode => dispatch({type: "CHANGE_DISPLAY", displayMode})
 
     }
@@ -154,7 +199,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
 
-    return state.sd
+    return state.dec
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SequentialDecision1)
+export default connect(mapStateToProps, mapDispatchToProps)(DecisionPage)

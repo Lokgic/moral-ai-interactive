@@ -1,10 +1,8 @@
 import React from 'react'
-import { Button,
+import {
           Card,
           Image,
-          List,
-          Divider,
-          Transition
+          List
         } from 'semantic-ui-react'
 
 
@@ -15,9 +13,9 @@ export default props => {
         person,
         currentChosen,
         makeSelection,
-        chooseFeature,
+
         showingFeatures,
-        availableFeatures,
+
         icons
       } = props
 
@@ -26,7 +24,7 @@ export default props => {
       {person.map((d,i)=>(
         <FeatureList
          person={d}
-         currentChosen={currentChosen}
+         chosen={currentChosen[i]}
          makeSelection={makeSelection}
          showingFeatures={showingFeatures}
          icons={icons}
@@ -42,13 +40,16 @@ export default props => {
 const FeatureList = props => {
   const {features} = props.person
   const {gender,name,age,img,} = features
-  const {makeSelection, currentChosen,showingFeatures,icons} = props
-
+  const {makeSelection, chosen,showingFeatures,icons} = props
+  let color
+  if (chosen > 0.5)  color = "rgba(95, 178, 180," +chosen+")"
+  else if (chosen === 0)  color = "white"
+  else if (chosen < 0.5)  color = "rgba(175, 98, 140," +chosen+")"
 
   return (
 
 
-    <Card>
+    <Card style={{backgroundColor:color}}>
       <Card.Content>
         <Image
           floated="right"

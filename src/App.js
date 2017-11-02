@@ -37,7 +37,10 @@ const pageIndex = {
   "Decision":<DecisionPage/>
 }
 
+const {NODE_ENV,PUBLIC_URL} = process.env
 
+const urlPrefix = NODE_ENV === "production"? PUBLIC_URL:""
+console.log(urlPrefix)
 class App extends Component {
   render() {
     const page =  pageIndex[sdStore.getState().ui.page]
@@ -46,8 +49,11 @@ class App extends Component {
       <Provider store={sdStore}>
       <BrowserRouter>
         <div>
-          <Route exact path = '/' component = {SetUpScreen}/>
-          <Route path = '/decision' component = {DecisionPage}/>
+          <Switch>
+          <Route exact path = {'/decision'} component = {DecisionPage}/>
+          <Route path = {'/'} component = {SetUpScreen}/>
+          </Switch>
+          {/* <SetUpScreen/> */}
       </div>
       </BrowserRouter>
   </Provider>

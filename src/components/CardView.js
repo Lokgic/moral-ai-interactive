@@ -5,6 +5,7 @@ import {
           List
         } from 'semantic-ui-react'
 
+import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
 
 
 
@@ -22,12 +23,11 @@ export default props => {
   return (
     <Card.Group itemsPerRow = "2">
       {person.map((d,i)=>(
-        <FeatureList
+        <PersonCard
          person={d}
          chosen={currentChosen[i]}
          makeSelection={makeSelection}
          showingFeatures={showingFeatures}
-         icons={icons}
          key={"personcard"+i}
          />
       ))
@@ -37,15 +37,15 @@ export default props => {
 }
 
 
-const FeatureList = props => {
+const PersonCard = props => {
   const {features} = props.person
   const {gender,name,age,img,} = features
-  const {makeSelection, chosen,showingFeatures,icons} = props
+  const {makeSelection, chosen,showingFeatures} = props
   let color
   if (chosen > 0.5)  color = "rgba(95, 178, 180," +chosen+")"
   else if (chosen === 0)  color = "white"
   else if (chosen < 0.5)  color = "rgba(175, 98, 140," +chosen+")"
-
+  console.log(translationList["age"](20))
   return (
 
 
@@ -70,7 +70,7 @@ const FeatureList = props => {
             <List.Item key = {d}>
               <Image avatar>{icons[d]}</Image>
               <List.Content>
-                {d+": " + features[d]}
+                {featureList[d]+": " + translationList[d](features[d])}
               </List.Content>
             </List.Item>
           ))}

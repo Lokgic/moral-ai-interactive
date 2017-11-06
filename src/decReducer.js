@@ -1,13 +1,9 @@
-import Person,{featureList} from './components/Person'
+import {DilemmaMaker,featureList} from './DilemmaMaker'
 
-const person  = [new Person(), new Person()]
+const person  = DilemmaMaker()
 
 
 
-while (person[0].features.img === person[1].features.img){
-  person[0].getNewImg()
-
-}
 
 
 const makeTrueFalse = id=>[
@@ -40,15 +36,15 @@ const expParameters = [
 export const initialState = {
   person,
   availableFeatures:{...featureList},
-  showingFeatures:[],
+  showingFeatures:["health", "exercising", "drinking", "dependents"],
   currentChosen:"none",
   labels:[],
   features:[],
   featurePreference:[],
   randomChoices:[],
-  displayMode:"FeatureListView",
+  displayMode:"TableView",
   expParameters,
-  parms:{}
+  parms:{decType:"discrete", indiff:true, preferenceOrdering:false}
 }
 
 
@@ -59,11 +55,11 @@ export const reducer = (state = initialState, action)=>{
         ...state,
         ...action.newParms
       }
-    case "SELECTION":
-      return{
-        ...state,
-        currentChosen:action.choice
-      }
+    // case "SELECTION":
+    //   return{
+    //     ...state,
+    //     currentChosen:action.choice
+    //   }
     case "CHOOSE_FEATURE":
       return {
         ...state,
@@ -85,7 +81,7 @@ export const reducer = (state = initialState, action)=>{
 
 
       }
-    case "ADD_DATA":
+    case "SELECTION":
       const show = state.parms.preferenceOrdering ? [] : state.showingFeatures
       const avail = state.parms.preferenceOrdering ? featureList : state.availableFeatures
       const pref = state.parms.preferenceOrdering ?    [...state.featurePreference,
@@ -96,14 +92,14 @@ export const reducer = (state = initialState, action)=>{
 
        return {
          ...state,
-         labels:[...state.labels, action.data],
+         labels:[...state.labels, action.choice],
          features:[...state.features, [state.person[0].features,state.person[1].features]],
          availableFeatures:avail,
          showingFeatures:show,
          currentChosen:"none",
          featurePreference:pref,
          randomChoices:[...state.randomChoices,action.random],
-        person:[new Person(), new Person()]
+        person:DilemmaMaker()
 
        }
     case "CHANGE_DISPLAY":

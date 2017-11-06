@@ -1,30 +1,34 @@
 import React from 'react'
-import {Header,Image,Table} from 'semantic-ui-react'
+import {Header,Image,Table,Button} from 'semantic-ui-react'
+import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
+import QMark from 'react-icons/lib/go/question'
 
-
-export default props => {
-  const {person,
-        showingFeatures,
-
-        icons
-      } = props
-  return (
+export default ({person,
+      showingFeatures,
+      makeSelection
+    }) =>  (
 
     <Table
-      size="large"
-      textAlign="center"
 
+      // textAlign="center"
+      compact
+      definition
       >
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell onClick={()=>console.log("g")}></Table.HeaderCell>
-          {person.map(d => (
+          <Table.HeaderCell></Table.HeaderCell>
+          {person.map((d,i)=> (
             <Table.HeaderCell
+               textAlign='center'
               key={"tableHeaderCell"+d.features.name}>
               <Header as='h4' image>
                 <Image src={d.features.img}/>
+                <Header.Content>
+                  {d.features.name}
+                  <Header.Subheader>{"Patient "+ (i+1)}</Header.Subheader>
+                </Header.Content>
               </Header>
-              {d.features.name}
+
             </Table.HeaderCell>
           ))}
         </Table.Row>
@@ -33,25 +37,49 @@ export default props => {
 
         {["age","gender"].concat(showingFeatures).map(d=>(
           <Table.Row key={"row"+d}>
-            <Table.Cell>
+            <Table.Cell  width={5}>
               <Header as = 'span' image>
 
                 <Image>
                   {icons[d]}
                 </Image>
-                {d}
+                {featureList[d]}
               </Header>
 
             </Table.Cell>
             {person.map((p,i)=>(
-              <Table.Cell key={"cell"+i+p.features.name+d}>
-              {p.features[d]}
+              <Table.Cell textAlign='center'
+                key={"cell"+i+p.features.name+d}>
+            {translationList[d](p.features[d])}
             </Table.Cell>))}
           </Table.Row>
         ))}
+
+        <Table.Row>
+          <Table.Cell  width={5}>
+            <Header as = 'span' image>
+              <Image>
+                <QMark/>
+              </Image>
+              You choose...
+            </Header>
+
+          </Table.Cell>
+          {person.map((p,i)=>(
+            <Table.Cell textAlign='center'
+              key={"choose"+i+p.features.name}>
+              {/* <Button onClick={()=>makeSelection(i)}>{"Choose Patient "+(1+i)}</Button> */}
+              <Button animated fluid onClick={()=>makeSelection(i)}>
+                  <Button.Content visible>{"Choose Patient "+(1+i)}</Button.Content>
+                  <Button.Content hidden>
+                      {p.features.name + " should receive a kidney."}
+                  </Button.Content>
+              </Button>
+          </Table.Cell>))}
+
+        </Table.Row>
       </Table.Body>
+
     </Table>
 
   )
-
-}

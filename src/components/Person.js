@@ -4,32 +4,40 @@ const chance = new Chance()
 const {NODE_ENV,PUBLIC_URL} = process.env
 
 
-export const featureList = {
-  drinking:"drinking habits",
-  health:"health issues",
-  exercising: "exercising habits",
-  children:"number of children",
-}
-
-const chanceList = {
-  drinking:()=>chance.integer({min:0,max:10}),
-  health:()=>chance.integer({min:0,max:3}),
-  exercising: ()=>chance.integer({min:0,max:40}),
-  children: ()=>chance.integer({min:0,max:10}),
-}
+// export const featureList = {
+//   drinking:"drinks per week",
+//   health:"additional health issues",
+//   exercising: "hours of exercising per week",
+//   dependents:"number of dependents",
+// }
+//
+// const chanceList = {
+//   drinking:()=>chance.integer({min:0,max:20}),
+//   health:()=>chance.integer({min:0,max:3}),
+//   exercising: ()=>Math.floor(Math.max(0,chance.normal({mean:5,dev:4}))),
+//   dependents: ()=>Math.floor(Math.max(0,chance.normal({mean:2,dev:1}))),
+// }
 
 
 
 export default class Person {
-  constructor(props){
-    const gender = chance.gender()
-    const name = chance.name({gender})
-    const age = chance.age()
-    let img = ''
-    this.features = {gender,name,age,img}
-    for (let key of Object.keys(chanceList)){
-      this.features[key] = chanceList[key]()
-    }
+  constructor(featureList,features){
+    console.log(features)
+    // const gender = chance.gender()
+
+    // const age = chance.age()
+
+    // this.features = {name:chance.name({gender:features.gender})}
+    this.features = {
+                    name:chance.name({gender:features.gender}),
+                    img:"",
+                    ...features,
+                  }
+
+    // for (let key of Object.keys(featureList)){
+    //   this.features[key] = features[key]
+    // }
+
     this.getNewImg()
   }
   getNewImg(){
@@ -45,13 +53,7 @@ export default class Person {
   getFeatures(){
     return this.features
   }
-  addFeatures(newFeatures){
 
-    this.features = {
-      ...this.features,
-      [newFeatures]:chance.integer({min:1,max:200})
-    }
-  }
 
 
 }

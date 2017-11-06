@@ -49,10 +49,10 @@ class App extends Component {
       <Provider store={sdStore}>
       <BrowserRouter>
         <div>
-          <Switch>
-          <Route exact path = {'/decision'} component = {DecisionPage}/>
-          <Route path = {'/'} component = {SetUpScreen}/>
-          </Switch>
+
+          <Route exact path = {'/setup'} component = {SetUpScreen}/>
+          <Route path = {'/'} component = {DecisionPage}/>
+
           {/* <SetUpScreen/> */}
       </div>
       </BrowserRouter>

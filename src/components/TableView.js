@@ -61,7 +61,7 @@ export default ({person,
               <Image>
                 <QMark/>
               </Image>
-              You choose...
+              you choose...
             </Header>
 
           </Table.Cell>

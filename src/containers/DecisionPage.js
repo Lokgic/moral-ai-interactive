@@ -7,21 +7,22 @@ import {
     Container,
     Header,
     Button,
-    Label
+    Label,
+    Icon
+
 } from 'semantic-ui-react'
-import CardView from '../components/CardView'
+
 import TableView from '../components/TableView'
 import DataView from '../components/DataView'
-import GridView from '../components/GridView'
+import SummaryView from '../components/SummaryView'
 import PreferenceOrdering from '../components/PreferenceOrdering'
 import {  Redirect } from 'react-router'
-import DiscreteChoices from '../components/DiscreteChoices'
-import ContinuousChoices from '../components/ContinuousChoices'
+
 import {iconList as icons} from '../DilemmaMaker'
 import TableIcon from 'react-icons/lib/fa/table'
 import ListIcon from 'react-icons/lib/fa/list'
 import DataIcon from 'react-icons/lib/fa/database'
-
+import '../css/decision-page.css'
 
 class DecisionPage extends Component {
     constructor(props) {
@@ -33,9 +34,7 @@ class DecisionPage extends Component {
 
     }
     beIndfferent(){
-      let choice = [0,0]
-      choice[Math.floor(Math.random() * 2)] = 1
-      this.props.makeSelection(choice,1)
+      this.props.makeSelection(Math.floor(Math.random() * 2),1)
     }
 
     render() {
@@ -55,8 +54,7 @@ class DecisionPage extends Component {
             parms,
             randomChoices
         } = this.props
-        const name0 = person[0].features.name
-        const name1 = person[1].features.name
+
         let view
         if (Object.keys(parms).length === 0) return (<Redirect to="/"/>)
         const {decType,indiff,preferenceOrdering} = parms
@@ -70,6 +68,13 @@ class DecisionPage extends Component {
                   />)
         } else if (displayMode === "DataView") {
           view = (<DataView features={features} featurePreference={featurePreference} labels={labels}
+          randomChoices={randomChoices}
+
+          />)
+        } else if (displayMode === "SummaryView"){
+          view = (<SummaryView features={features}
+            featurePreference={featurePreference}
+            labels={labels}
           randomChoices={randomChoices}
 
           />)
@@ -92,6 +97,10 @@ class DecisionPage extends Component {
                                 <Button.Content visible><TableIcon/></Button.Content>
                                 <Button.Content hidden>Table</Button.Content>
                             </Button>
+                            <Button animated='vertical' onClick={() => changeDisplay("SummaryView")}>
+                                <Button.Content visible><Icon name="bar chart"/></Button.Content>
+                                <Button.Content hidden>Statistics</Button.Content>
+                            </Button>
                             <Button animated='vertical' onClick={() => changeDisplay("DataView")}>
                                 <Button.Content visible><DataIcon/></Button.Content>
                                 <Button.Content hidden>Data</Button.Content>
@@ -110,7 +119,7 @@ class DecisionPage extends Component {
 
 
                         {
-                          indiff?
+                          indiff && displayMode === "TableView"?
                             (<Button size="large" animated circular onClick={this.beIndfferent}>
                                 <Button.Content color='green' visible>Flip a coin</Button.Content>
                                 <Button.Content hidden>
@@ -140,10 +149,10 @@ class DecisionPage extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        makeSelection: sel => {
+        makeSelection: (sel,random=0) => {
             let choice = [0,0]
             choice[sel] = 1
-            return dispatch({type: "SELECTION", choice})
+            return dispatch({type: "SELECTION", choice,random})
               },
         chooseFeature: feature => dispatch({type: "CHOOSE_FEATURE", feature}),
         addFeature: feature => dispatch({type: "ADD_FEATURE", feature}),

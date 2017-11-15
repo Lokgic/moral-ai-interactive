@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import DecisionPage from './containers/DecisionPage'
+import TablePage from './containers/TablePage'
+
 import SetUpScreen from './containers/SetUpScreen'
 
 import { createLogger } from 'redux-logger'
@@ -34,7 +35,7 @@ export const sdStore = createStore(
 
 const pageIndex = {
   "SetUp":<SetUpScreen/>,
-  "Decision":<DecisionPage/>
+  "TablePage":<TablePage/>
 }
 
 const {NODE_ENV,PUBLIC_URL} = process.env
@@ -51,7 +52,8 @@ class App extends Component {
         <div>
 
           <Route exact path = {'/setup'} component = {SetUpScreen}/>
-          <Route path = {'/'} component = {DecisionPage}/>
+          <Route path = {'/'} component = {TablePage}/>
+
 
           {/* <SetUpScreen/> */}
       </div>

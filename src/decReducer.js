@@ -42,7 +42,7 @@ export const initialState = {
   features:[],
   featurePreference:[],
   randomChoices:[],
-  displayMode:"TableView",
+  displayMode:"MainView",
   expParameters,
   parms:{decType:"discrete", indiff:true, preferenceOrdering:false}
 }

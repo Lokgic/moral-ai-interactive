@@ -68,9 +68,17 @@ const PersonCard = props => {
           {["age","gender"].concat(showingFeatures).map((d,i)=>(
 
             <List.Item key = {d}>
-              <Image avatar>{icons[d]}</Image>
+
+
               <List.Content>
-                {featureList[d]+": " + translationList[d](features[d])}
+
+                <List.Header>
+                  <Image avatar>{icons[d]}</Image>
+                  {translationList[d](features[d])}
+                </List.Header>
+                <List.Description>
+                    {featureList[d]}
+                </List.Description>
               </List.Content>
             </List.Item>
           ))}

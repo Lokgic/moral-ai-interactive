@@ -5,14 +5,7 @@ import {iconList as icons} from '../DilemmaMaker'
 const order = ["trial","name","age","gender","health","exercising","drinking","label","random"]
 export default props =>{
   const {features,featurePreference,labels,randomChoices} = props
-  //  let data = hit.map((d,i)=>{
-  //   d.chosen = true
-  //   return d
-  // })
-  //  data = data.concat(miss.map((d,i)=>{
-  //   d.chosen = false
-  //   return d
-  // }))
+
   const data = features.reduce((arr,d,i)=>{
     const temp = [0,1].map(j=>{
       d[j].label = labels[i][j]

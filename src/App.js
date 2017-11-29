@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import DecisionPage from './containers/DecisionPage'
-import SetUpScreen from './containers/SetUpScreen'
+// import DecisionPage from './containers/DecisionPage'
+import Controller from './containers/Controller'
 
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
@@ -32,26 +32,21 @@ export const sdStore = createStore(
         )
 
 
-const pageIndex = {
-  "SetUp":<SetUpScreen/>,
-  "Decision":<DecisionPage/>
-}
 
 const {NODE_ENV,PUBLIC_URL} = process.env
 
 const urlPrefix = NODE_ENV === "production"? PUBLIC_URL:""
-console.log(urlPrefix)
 class App extends Component {
   render() {
-    const page =  pageIndex[sdStore.getState().ui.page]
+
 
     return (
       <Provider store={sdStore}>
       <BrowserRouter>
         <div>
 
-          <Route exact path = {'/setup'} component = {SetUpScreen}/>
-          <Route path = {'/'} component = {DecisionPage}/>
+          {/* <Route exact path = {'/setup'} component = {SetUpScreen}/> */}
+          <Route path = {'/'} component = {Controller}/>
 
           {/* <SetUpScreen/> */}
       </div>

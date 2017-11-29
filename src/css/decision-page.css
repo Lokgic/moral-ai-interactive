@@ -1,3 +1,7 @@
 tbody {
   text-transform: capitalize;
 }
+
+#root {
+  background-color: #989898
+}

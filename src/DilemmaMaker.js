@@ -7,14 +7,16 @@ import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
 import ChildIcon from 'react-icons/lib/fa/child'
+import UserIcon from 'react-icons/lib/fa/user'
 
 
 
 const chance = new Chance()
 
 export const iconList = {
+    name:<UserIcon
+    />,
     age: (<CakeIcon/>),
-    gender: <GenderIcon/>,
     health: <HealthIcon/>,
     exercising: <RunnerIcon/>,
     dependents: <ChildIcon/>,
@@ -23,7 +25,6 @@ export const iconList = {
 
 export const featureList = {
   "age":"age",
-  "gender":"gender",
   drinking:"drinking habit",
   health:"additional health issues",
   exercising: "exercising habit",
@@ -31,12 +32,14 @@ export const featureList = {
 }
 
 export const translationList = {
+  name:d=>d,
   age:d=>d,
-  gender:d=>d,
   health:d=>["none","minor","serious"][d],
   drinking:d=>["never","rare","moderate","frequent"][d],
   exercising:d=>d + " hours per week",
-  dependents:d=>d
+  dependents:d=>d,
+  random:d=>["choice","random"][d],
+  label:d=>["not chosen","chosen"][d]
 
 }
 
@@ -62,9 +65,6 @@ export const DilemmaMaker = (mode="random",n=2)=>{
   const person = index.map(d=>new Person(featureList,features[d]))
 
 
-  while (person[0].features.img === person[1].features.img){
-    person[0].getNewImg()
 
-  }
   return person
 }

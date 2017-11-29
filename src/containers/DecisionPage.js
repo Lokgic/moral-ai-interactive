@@ -8,33 +8,53 @@ import {
     Header,
     Button,
     Label,
-    Icon
+    Icon,
+    Progress,
+    Segment
 
 } from 'semantic-ui-react'
+import Legends from '../components/Legends'
+import MainView from '../components/CardView'
 
-import TableView from '../components/TableView'
-import DataView from '../components/DataView'
-import SummaryView from '../components/SummaryView'
-import PreferenceOrdering from '../components/PreferenceOrdering'
+// import SummaryView from '../components/SummaryView'
+// import ProgressBar from '../components/ProgressBar'
+
 import {  Redirect } from 'react-router'
 
 import {iconList as icons} from '../DilemmaMaker'
-import TableIcon from 'react-icons/lib/fa/table'
-import ListIcon from 'react-icons/lib/fa/list'
-import DataIcon from 'react-icons/lib/fa/database'
+// import TableIcon from 'react-icons/lib/fa/table'
+// import ListIcon from 'react-icons/lib/fa/list'
+// import DataIcon from 'react-icons/lib/fa/database'
+import {random as rn} from 'lodash'
+
 import '../css/decision-page.css'
+
+
+const devMode = true
 
 class DecisionPage extends Component {
     constructor(props) {
         super(props)
         this.choice = props.currentChosen
-
         this.beIndfferent = this.beIndfferent.bind(this)
+        this.toggleLoading = this.toggleLoading.bind(this)
 
-
+        this.state = {loading:false}
     }
     beIndfferent(){
       this.props.makeSelection(Math.floor(Math.random() * 2),1)
+    }
+    toggleLoading(){
+
+      this.setState({loading:!this.state.loading})
+    }
+
+    componentWillReceiveProps(nextProp){
+
+      if (!devMode){
+        this.setState({loading:true})
+        setTimeout(()=>this.toggleLoading(), rn(1,2000))
+      }
     }
 
     render() {
@@ -52,96 +72,80 @@ class DecisionPage extends Component {
             features,
             labels,
             parms,
-            randomChoices
+            randomChoices,
+            n_trials
         } = this.props
+        const names = person.map(d=>d.features.name)
+
+        const percent = (labels.length/n_trials) * 100
 
         let view
         if (Object.keys(parms).length === 0) return (<Redirect to="/"/>)
         const {decType,indiff,preferenceOrdering} = parms
 
-        if (displayMode === "TableView") {
-            view = (<TableView person={person}
-                    currentChosen={currentChosen}
-                    makeSelection={makeSelection}
-                    showingFeatures={showingFeatures}
-                    availableFeatures={availableFeatures}
-                  />)
-        } else if (displayMode === "DataView") {
-          view = (<DataView features={features} featurePreference={featurePreference} labels={labels}
-          randomChoices={randomChoices}
 
-          />)
-        } else if (displayMode === "SummaryView"){
-          view = (<SummaryView features={features}
-            featurePreference={featurePreference}
-            labels={labels}
-          randomChoices={randomChoices}
 
-          />)
-        }
+
         return (
-            <div className="flex-container">
 
-                <div className="flex-auto-margin" style={{
-                    width: "80%"
-                }}>
+          <div className="flex-container">
+            <Legends/>
+          <div className="flex-auto-margin" style={{
+                width: "60%"
+            }}>
 
-                    <Header as='h1'>
-                        Who should receive a kidney?
-                        <Button.Group floated="right">
-                            {/* <Button animated='vertical' onClick={() => changeDisplay("FeatureListView")}>
-                                <Button.Content visible><ListIcon/></Button.Content>
-                                <Button.Content hidden>List</Button.Content>
-                            </Button> */}
-                            <Button animated='vertical' onClick={() => changeDisplay("TableView")}>
-                                <Button.Content visible><TableIcon/></Button.Content>
-                                <Button.Content hidden>Table</Button.Content>
-                            </Button>
-                            <Button animated='vertical' onClick={() => changeDisplay("SummaryView")}>
-                                <Button.Content visible><Icon name="bar chart"/></Button.Content>
-                                <Button.Content hidden>Statistics</Button.Content>
-                            </Button>
-                            <Button animated='vertical' onClick={() => changeDisplay("DataView")}>
-                                <Button.Content visible><DataIcon/></Button.Content>
-                                <Button.Content hidden>Data</Button.Content>
-                            </Button>
-                        </Button.Group>
-                    </Header>
+                <Segment inverted>
+                  <Progress indicating percent={percent} attached='top'/>
+                  <Label as='span' ribbon = 'right'>{`${labels.length} / 13`}</Label>
 
-                    <Divider/>
-                    {view}
-                    <Divider/>
+                  <Header as = "span" style={{margin:0}}>
+                      Who should receive a kidney?
+                  </Header>
+                  <Progress indicating percent={percent} attached='bottom'/>
+                </Segment>
+                <Divider/>
+                <MainView person={person}
+                        currentChosen={currentChosen}
+                        makeSelection={makeSelection}
+                        showingFeatures={showingFeatures}
+                        availableFeatures={availableFeatures}
+                      />
+                <Divider/>
+                <Container fluid>
+                    <Button.Group fluid>
+                    <Button
+                      loading={this.state.loading}
+                      disabled={this.state.loading}
+                      onClick={()=>makeSelection(0)} secondary>
+                      <Button.Content visible>
+                        {`Choose ${names[0]}`}
+                      </Button.Content>
 
+                    </Button>
+                    <Button.Or/>
+                    <Button  loading={this.state.loading}
+                      disabled={this.state.loading}
+                      animated onClick={this.beIndfferent}>
+                        <Button.Content
 
-
-                    <Divider/>
-                    <Container fluid textAlign="center">
-
-
-                        {
-                          indiff && displayMode === "TableView"?
-                            (<Button size="large" animated circular onClick={this.beIndfferent}>
-                                <Button.Content color='green' visible>Flip a coin</Button.Content>
-                                <Button.Content hidden>
-                                    {"Random choice"}
-                                </Button.Content>
-                            </Button>): null
-                        }
-
-
-
-
-                      {
-                        preferenceOrdering? <PreferenceOrdering
-                            availableFeatures={availableFeatures}
-                            nextFeature={nextFeature}
-                            chooseFeature={chooseFeature}
-                            icons={icons}
-                        />:null
-                      }
-                    </Container>
-                </div>
+                           color='green' visible>Flip a coin</Button.Content>
+                        <Button.Content hidden>
+                            {"Random choice"}
+                        </Button.Content>
+                    </Button>
+                    <Button.Or/>
+                    <Button
+                      loading={this.state.loading}
+                      disabled={this.state.loading}
+                      onClick={()=>makeSelection(1)} secondary>
+                      <Button.Content visible>
+                        {`Choose ${names[1]}`}
+                      </Button.Content>
+                    </Button>
+                  </Button.Group>
+                </Container>
             </div>
+          </div>
         )
     }
 

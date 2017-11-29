@@ -2,7 +2,11 @@ import React from 'react'
 import {
           Card,
           Image,
-          List
+          List,
+          Icon,
+          Button,
+          Transition,
+          Loader
         } from 'semantic-ui-react'
 
 import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
@@ -21,7 +25,7 @@ export default props => {
       } = props
 
   return (
-    <Card.Group itemsPerRow = "2">
+    <Card.Group itemsPerRow = "2" stackable>
       {person.map((d,i)=>(
         <PersonCard
          person={d}
@@ -29,6 +33,7 @@ export default props => {
          makeSelection={makeSelection}
          showingFeatures={showingFeatures}
          key={"personcard"+i}
+         loc={i}
          />
       ))
     }
@@ -37,40 +42,38 @@ export default props => {
 }
 
 
+
 const PersonCard = props => {
   const {features} = props.person
   const {gender,name,age,img,} = features
-  const {makeSelection, chosen,showingFeatures} = props
-  let color
-  if (chosen > 0.5)  color = "rgba(95, 178, 180," +chosen+")"
-  else if (chosen === 0)  color = "white"
-  else if (chosen < 0.5)  color = "rgba(175, 98, 140," +chosen+")"
-  console.log(translationList["age"](20))
+  const {makeSelection, chosen,showingFeatures,loc} = props
+
   return (
 
 
-    <Card style={{backgroundColor:color}}>
+    <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
       <Card.Content>
         <Image
           floated="right"
           height="70px"
-          src={img}/>
+          ><Icon
+            name="user circle"
+            size="huge"
+          /></Image>
       <Card.Header>{name}</Card.Header>
       <Card.Description>
         <List
-
-          duration={200}
           divided
-          size='huge'
+          size='big'
           verticalAlign='middle'
           >
 
-          {["age","gender"].concat(showingFeatures).map((d,i)=>(
+          {["age"].concat(showingFeatures).map((d,i)=>(
 
             <List.Item key = {d}>
               <Image avatar>{icons[d]}</Image>
               <List.Content>
-                {featureList[d]+": " + translationList[d](features[d])}
+                {translationList[d](features[d])}
               </List.Content>
             </List.Item>
           ))}

@@ -15,7 +15,13 @@ import {
 } from 'semantic-ui-react'
 import Legends from '../components/Legends'
 import MainView from '../components/CardView'
+import {
+  FlexContainer,
+  AutoMargin,
+  QuestionTop,
+  QuestionBottom
 
+} from '../components/StyledComponents'
 // import SummaryView from '../components/SummaryView'
 // import ProgressBar from '../components/ProgressBar'
 
@@ -88,13 +94,16 @@ class DecisionPage extends Component {
 
         return (
 
-          <div className="flex-container">
-            <Legends/>
-          <div className="flex-auto-margin" style={{
-                width: "60%"
-            }}>
-
-                <Segment inverted>
+          <FlexContainer>
+            {/* <Legends/> */}
+          <AutoMargin>
+              <QuestionTop>
+                Who should receive
+              </QuestionTop>
+              <QuestionBottom>
+                the kidney ?
+              </QuestionBottom>
+                {/* <Segment inverted>
                   <Progress indicating percent={percent} attached='top'/>
                   <Label as='span' ribbon = 'right'>{`${labels.length} / 13`}</Label>
 
@@ -103,7 +112,7 @@ class DecisionPage extends Component {
                   </Header>
                   <Progress indicating percent={percent} attached='bottom'/>
                 </Segment>
-                <Divider/>
+                <Divider/> */}
                 <MainView person={person}
                         currentChosen={currentChosen}
                         makeSelection={makeSelection}
@@ -144,8 +153,8 @@ class DecisionPage extends Component {
                     </Button>
                   </Button.Group>
                 </Container>
-            </div>
-          </div>
+            </AutoMargin>
+          </FlexContainer>
         )
     }
 

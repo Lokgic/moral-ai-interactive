@@ -99,7 +99,7 @@ class DecisionPage extends Component {
                   <Label as='span' ribbon = 'right'>{`${labels.length} / 13`}</Label>
 
                   <Header as = "span" style={{margin:0}}>
-                      Who should receive a kidney?
+                      Who should receive the kidney?
                   </Header>
                   <Progress indicating percent={percent} attached='bottom'/>
                 </Segment>

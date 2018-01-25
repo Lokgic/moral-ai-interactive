@@ -61,7 +61,6 @@ export const DilemmaMaker = (mode="random",n=2)=>{
                     p[d]=chanceList[d]()
                     return p
                   },{}))
-
   const person = index.map(d=>new Person(featureList,features[d]))
 
 

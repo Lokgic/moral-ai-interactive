@@ -5,7 +5,6 @@ import {
     Dropdown,
     Card,
     Container,
-    Header,
     Button,
     Label,
     Icon,
@@ -17,9 +16,12 @@ import Legends from '../components/Legends'
 import MainView from '../components/CardView'
 import {
   FlexContainer,
-  AutoMargin,
+  MainViewContainer,
   QuestionTop,
-  QuestionBottom
+  QuestionBottom,
+  MessageContainer,
+  MessageTop,
+  MessageBottom
 
 } from '../components/StyledComponents'
 // import SummaryView from '../components/SummaryView'
@@ -37,6 +39,8 @@ import '../css/decision-page.css'
 
 
 const devMode = true
+
+
 
 class DecisionPage extends Component {
     constructor(props) {
@@ -96,13 +100,23 @@ class DecisionPage extends Component {
 
           <FlexContainer>
             {/* <Legends/> */}
-          <AutoMargin>
+          <MainViewContainer>
               <QuestionTop>
                 Who should receive
               </QuestionTop>
               <QuestionBottom>
                 the kidney ?
               </QuestionBottom>
+              <MessageContainer>
+                <MessageTop>
+                  Both of these individuals are in need of a kidney, but there is only one. Who should get it?
+                </MessageTop>
+                <MessageBottom>
+                  Click or mouseover to see details
+                </MessageBottom>
+
+
+              </MessageContainer>
                 {/* <Segment inverted>
                   <Progress indicating percent={percent} attached='top'/>
                   <Label as='span' ribbon = 'right'>{`${labels.length} / 13`}</Label>
@@ -153,7 +167,7 @@ class DecisionPage extends Component {
                     </Button>
                   </Button.Group>
                 </Container>
-            </AutoMargin>
+            </MainViewContainer>
           </FlexContainer>
         )
     }

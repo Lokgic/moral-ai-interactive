@@ -11,7 +11,10 @@ import {
 
 import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
 
-
+import {
+  CardContainer,
+  PatientCard
+} from './StyledComponents'
 
 export default props => {
   const {
@@ -25,7 +28,7 @@ export default props => {
       } = props
 
   return (
-    <Card.Group itemsPerRow = "2" stackable>
+    <CardContainer>
       {person.map((d,i)=>(
         <PersonCard
          person={d}
@@ -37,7 +40,7 @@ export default props => {
          />
       ))
     }
-  </Card.Group>
+  </CardContainer>
   )
 }
 
@@ -49,42 +52,46 @@ const PersonCard = props => {
   const {makeSelection, chosen,showingFeatures,loc} = props
 
   return (
-
-
-    <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
-      <Card.Content>
-        <Image
-          floated="right"
-          height="70px"
-          ><Icon
-            name="user circle"
-            size="huge"
-          /></Image>
-      <Card.Header>{name}</Card.Header>
-      <Card.Description>
-        <List
-          divided
-          size='big'
-          verticalAlign='middle'
-          >
-
-          {["age"].concat(showingFeatures).map((d,i)=>(
-
-            <List.Item key = {d}>
-              <Image avatar>{icons[d]}</Image>
-              <List.Content>
-                {translationList[d](features[d])}
-              </List.Content>
-            </List.Item>
-          ))}
-        </List>
-
-
-
-
-      </Card.Description>
-
-        </Card.Content>
-    </Card>
+    <PatientCard>
+      <PatientCardHeader>
+        
+      </PatientCardHeader>
+    </PatientCard>
+    //
+    // <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
+    //   <Card.Content>
+    //     <Image
+    //       floated="right"
+    //       height="70px"
+    //       ><Icon
+    //         name="user circle"
+    //         size="huge"
+    //       /></Image>
+    //   <Card.Header>{name}</Card.Header>
+    //   <Card.Description>
+    //     <List
+    //       divided
+    //       size='big'
+    //       verticalAlign='middle'
+    //       >
+    //
+    //       {["age"].concat(showingFeatures).map((d,i)=>(
+    //
+    //         <List.Item key = {d}>
+    //           <Image avatar>{icons[d]}</Image>
+    //           <List.Content>
+    //             {translationList[d](features[d])}
+    //           </List.Content>
+    //         </List.Item>
+    //       ))}
+    //     </List>
+    //
+    //
+    //
+    //
+    //   </Card.Description>
+    //
+    //     </Card.Content>
+    // </Card>
 
 )}

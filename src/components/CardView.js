@@ -52,46 +52,46 @@ const PersonCard = props => {
   const {makeSelection, chosen,showingFeatures,loc} = props
 
   return (
-    <PatientCard>
-      <PatientCardHeader>
-        
-      </PatientCardHeader>
-    </PatientCard>
+    // <PatientCard>
+    //   <PatientCardHeader>
     //
-    // <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
-    //   <Card.Content>
-    //     <Image
-    //       floated="right"
-    //       height="70px"
-    //       ><Icon
-    //         name="user circle"
-    //         size="huge"
-    //       /></Image>
-    //   <Card.Header>{name}</Card.Header>
-    //   <Card.Description>
-    //     <List
-    //       divided
-    //       size='big'
-    //       verticalAlign='middle'
-    //       >
-    //
-    //       {["age"].concat(showingFeatures).map((d,i)=>(
-    //
-    //         <List.Item key = {d}>
-    //           <Image avatar>{icons[d]}</Image>
-    //           <List.Content>
-    //             {translationList[d](features[d])}
-    //           </List.Content>
-    //         </List.Item>
-    //       ))}
-    //     </List>
-    //
-    //
-    //
-    //
-    //   </Card.Description>
-    //
-    //     </Card.Content>
-    // </Card>
+    //   </PatientCardHeader>
+    // </PatientCard>
+
+    <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
+      <Card.Content>
+        <Image
+          floated="right"
+          height="70px"
+          ><Icon
+            name="user circle"
+            size="huge"
+          /></Image>
+      <Card.Header>{name}</Card.Header>
+      <Card.Description>
+        <List
+          divided
+          size='big'
+          verticalAlign='middle'
+          >
+
+          {["age"].concat(showingFeatures).map((d,i)=>(
+
+            <List.Item key = {d}>
+              <Image avatar>{icons[d]}</Image>
+              <List.Content>
+                {translationList[d](features[d])}
+              </List.Content>
+            </List.Item>
+          ))}
+        </List>
+
+
+
+
+      </Card.Description>
+
+        </Card.Content>
+    </Card>
 
 )}

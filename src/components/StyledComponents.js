@@ -32,7 +32,7 @@ export const FlexContainer = styled.section`
 
 export const MainViewContainer = styled.section`
       margin: 0 auto;
-      min-width:680px;
+      min-width:800px;
 `
 
 export const MessageContainer = styled.div`
@@ -61,21 +61,58 @@ export const MessageBottom = styled.h3`
   margin-top:5px;
 `
 
+export const StyledUL = styled.ul`
+  list-style: none;
+  padding-left:0;
+  width: 100%;
+  margin: auto ;
+  font-size: 1.3em;
 
-
-export const FeatureIcon = styled.span`
-  height:150px;
-  width:300px;
+`
+export const StyledLi = styled.li`
+  margin: 10px;
 `
 
 export const CardContainer = styled.div`
   display: flex;
 `
 
-export const PatientCard = styled.div`
-  display: inline-block;
+
+export const PatientName = styled.h1`
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 0;
+  font-size: 3em;
+  text-align: center;
+
+
 `
 
-export const PatientCardHeader = styled.h1`
+export const PersonCardSty = styled.div`
+  display: flex;
+  flex-grow: 1;
+  margin: 10px 10px;
+`
 
+export const CardHead = styled.div`
+    display:inline-block;
+`
+
+export const CardDetails = styled.div`
+  display:inline-flex;
+  width:100%;
+`
+
+export const FeatureIcon = styled.span`
+  float: right;
+  font-weight: 300;
+  font-size: .7em;
+  color:white;
+  background-color: rgb(75,75,75);
+  padding: 1px 5px;
+`
+
+export const Divider = styled.hr`
+height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
 `

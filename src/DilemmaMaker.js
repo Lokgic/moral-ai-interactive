@@ -10,17 +10,18 @@ import ChildIcon from 'react-icons/lib/fa/child'
 import UserIcon from 'react-icons/lib/fa/user'
 
 
+import {Icon} from './components/StyledComponents'
 
 const chance = new Chance()
 
 export const iconList = {
     name:<UserIcon
     />,
-    age: (<CakeIcon/>),
-    health: <HealthIcon/>,
-    exercising: <RunnerIcon/>,
-    dependents: <ChildIcon/>,
-    drinking: <DrinkIcon/>
+    age: "years old",
+    health: "additional health problems",
+    exercising: "exercising",
+    dependents: "dependents",
+    drinking: "drinking habit"
 }
 
 export const featureList = {

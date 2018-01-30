@@ -1,4 +1,6 @@
 import React from 'react'
+import styled from 'styled-components';
+import UserIconRaw from 'react-icons/lib/fa/user'
 import {
           Card,
           Image,
@@ -13,8 +15,61 @@ import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
 
 import {
   CardContainer,
-  PatientCard
+  PatientName,
+  StyledUL,
+  PersonCardSty,
+  CardHead,
+  CardDetails,
+  FeatureIcon,
+  StyledLi,
+  Divider
 } from './StyledComponents'
+
+
+const UserIcon = styled(UserIconRaw)`
+  width:120px;
+  height:120px;
+`
+
+const PersonCard = props => {
+  const {features} = props.person
+  const {gender,name,age,img,} = features
+  const {makeSelection, chosen,showingFeatures,loc} = props
+
+  return (
+
+
+
+      <PersonCardSty>
+      <CardHead>
+        <UserIcon/>
+        <PatientName>{name}</PatientName>
+      </CardHead>
+
+      <CardDetails>
+        <StyledUL
+          >
+
+          {["age"].concat(showingFeatures).map((d,i)=>(
+
+            <StyledLi key = {d}>
+              <FeatureIcon>
+                {icons[d]}
+              </FeatureIcon>
+
+              <div>
+                {translationList[d](features[d])}
+              </div>
+
+            </StyledLi>
+          ))}
+        </StyledUL>
+      </CardDetails>
+    </PersonCardSty>
+
+
+)}
+
 
 export default props => {
   const {
@@ -43,55 +98,3 @@ export default props => {
   </CardContainer>
   )
 }
-
-
-
-const PersonCard = props => {
-  const {features} = props.person
-  const {gender,name,age,img,} = features
-  const {makeSelection, chosen,showingFeatures,loc} = props
-
-  return (
-    // <PatientCard>
-    //   <PatientCardHeader>
-    //
-    //   </PatientCardHeader>
-    // </PatientCard>
-
-    <Card style={{backgroundColor: 'rgb(207, 210, 216)'}}>
-      <Card.Content>
-        <Image
-          floated="right"
-          height="70px"
-          ><Icon
-            name="user circle"
-            size="huge"
-          /></Image>
-      <Card.Header>{name}</Card.Header>
-      <Card.Description>
-        <List
-          divided
-          size='big'
-          verticalAlign='middle'
-          >
-
-          {["age"].concat(showingFeatures).map((d,i)=>(
-
-            <List.Item key = {d}>
-              <Image avatar>{icons[d]}</Image>
-              <List.Content>
-                {translationList[d](features[d])}
-              </List.Content>
-            </List.Item>
-          ))}
-        </List>
-
-
-
-
-      </Card.Description>
-
-        </Card.Content>
-    </Card>
-
-)}

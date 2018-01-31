@@ -1,18 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-    Divider,
-    Dropdown,
-    Card,
-    Container,
-    Button,
-    Label,
-    Icon,
-    Progress,
-    Segment
 
-} from 'semantic-ui-react'
-import Legends from '../components/Legends'
+
 import MainView from '../components/CardView'
 import {
   FlexContainer,
@@ -21,7 +10,8 @@ import {
   QuestionBottom,
   MessageContainer,
   MessageTop,
-  MessageBottom
+  MessageBottom,
+  Divider
 
 } from '../components/StyledComponents'
 // import SummaryView from '../components/SummaryView'
@@ -134,7 +124,7 @@ class DecisionPage extends Component {
                         availableFeatures={availableFeatures}
                       />
                 <Divider/>
-                <Container fluid>
+                {/* <Container fluid>
                     <Button.Group fluid>
                     <Button
                       loading={this.state.loading}
@@ -166,7 +156,7 @@ class DecisionPage extends Component {
                       </Button.Content>
                     </Button>
                   </Button.Group>
-                </Container>
+                </Container> */}
             </MainViewContainer>
           </FlexContainer>
         )

@@ -9,7 +9,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import decReducer,{initialState} from './decReducer'
 import uiReducer from './uiReducers'
 
-import Menu from './components/Menu'
+// import Menu from './components/Menu'
 
 import {
   BrowserRouter,

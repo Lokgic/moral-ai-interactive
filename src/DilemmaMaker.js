@@ -14,19 +14,24 @@ import {Icon} from './components/StyledComponents'
 
 const chance = new Chance()
 
+const iconSize = {
+  width:45,
+  height:45
+}
+
 export const iconList = {
     name:<UserIcon
     />,
-    age: "years old",
-    health: "additional health problems",
-    exercising: "exercising",
-    dependents: "dependents",
-    drinking: "drinking habit"
+    age: <CakeIcon style={iconSize}/>,
+    health: <HealthIcon style={iconSize}/>,
+    exercising: <RunnerIcon style={iconSize}/>,
+    dependents: <ChildIcon style={iconSize}/>,
+    drinking: <DrinkIcon style={iconSize}/>
 }
 
 export const featureList = {
   "age":"age",
-  drinking:"drinking habit",
+  drinking:"drinks/week",
   health:"additional health issues",
   exercising: "exercising habit",
   dependents:"number of dependents",
@@ -37,7 +42,7 @@ export const translationList = {
   age:d=>d,
   health:d=>["none","minor","serious"][d],
   drinking:d=>["never","rare","moderate","frequent"][d],
-  exercising:d=>d + " hours per week",
+  exercising:d=>d,
   dependents:d=>d,
   random:d=>["choice","random"][d],
   label:d=>["not chosen","chosen"][d]

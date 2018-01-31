@@ -1,34 +1,40 @@
 import React from 'react'
 import styled from 'styled-components';
 import UserIconRaw from 'react-icons/lib/fa/user'
-import {
-          Card,
-          Image,
-          List,
-          Icon,
-          Button,
-          Transition,
-          Loader
-        } from 'semantic-ui-react'
+// import {
+//           Card,
+//           Image,
+//           List,
+//           Icon,
+//           Button,
+//           Transition,
+//           Loader
+//         } from 'semantic-ui-react'
 
 import {iconList as icons, translationList,featureList} from '../DilemmaMaker'
 
 import {
   CardContainer,
   PatientName,
-  StyledUL,
+  StatBox,
   PersonCardSty,
   CardHead,
   CardDetails,
   FeatureIcon,
-  StyledLi,
-  Divider
+  StatGroup,
+  Divider,
+  FlexWrapper,
+  StatTitle,
+  StatContent,
+  StatData,
+  AutoMarginWrapper
 } from './StyledComponents'
 
 
 const UserIcon = styled(UserIconRaw)`
   width:120px;
   height:120px;
+  fill:#333;
 `
 
 const PersonCard = props => {
@@ -41,30 +47,37 @@ const PersonCard = props => {
 
 
       <PersonCardSty>
+      <FlexWrapper>
       <CardHead>
         <UserIcon/>
         <PatientName>{name}</PatientName>
       </CardHead>
+      </FlexWrapper>
 
-      <CardDetails>
-        <StyledUL
+        <StatBox
           >
 
           {["age"].concat(showingFeatures).map((d,i)=>(
 
-            <StyledLi key = {d}>
+            <StatGroup key = {d}>
+
+
+
               <FeatureIcon>
                 {icons[d]}
               </FeatureIcon>
 
-              <div>
-                {translationList[d](features[d])}
-              </div>
+              <StatContent>
 
-            </StyledLi>
+                <StatTitle>{featureList[d]}</StatTitle>
+                <StatData>{translationList[d](features[d])}</StatData>
+
+              </StatContent>
+
+            </StatGroup>
           ))}
-        </StyledUL>
-      </CardDetails>
+        </StatBox>
+
     </PersonCardSty>
 
 

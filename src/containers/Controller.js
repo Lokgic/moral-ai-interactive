@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import DecisionPage from './DecisionPage'
-import DataViz from './DataViz'
+// import DataViz from './DataViz'
 
 
 const Controller = ({labels, n_trials}) => {
-  const isDone = !(labels.length < n_trials)
-  if (isDone) return (<DataViz/>)
-    else return (<DecisionPage/>)
+  // const isDone = !(labels.length < n_trials)
+  const isDone = false
+  // if (isDone) return (<DataViz/>)
+     return (<DecisionPage/>)
 }
 
 

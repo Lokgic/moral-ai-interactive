@@ -6,16 +6,6 @@ import { NodeGroup } from "react-move";
 import { easeExpInOut } from 'd3-ease';
 import {scaleLinear} from 'd3-scale'
 import {maxBy, minBy} from 'lodash'
-// class PersonDot extends Component{
-//   render(){
-//     const {x,y, r, subject} = this.props
-//     return(
-//       <circle cx={x} cy={y} r={r} fill={subject.label===1? "blue":"red"}>
-//
-//       </circle>
-//     )
-//   }
-// }
 
 const PopUp = ({loc,popUpInfo}) =>(
   <Card

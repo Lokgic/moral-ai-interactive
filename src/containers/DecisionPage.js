@@ -61,7 +61,8 @@ class DecisionPage extends Component {
     }
 
     handleConfirm(){
-      if (this.props.currentChosen !== "none"){
+
+      if (this.props.currentChosen !== -1){
         this.props.makeSelection(this.props.currentChosen )
 
       }

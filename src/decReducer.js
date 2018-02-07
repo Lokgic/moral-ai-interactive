@@ -31,13 +31,12 @@ const expParameters = [
 ]
 
 
-
-
 export const initialState = {
   person,
   availableFeatures:{...featureList},
   showingFeatures:["health", "exercising", "drinking", "dependents"],
   currentChosen:"none",
+  currentRandom:-1,
   labels:[],
   features:[],
   featurePreference:[],
@@ -45,7 +44,8 @@ export const initialState = {
   displayMode:"MainView",
   expParameters,
   n_trials:13,
-  parms:{decType:"discrete", indiff:true, preferenceOrdering:false}
+  parms:{decType:"discrete", indiff:true, preferenceOrdering:false},
+  mouseOverState:"default"
 }
 
 
@@ -56,11 +56,11 @@ export const reducer = (state = initialState, action)=>{
         ...state,
         ...action.newParms
       }
-    // case "SELECTION":
-    //   return{
-    //     ...state,
-    //     currentChosen:action.choice
-    //   }
+    case "MOUSE_OVER":
+      return{
+        ...state,
+        mouseOverState:action.input
+      }
     case "CHOOSE_FEATURE":
       return {
         ...state,
@@ -98,6 +98,7 @@ export const reducer = (state = initialState, action)=>{
          availableFeatures:avail,
          showingFeatures:show,
          currentChosen:"none",
+         currentRandom:-1,
          featurePreference:pref,
          randomChoices:[...state.randomChoices,action.random],
         person:DilemmaMaker()
@@ -115,6 +116,20 @@ export const reducer = (state = initialState, action)=>{
           ...state.parms,
           [action.parm]:action.val
         }
+      }
+    case "SET_CURRENT_CHOSEN":
+      const chosen = action.input===state.currentChosen? -1:action.input;
+      const random = state.currentRandom === 1? 2:state.currentRandom;
+      return {
+        ...state,
+        currentChosen:chosen,
+        currentRandom:random
+      }
+    case "SET_CURRENT_RANDOM":
+      // const chosen = action.input===state.currentChosen? -1:action.input;
+      return {
+        ...state,
+        currentRandom:action.input
       }
     default:
       return state

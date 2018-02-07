@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-
 import MainView from '../components/CardView'
 import {
   FlexContainer,
@@ -11,26 +10,38 @@ import {
   MessageContainer,
   MessageTop,
   MessageBottom,
-  Divider
+  Divider,
+  Button,
+  ButtonGroup
 
 } from '../components/StyledComponents'
-// import SummaryView from '../components/SummaryView'
-// import ProgressBar from '../components/ProgressBar'
+import MouseOverHelper from '../components/MouseOverHelper'
+
 
 import {  Redirect } from 'react-router'
 
 import {iconList as icons} from '../DilemmaMaker'
-// import TableIcon from 'react-icons/lib/fa/table'
-// import ListIcon from 'react-icons/lib/fa/list'
-// import DataIcon from 'react-icons/lib/fa/database'
+
 import {random as rn} from 'lodash'
+
+import BlankCircle from 'react-icons/lib/fa/circle'
+import CheckIcon from 'react-icons/lib/md/check-circle'
+
+
+
+
 
 import '../css/decision-page.css'
 
 
 const devMode = true
 
-
+const checkIconStyle = {
+  width:70,
+  height:70,
+  color:'#608796',
+  cursor:'pointer'
+};
 
 class DecisionPage extends Component {
     constructor(props) {
@@ -38,12 +49,25 @@ class DecisionPage extends Component {
         this.choice = props.currentChosen
         this.beIndfferent = this.beIndfferent.bind(this)
         this.toggleLoading = this.toggleLoading.bind(this)
+        this.handleConfirm = this.handleConfirm.bind(this)
 
-        this.state = {loading:false}
     }
     beIndfferent(){
-      this.props.makeSelection(Math.floor(Math.random() * 2),1)
+      const {currentRandom,setCurrentRandom} = this.props
+      if (currentRandom === -1){
+        this.props.setCurrentChosen(Math.floor(Math.random() * 2))
+        setCurrentRandom(1)
+      }
     }
+
+    handleConfirm(){
+      if (this.props.currentChosen !== "none"){
+        this.props.makeSelection(this.props.currentChosen )
+
+      }
+
+    }
+
     toggleLoading(){
 
       this.setState({loading:!this.state.loading})
@@ -73,7 +97,11 @@ class DecisionPage extends Component {
             labels,
             parms,
             randomChoices,
-            n_trials
+            n_trials,
+            mouseOverState,
+            mouseOver,
+            setCurrentChosen,
+            currentRandom
         } = this.props
         const names = person.map(d=>d.features.name)
 
@@ -89,8 +117,10 @@ class DecisionPage extends Component {
         return (
 
           <FlexContainer>
-            {/* <Legends/> */}
           <MainViewContainer>
+            <MessageTop>
+              Both of these individuals are in need of a kidney, but there is only one.
+            </MessageTop>
               <QuestionTop>
                 Who should receive
               </QuestionTop>
@@ -98,32 +128,49 @@ class DecisionPage extends Component {
                 the kidney ?
               </QuestionBottom>
               <MessageContainer>
-                <MessageTop>
-                  Both of these individuals are in need of a kidney, but there is only one. Who should get it?
-                </MessageTop>
+
                 <MessageBottom>
-                  Click or mouseover to see details
+                  {MouseOverHelper(mouseOverState)}
                 </MessageBottom>
 
 
               </MessageContainer>
-                {/* <Segment inverted>
-                  <Progress indicating percent={percent} attached='top'/>
-                  <Label as='span' ribbon = 'right'>{`${labels.length} / 13`}</Label>
 
-                  <Header as = "span" style={{margin:0}}>
-                      Who should receive the kidney?
-                  </Header>
-                  <Progress indicating percent={percent} attached='bottom'/>
-                </Segment>
-                <Divider/> */}
                 <MainView person={person}
                         currentChosen={currentChosen}
                         makeSelection={makeSelection}
                         showingFeatures={showingFeatures}
                         availableFeatures={availableFeatures}
+                        mouseOver={mouseOver}
+                        mouseOverState={mouseOverState}
+                        currentChosen={currentChosen}
+                        setCurrentChosen={setCurrentChosen}
                       />
                 <Divider/>
+                <ButtonGroup>
+                  {currentChosen===0?<CheckIcon style={checkIconStyle}
+                    onClick={()=>setCurrentChosen(0)}
+                  />:
+                  <BlankCircle style={checkIconStyle}
+                      onClick={()=>setCurrentChosen(0)}
+                  />}
+                  <div >
+                    <Button onClick={this.beIndfferent}>
+                      Flip a coin
+                    </Button>
+                    <Button primary onClick={this.handleConfirm}>
+                      Confirm
+                    </Button>
+                  </div>
+
+                    {currentChosen===1?<CheckIcon style={checkIconStyle}
+                      onClick={()=>setCurrentChosen(1)}
+                    />:
+                      <BlankCircle style={checkIconStyle}
+                        onClick={()=>setCurrentChosen(1)}
+                      />}
+
+                </ButtonGroup>
                 {/* <Container fluid>
                     <Button.Group fluid>
                     <Button
@@ -174,7 +221,11 @@ const mapDispatchToProps = dispatch => {
         chooseFeature: feature => dispatch({type: "CHOOSE_FEATURE", feature}),
         addFeature: feature => dispatch({type: "ADD_FEATURE", feature}),
         addData: (data,random=0) => dispatch({type: "ADD_DATA", data,random}),
-        changeDisplay: displayMode => dispatch({type: "CHANGE_DISPLAY", displayMode})
+        changeDisplay: displayMode => dispatch({type: "CHANGE_DISPLAY", displayMode}),
+        mouseOver:input=> dispatch({type: "MOUSE_OVER", input}),
+        setCurrentChosen:input=>dispatch({type:"SET_CURRENT_CHOSEN",input}),
+        setCurrentRandom:input=>dispatch({type:"SET_CURRENT_RANDOM",input})
+
 
     }
 }

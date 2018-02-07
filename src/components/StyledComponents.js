@@ -14,8 +14,8 @@ export const QuestionTop = styled.h1`
 
 export const QuestionBottom = styled.h1`
   margin-top: 0;
+  margin-bottom: 0;
   font-weight: 1000;
-  font-style: bold;
   text-align: left;
   font-size: 5em;
   color:#9d1748;
@@ -57,14 +57,14 @@ export const MessageTop = styled.h3`
   color:black;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 0;
-  margin-top:20px;
+  margin-top:50px;
 `
 
 export const MessageBottom = styled.h3`
   font-weight: 300;
   text-align: justify;
   font-size: 1em;
-  color:grey;
+  color:black;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 0;
   margin-top:5px;
@@ -72,7 +72,7 @@ export const MessageBottom = styled.h3`
 
 export const StatBox = styled.div`
   display: flex;
-  margin-left: 50px;
+  margin-left: 0px;
   width: 250px;
   font-size: 1.3em;
   flex-wrap:wrap;
@@ -87,7 +87,7 @@ export const StatGroup = styled.div`
 
 export const StatTitle = styled.div`
   font-size: 0.6em;
-  color:#777;
+  color:#dbd2c5;
   margin-bottom: 5px;
 
 
@@ -95,7 +95,7 @@ export const StatTitle = styled.div`
 
 export const StatData = styled.div`
   font-size: 1.2em;
-  color:#333;
+  color:#fffdde;
 `
 
 export const StatContent = styled.div`
@@ -111,21 +111,32 @@ export const CardContainer = styled.div`
 
 export const PatientName = styled.div`
   font-family: 'Open Sans', sans-serif;
-  margin-top: 0;
-  font-size: 3em;
-  text-align: center;
-  color:#333;
+  margin: 5px 0 20px 5px;
+  font-size: 1.5em;
+  text-align: left;
+  color:#dbd2c5;
 
 
 `
 
 export const PersonCardSty = styled.div`
-  display: flex;
-  flex-grow: 1;
-  margin: 10px 10px;
-  background-color: #b4b4b4;
-  padding: 30px;
-  border-radius: 20px;
+  ${'' /* display: flex;
+  flex-grow: 1; */}
+  width:40%;
+  margin: auto;
+  background: #608796;
+  padding: 10px;
+  border-radius: 0px;
+  border-width: 20px;
+  border-color: rgba(0, 0, 0, 0);
+  border-style: solid;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+             0 1px 5px 0 rgba(0, 0, 0, 0.12),
+             0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor:pointer;
+ &:hover {
+   border-color: rgba(0, 0, 0, 0.3);
+ }
 `
 
 export const CardHead = styled.div`
@@ -140,10 +151,13 @@ export const CardDetails = styled.div`
 
 export const FeatureIcon = styled.div`
   display: inline-block;
-  color:#333;
+  color: #fffdde;
   width:50px;
   height: 50px;
   margin-right: 15px;
+  &: hover {
+    color:white
+  }
 `
 
 export const Divider = styled.hr`
@@ -160,3 +174,22 @@ margin: 1rem 0;
     user-select: none;
     -webkit-tap-highlight-color:
 `
+
+export const ButtonGroup = styled.div`
+  display:flex;
+  justify-content:space-evenly;
+`
+
+export const Button = styled.button`
+  /* Adapt the colours based on primary prop */
+  background: ${props => props.primary ? 'rgba(15,180,210,1)' : 'white'};
+  color: ${props => props.primary ? 'white' : 'black'};
+  font-size: 1em;
+  margin: 0 5px;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+             0 1px 5px 0 rgba(0, 0, 0, 0.12),
+             0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor:pointer;
+`;

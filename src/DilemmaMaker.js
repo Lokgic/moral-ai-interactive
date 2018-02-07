@@ -1,33 +1,13 @@
 import React from 'react'
 import Person from './components/Person'
 import Chance from 'chance'
-import CakeIcon from 'react-icons/lib/fa/birthday-cake'
-import GenderIcon from 'react-icons/lib/fa/transgender-alt'
-import DrinkIcon from 'react-icons/lib/md/local-drink'
-import RunnerIcon from 'react-icons/lib/md/directions-run'
-import HealthIcon from 'react-icons/lib/fa/heartbeat'
-import ChildIcon from 'react-icons/lib/fa/child'
-import UserIcon from 'react-icons/lib/fa/user'
+
 
 
 import {Icon} from './components/StyledComponents'
 
 const chance = new Chance()
 
-const iconSize = {
-  width:45,
-  height:45
-}
-
-export const iconList = {
-    name:<UserIcon
-    />,
-    age: <CakeIcon style={iconSize}/>,
-    health: <HealthIcon style={iconSize}/>,
-    exercising: <RunnerIcon style={iconSize}/>,
-    dependents: <ChildIcon style={iconSize}/>,
-    drinking: <DrinkIcon style={iconSize}/>
-}
 
 export const featureList = {
   "age":"age",

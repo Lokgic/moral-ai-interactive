@@ -36,7 +36,7 @@ export const initialState = {
   availableFeatures:{...featureList},
   showingFeatures:["health", "exercising", "drinking", "dependents"],
   currentChosen:-1,
-  currentRandom:-1,
+  currentRandom:0,
   labels:[],
   features:[],
   featurePreference:[],
@@ -98,7 +98,7 @@ export const reducer = (state = initialState, action)=>{
          availableFeatures:avail,
          showingFeatures:show,
          currentChosen:-1,
-         currentRandom:-1,
+         currentRandom:0,
          featurePreference:pref,
          randomChoices:[...state.randomChoices,action.random],
         person:DilemmaMaker()
@@ -117,20 +117,24 @@ export const reducer = (state = initialState, action)=>{
           [action.parm]:action.val
         }
       }
-    case "SET_CURRENT_CHOSEN":
+    case "SET_CURRENT_CHOSEN":{
       const chosen = action.input===state.currentChosen? -1:action.input;
-      const random = state.currentRandom === 1? 2:state.currentRandom;
+      const random = 0
       return {
         ...state,
         currentChosen:chosen,
         currentRandom:random
       }
-    case "SET_CURRENT_RANDOM":
-      // const chosen = action.input===state.currentChosen? -1:action.input;
+    }
+    case "SET_CURRENT_RANDOM":{
+      const random = 1-state.currentRandom
+      const chosen = -1
       return {
         ...state,
-        currentRandom:action.input
+        currentChosen:chosen,
+        currentRandom:random
       }
+    }
     default:
       return state
   }

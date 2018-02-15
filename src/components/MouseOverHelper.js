@@ -7,6 +7,8 @@ import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
 import ChildIcon from 'react-icons/lib/fa/child'
+import CoinIcon from 'react-icons/lib/fa/adjust'
+import ConfirmIcon from 'react-icons/lib/fa/arrow-circle-right'
 
 const iconStyle = {margin:"0 5 0 0",width:30, height:30}
 
@@ -15,7 +17,9 @@ export const icons = {
     health: <HealthIcon style={iconStyle}/>,
     exercising: <RunnerIcon style={iconStyle}/>,
     dependents: <ChildIcon style={iconStyle}/>,
-    drinking: <DrinkIcon style={iconStyle}/>
+    drinking: <DrinkIcon style={iconStyle}/>,
+    flipCoin: <CoinIcon style={iconStyle}/>,
+    confirm:<ConfirmIcon style={iconStyle}/>
 }
 
 
@@ -25,7 +29,9 @@ export const texts = {
     health: "The severity of additional health issues (if they exist)",
     exercising: "The average number of hours of cardiovascular each week",
     dependents: "The number of direct dependents of the patient",
-    drinking:"Average number of drinks each day"
+    drinking:"Average number of drinks each day",
+    flipCoin: "Can't decide? Use this option to leave the decision to chance.",
+    confirm: "Confirm your decision."
 }
 
 

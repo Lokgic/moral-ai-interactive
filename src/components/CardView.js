@@ -7,7 +7,6 @@ import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
 import ChildIcon from 'react-icons/lib/fa/child'
-
 import { translationList,featureList} from '../DilemmaMaker'
 
 import {
@@ -24,7 +23,9 @@ import {
   StatTitle,
   StatContent,
   StatData,
-  AutoMarginWrapper
+  AutoMarginWrapper,
+  Button,
+  ButtonGroup
 } from './StyledComponents'
 
 const iconStyle = {
@@ -56,12 +57,11 @@ const UserIcon = styled(UserIconRaw)`
 
 class PersonCard extends Component{
 
-
   render(){
     const props = this.props
     const {features} = props.person
     const {gender,name,age,img,} = features
-    const {makeSelection, chosen,showingFeatures,loc,mouseOver,mouseOverState,setCurrentChosen} = props
+    const {makeSelection, chosen,mouseOver,mouseOverState,setCurrentChosen,loc} = props
 
     return (
 
@@ -70,7 +70,8 @@ class PersonCard extends Component{
         <PersonCardSty
           onClick={()=>setCurrentChosen(loc)}
           chosen={chosen}
-
+          style = {loc===0?{order:1}:{order:3}}
+          focused = {chosen}
           >
 
         <div>
@@ -84,7 +85,7 @@ class PersonCard extends Component{
           <StatBox
             >
 
-            {["age"].concat(showingFeatures).map((d,i)=>(
+            {Object.keys(featureList).map((d,i)=>(
 
               <StatGroup key = {d}>
 
@@ -117,36 +118,74 @@ class PersonCard extends Component{
 }
 
 
-export default props => {
-  const {
-        person,
-        currentChosen,
-        makeSelection,
-        mouseOverState,
-        showingFeatures,
-        mouseOver,
-        icons,
-        setCurrentChosen
-      } = props
+export default class CardView extends Component {
+  constructor(props){
+    super(props)
+    this.handleConfirm = this.handleConfirm.bind(this)
 
-  return (
-    <CardContainer>
-      {person.map((d,i)=>(
-        <PersonCard
-         person={d}
-         chosen={currentChosen===i}
-         makeSelection={makeSelection}
-         showingFeatures={showingFeatures}
-         key={"personcard"+i}
-         loc={i}
-         mouseOver={mouseOver}
-         mouseOverState={mouseOverState}
-         setCurrentChosen={setCurrentChosen}
+  }
+  handleConfirm(){
 
 
-         />
-      ))
-    }
-  </CardContainer>
-  )
+      if (this.props.currentRandom===1){
+        this.props.makeSelection(Math.floor(Math.random() * 2))
+      }else if  (this.props.currentChosen !== -1){
+        this.props.makeSelection(this.props.currentChosen)
+      }
+
+
+  }
+  render(){
+    const {
+          person,
+          currentChosen,
+          makeSelection,
+          mouseOverState,
+          showingFeatures,
+          mouseOver,
+          icons,
+          setCurrentChosen,
+          setCurrentRandom,
+          currentRandom
+        } = this.props
+
+    return (
+      <CardContainer>
+        {person.map((d,i)=>(
+          <PersonCard
+           person={d}
+           chosen={currentChosen===i}
+           makeSelection={makeSelection}
+           showingFeatures={showingFeatures}
+           key={"personcard"+i}
+           loc={i}
+           mouseOver={mouseOver}
+           mouseOverState={mouseOverState}
+           setCurrentChosen={setCurrentChosen}
+
+
+           />
+        ))
+      }
+      <ButtonGroup style = {{order:2}}>
+        <Button onClick={setCurrentRandom}
+            focused = {currentRandom ===1}
+            onMouseOver={()=>mouseOver("flipCoin")}
+            onMouseOut={()=>mouseOver("default")}
+            >
+          Flip a coin
+        </Button>
+        <Button
+          onClick={this.handleConfirm}
+          onMouseOver={()=>mouseOver("confirm")}
+          onMouseOut={()=>mouseOver("default")}
+          >
+          Confirm
+        </Button>
+      </ButtonGroup>
+
+    </CardContainer>
+    )
+  }
+
 }

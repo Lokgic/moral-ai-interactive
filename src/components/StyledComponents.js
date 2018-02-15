@@ -120,22 +120,20 @@ export const PatientName = styled.div`
 `
 
 export const PersonCardSty = styled.div`
-  ${'' /* display: flex;
-  flex-grow: 1; */}
+  border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
   width:40%;
   margin: auto;
   background: #608796;
   padding: 10px;
   border-radius: 0px;
   border-width: 20px;
-  border-color: rgba(0, 0, 0, 0);
   border-style: solid;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
              0 1px 5px 0 rgba(0, 0, 0, 0.12),
              0 3px 1px -2px rgba(0, 0, 0, 0.2);
   cursor:pointer;
  &:hover {
-   border-color: rgba(0, 0, 0, 0.3);
+   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
  }
 `
 
@@ -176,20 +174,32 @@ margin: 1rem 0;
 `
 
 export const ButtonGroup = styled.div`
-  display:flex;
-  justify-content:space-evenly;
+  ${'' /* display:flex;
+  justify-content:space-evenly; */}
+  max-width: 150px;
 `
 
 export const Button = styled.button`
-  /* Adapt the colours based on primary prop */
-  background: ${props => props.primary ? 'rgba(15,180,210,1)' : 'white'};
-  color: ${props => props.primary ? 'white' : 'black'};
-  font-size: 1em;
-  margin: 0 5px;
-  padding: 0.25em 1em;
-  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight:1000;
+  background: ${props => props.primary ? 'rgba(15,180,210,1)' : '#ddd'};
+  color: #9d1748;
+  height:50%;
+  width:100%;
+  font-size: 1.2em;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  border-radius: 0px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
              0 1px 5px 0 rgba(0, 0, 0, 0.12),
              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor:pointer;
+ &:hover {
+   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
+ }
   cursor:pointer;
 `;

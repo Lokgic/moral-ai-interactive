@@ -10,10 +10,7 @@ import {
   MessageContainer,
   MessageTop,
   MessageBottom,
-  Divider,
-  Button,
-  ButtonGroup
-
+  Divider
 } from '../components/StyledComponents'
 import MouseOverHelper from '../components/MouseOverHelper'
 
@@ -47,32 +44,31 @@ class DecisionPage extends Component {
     constructor(props) {
         super(props)
         this.choice = props.currentChosen
-        this.beIndfferent = this.beIndfferent.bind(this)
-        this.toggleLoading = this.toggleLoading.bind(this)
-        this.handleConfirm = this.handleConfirm.bind(this)
+        // this.toggleLoading = this.toggleLoading.bind(this)
+        // this.handleConfirm = this.handleConfirm.bind(this)
 
     }
-    beIndfferent(){
-      const {currentRandom,setCurrentRandom} = this.props
-      if (currentRandom === -1){
-        this.props.setCurrentChosen(Math.floor(Math.random() * 2))
-        setCurrentRandom(1)
-      }
-    }
+    // beIndfferent(){
+    //   const {currentRandom,setCurrentRandom} = this.props
+    //
+    //     setCurrentRandom()
+    //
+    // }
 
-    handleConfirm(){
+    // handleConfirm(){
+    //   // this.props.setCurrentChosen(Math.floor(Math.random() * 2))
+    //
+    //   if (this.props.currentChosen !== -1){
+    //     this.props.makeSelection(this.props.currentChosen )
+    //
+    //   }
+    //
+    // }
 
-      if (this.props.currentChosen !== -1){
-        this.props.makeSelection(this.props.currentChosen )
-
-      }
-
-    }
-
-    toggleLoading(){
-
-      this.setState({loading:!this.state.loading})
-    }
+    // toggleLoading(){
+    //
+    //   this.setState({loading:!this.state.loading})
+    // }
 
     componentWillReceiveProps(nextProp){
 
@@ -102,6 +98,7 @@ class DecisionPage extends Component {
             mouseOverState,
             mouseOver,
             setCurrentChosen,
+            setCurrentRandom,
             currentRandom
         } = this.props
         const names = person.map(d=>d.features.name)
@@ -146,9 +143,12 @@ class DecisionPage extends Component {
                         mouseOverState={mouseOverState}
                         currentChosen={currentChosen}
                         setCurrentChosen={setCurrentChosen}
+                        setCurrentRandom={setCurrentRandom}
+                        makeSelection={makeSelection}
+                        currentRandom={currentRandom}
                       />
                 <Divider/>
-                <ButtonGroup>
+                {/* <ButtonGroup>
                   {currentChosen===0?<CheckIcon style={checkIconStyle}
                     onClick={()=>setCurrentChosen(0)}
                   />:
@@ -171,40 +171,8 @@ class DecisionPage extends Component {
                         onClick={()=>setCurrentChosen(1)}
                       />}
 
-                </ButtonGroup>
-                {/* <Container fluid>
-                    <Button.Group fluid>
-                    <Button
-                      loading={this.state.loading}
-                      disabled={this.state.loading}
-                      onClick={()=>makeSelection(0)} secondary>
-                      <Button.Content visible>
-                        {`Choose ${names[0]}`}
-                      </Button.Content>
+                </ButtonGroup> */}
 
-                    </Button>
-                    <Button.Or/>
-                    <Button  loading={this.state.loading}
-                      disabled={this.state.loading}
-                      animated onClick={this.beIndfferent}>
-                        <Button.Content
-
-                           color='green' visible>Flip a coin</Button.Content>
-                        <Button.Content hidden>
-                            {"Random choice"}
-                        </Button.Content>
-                    </Button>
-                    <Button.Or/>
-                    <Button
-                      loading={this.state.loading}
-                      disabled={this.state.loading}
-                      onClick={()=>makeSelection(1)} secondary>
-                      <Button.Content visible>
-                        {`Choose ${names[1]}`}
-                      </Button.Content>
-                    </Button>
-                  </Button.Group>
-                </Container> */}
             </MainViewContainer>
           </FlexContainer>
         )
@@ -225,7 +193,7 @@ const mapDispatchToProps = dispatch => {
         changeDisplay: displayMode => dispatch({type: "CHANGE_DISPLAY", displayMode}),
         mouseOver:input=> dispatch({type: "MOUSE_OVER", input}),
         setCurrentChosen:input=>dispatch({type:"SET_CURRENT_CHOSEN",input}),
-        setCurrentRandom:input=>dispatch({type:"SET_CURRENT_RANDOM",input})
+        setCurrentRandom:()=>dispatch({type:"SET_CURRENT_RANDOM"})
 
 
     }

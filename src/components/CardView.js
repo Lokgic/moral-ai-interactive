@@ -46,8 +46,8 @@ export const icons = {
 
 
 const UserIcon = styled(UserIconRaw)`
-  width:100px;
-  height:100px;
+  width:70px;
+  height:70px;
   fill:#fffdde;
   float: right;
 `

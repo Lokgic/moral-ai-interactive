@@ -101,6 +101,7 @@ export const reducer = (state = initialState, action)=>{
          currentRandom:0,
          featurePreference:pref,
          randomChoices:[...state.randomChoices,action.random],
+         mouseOverState:"default",
         person:DilemmaMaker()
 
        }

@@ -145,10 +145,7 @@ export const CardHead = styled.span`
 
 `
 
-export const CardDetails = styled.div`
-  ${'' /* display:inline-flex; */}
-  ${'' /* width:100%; */}
-`
+
 
 export const FeatureIcon = styled.div`
   display: inline-block;
@@ -180,13 +177,14 @@ export const ButtonGroup = styled.div`
   ${'' /* display:flex;
   justify-content:space-evenly; */}
   max-width: 150px;
+  order:2;
 `
 
 export const Button = styled.button`
   text-transform: uppercase;
   font-weight:1000;
-  background: ${props => props.primary ? 'rgba(15,180,210,1)' : '#ddd'};
-  color: #9d1748;
+  background: ${props => props.disabled ? 'rgba(255,255,255,.2)' : '#ccc'};
+  color: ${props => props.disabled ? 'rgba(111,111,111,.2)' : '#9d1748'};
   height:50%;
   width:100%;
   font-size: 1.2em;
@@ -202,7 +200,7 @@ export const Button = styled.button`
              0 3px 1px -2px rgba(0, 0, 0, 0.2);
   cursor:pointer;
  &:hover {
-   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
+   border-color: ${props => props.disabled? 'rgba(0, 0, 0, 0)':props.focused? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
  }
-  cursor:pointer;
+  cursor:${props => props.disabled ? 'not-allowed': 'pointer'};;
 `;

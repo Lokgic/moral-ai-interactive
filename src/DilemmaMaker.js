@@ -1,10 +1,9 @@
-import React from 'react'
 import Person from './components/Person'
 import Chance from 'chance'
 
 
 
-import {Icon} from './components/StyledComponents'
+
 
 const chance = new Chance()
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import styled from 'styled-components';
 import UserIconRaw from 'react-icons/lib/fa/user'
 import CakeIcon from 'react-icons/lib/fa/birthday-cake'
-import GenderIcon from 'react-icons/lib/fa/transgender-alt'
 import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
@@ -15,15 +14,11 @@ import {
   StatBox,
   PersonCardSty,
   CardHead,
-  CardDetails,
   FeatureIcon,
   StatGroup,
-  Divider,
-  FlexWrapper,
   StatTitle,
   StatContent,
   StatData,
-  AutoMarginWrapper,
   Button,
   ButtonGroup
 } from './StyledComponents'
@@ -60,8 +55,8 @@ class PersonCard extends Component{
   render(){
     const props = this.props
     const {features} = props.person
-    const {gender,name,age,img,} = features
-    const {makeSelection, chosen,mouseOver,mouseOverState,setCurrentChosen,loc} = props
+    const {name} = features
+    const { chosen,mouseOver,mouseOverState,setCurrentChosen,loc} = props
 
     return (
 
@@ -143,7 +138,6 @@ export default class CardView extends Component {
           mouseOverState,
           showingFeatures,
           mouseOver,
-          icons,
           setCurrentChosen,
           setCurrentRandom,
           currentRandom
@@ -167,7 +161,7 @@ export default class CardView extends Component {
            />
         ))
       }
-      <ButtonGroup style = {{order:2}}>
+      <ButtonGroup>
         <Button onClick={setCurrentRandom}
             focused = {currentRandom ===1}
             onMouseOver={()=>mouseOver("flipCoin")}
@@ -179,6 +173,7 @@ export default class CardView extends Component {
           onClick={this.handleConfirm}
           onMouseOver={()=>mouseOver("confirm")}
           onMouseOut={()=>mouseOver("default")}
+          disabled={currentRandom === 0 && currentChosen === -1}
           >
           Confirm
         </Button>

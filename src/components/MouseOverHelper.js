@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 import QMark from 'react-icons/lib/fa/question-circle'
 
 import CakeIcon from 'react-icons/lib/fa/birthday-cake'
-import GenderIcon from 'react-icons/lib/fa/transgender-alt'
 import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'

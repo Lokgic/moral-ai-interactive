@@ -113,8 +113,9 @@ export const PatientName = styled.div`
   font-family: 'Open Sans', sans-serif;
   margin: 5px 0 20px 5px;
   font-size: 1.5em;
-  text-align: left;
+  text-align: right;
   color:#dbd2c5;
+  ${'' /* float:right; */}
 
 
 `
@@ -137,9 +138,11 @@ export const PersonCardSty = styled.div`
  }
 `
 
-export const CardHead = styled.div`
+export const CardHead = styled.span`
     ${'' /* display:inline-block; */}
-    margin:auto
+    ${'' /* margin:auto */}
+    float: right;
+
 `
 
 export const CardDetails = styled.div`

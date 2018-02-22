@@ -22,7 +22,7 @@ export const initialState = {
   features:[],
   randomChoices:[],
   displayMode:"MainView",
-  n_trials:5,
+  n_trials:10,
   mouseOverState:"default"
 }
 

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import {select as d3Select} from 'd3-selection'
 import {scaleLinear} from 'd3-scale'
+import  {axisRight} from 'd3-axis'
 // eslint-disable-next-line
 import {transition} from 'd3-transition'
 import {line,curveBasis as curveType,area} from 'd3-shape'
@@ -21,6 +22,31 @@ function kernelEpanechnikov(k) {
   };
 }
 
+export class Axis extends Component {
+  constructor(props){
+    super(props)
+    const {yTop,yBottom} = props
+    this.scale = scaleLinear()
+                    .domain([1,0])
+                    .range([yTop,yBottom])
+    this.axisGen = axisRight(this.scale)
+                      .tickValues([0.5])
+                      // .ticks(2, "s")
+
+  }
+  componentDidMount(){
+
+
+    this.axisGen(d3Select(this.node))
+
+  }
+
+
+  render(){
+    const {x} = this.props
+    return (<g ref={node => this.node = node } transform={"translate("+x+",0)"}/>)
+  }
+}
 
 
 export default class DensityPlot extends Component {
@@ -32,7 +58,7 @@ export default class DensityPlot extends Component {
                     .range([yBottom,yTop])
     this.x_scale = scaleLinear()
                     .domain([0,100])
-                    .range([xStart,xEnd])
+                    .range([xStart+15,xEnd])
     this.lineGen =  line()
                        .x((d,i) => this.x_scale(d[0]))
                        .y((d,i) => this.y_scale(d[1]))
@@ -44,7 +70,9 @@ export default class DensityPlot extends Component {
                       .curve(curveType)
     this.you_scale = scaleLinear()
                     .domain([0,100])
-                    .range([xStart+15,xEnd-15])
+                    .range([xStart+20,xEnd-15])
+
+
 
   }
 
@@ -69,6 +97,7 @@ export default class DensityPlot extends Component {
     const ceiling = max(density.map((d)=>d[1]))
     this.y_scale.domain([0,ceiling])
     const you = this.you_scale(this.props.you)
+    const {xlab,yBottom,yTop,xStart,xEnd} = this.props
     return (<g>
       {/* <path ref={node => this.lineNode = node }
                   d = {this.lineGen(density)}
@@ -85,19 +114,31 @@ export default class DensityPlot extends Component {
                 strokeWidth = "5"
 
           />
-          <line x1={you} x2={you} y1={this.props.yBottom} y2={this.props.yTop+30} style={{
-            stroke: '#11111199',
+          <line x1={you} x2={you} y1={yBottom} y2={yBottom - 20} style={{
+            stroke: '#9d174899',
             strokeWidth:3
           }}/>
-          <text x={you} y={this.props.yTop+20} style={{
+          <text x={you} y={yBottom-25} style={{
             fontSize:12,
-            textAnchor:"middle"
+            textAnchor:"middle",
+            fill:"#9d1748"
           }}>You</text>
-          <text x={this.props.xEnd/2} y={this.props.yBottom-5} style={{
+          {/* <text x={xEnd/2} y={yBottom-5} style={{
             fontSize:12,
             textAnchor:"middle",
             fill:"grey"
-          }}>Everyone</text>
+          }}>Everyone</text> */}
+          <text x={xEnd} y={yBottom+15} style={{
+            fontSize:10,
+            textAnchor:"end",
+            fill:"grey"
+          }}>{xlab[1]}</text>
+          <text x={xStart} y={yBottom+15} style={{
+            fontSize:10,
+            textAnchor:"start",
+            fill:"grey"
+          }}>{xlab[0]}</text>
+          {/* <Axis x = {0} yTop = {yTop} yBottom = {yBottom}/> */}
           </g>)
   }
 }

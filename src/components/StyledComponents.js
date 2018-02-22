@@ -249,23 +249,26 @@ export const BadgeHeading = styled.h3`
   font-size: .7em;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
-  margin:auto;
+  margin:10px 5px;
+  text-align: center;
+  text-transform: uppercase;
 `
 
 export const BadgeDesc = styled.div`
-  margin:auto;
-  max-width: 80%;
+  margin:10px 5px;
   font-size: 0.4em;
   padding-bottom: 5px;
+  text-align: justify;
+  text-transform: lowercase;
 `
 
 export const PlotBox = styled.div`
-width:500px;
-height:150px;
+width: ${({w}) => w+25};
+height:${({h}) => h+25};
 margin:auto;
 display: flex;
 flex-direction: column;
-padding-bottom: 100px;
+padding: 5px;
 
 `
 export const PlotContainer = styled.div`
@@ -275,16 +278,17 @@ export const PlotContainer = styled.div`
   flex-wrap: wrap;
 `
 export const PlotSvg = styled.svg`
-  width:400px;
-  height:100px;
+  width: ${({w}) => w};
+  height:${({h}) => h};
   margin:auto;
 `
 
 export const PlotDesc = styled.p`
-  margin:auto;
+  margin:20px 5px;
   text-align:center;
   font-size: .7em;
   font-family: 'Open Sans', sans-serif;
+  text-transform: capitalize;
 `
 
 export const XLabel = styled.div`

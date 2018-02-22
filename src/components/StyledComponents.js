@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Decision Page
 export const QuestionTop = styled.h1`
   font-weight: 1000;
   text-align: justify;
@@ -23,7 +24,6 @@ export const QuestionBottom = styled.h1`
   text-transform: uppercase;
 
 `
-
 
 export const FlexContainer = styled.section`
     height:100vh;
@@ -173,6 +173,23 @@ margin: 1rem 0;
     -webkit-tap-highlight-color:
 `
 
+export const ProgressBar = styled.div`
+  width:100%;
+  height:10%;
+  display:flex;
+`
+
+export const Progress = styled.div`
+  width:${props => Math.min(props.percent,100)+"%;"};
+  height:100%;
+  background: #9d1748;
+  display: inline-block;
+  -webkit-transition: width .5s;
+  transition: width .5s;
+  font-size: 1.2em;
+  font-family: 'Open Sans', sans-serif;
+`
+
 export const ButtonGroup = styled.div`
   ${'' /* display:flex;
   justify-content:space-evenly; */}
@@ -185,7 +202,7 @@ export const Button = styled.button`
   font-weight:1000;
   background: ${props => props.disabled ? 'rgba(255,255,255,.2)' : '#ccc'};
   color: ${props => props.disabled ? 'rgba(111,111,111,.2)' : '#9d1748'};
-  height:50%;
+  height:45%;
   width:100%;
   font-size: 1.2em;
   font-family: 'Open Sans', sans-serif;
@@ -204,3 +221,76 @@ export const Button = styled.button`
  }
   cursor:${props => props.disabled ? 'not-allowed': 'pointer'};;
 `;
+
+// Result
+
+export const ResultPageFlex = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  ${'' /* height:300px; */}
+  flex-wrap: wrap;
+`
+
+export const BadgeContainer = styled.div`
+  margin:auto;
+  width:120px;
+  ${'' /* height:60px; */}
+  background: rgb(70,70,70);
+  color:#eee;
+  display:flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  border-radius: 5px;
+`
+
+export const BadgeHeading = styled.h3`
+  width:100%;
+  text-align: center;
+  font-size: .7em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
+  margin:auto;
+`
+
+export const BadgeDesc = styled.div`
+  margin:auto;
+  max-width: 80%;
+  font-size: 0.4em;
+  padding-bottom: 5px;
+`
+
+export const PlotBox = styled.div`
+width:500px;
+height:150px;
+margin:auto;
+display: flex;
+flex-direction: column;
+padding-bottom: 100px;
+
+`
+export const PlotContainer = styled.div`
+  width:100%;
+  height:auto;
+  display: flex;
+  flex-wrap: wrap;
+`
+export const PlotSvg = styled.svg`
+  width:400px;
+  height:100px;
+  margin:auto;
+`
+
+export const PlotDesc = styled.p`
+  margin:auto;
+  text-align:center;
+  font-size: .7em;
+  font-family: 'Open Sans', sans-serif;
+`
+
+export const XLabel = styled.div`
+  font-size: .7em;
+  font-family: 'Open Sans', sans-serif;
+  color:grey;
+  text-align: right;
+  margin-top: 0;
+`

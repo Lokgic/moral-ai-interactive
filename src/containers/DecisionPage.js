@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import ResultPage from '../components/ResultPage'
 
 import MainView from '../components/CardView'
 import {
@@ -41,42 +42,8 @@ const checkIconStyle = {
 };
 
 class DecisionPage extends Component {
-    constructor(props) {
-        super(props)
-        this.choice = props.currentChosen
-        // this.toggleLoading = this.toggleLoading.bind(this)
-        // this.handleConfirm = this.handleConfirm.bind(this)
 
-    }
-    // beIndfferent(){
-    //   const {currentRandom,setCurrentRandom} = this.props
-    //
-    //     setCurrentRandom()
-    //
-    // }
 
-    // handleConfirm(){
-    //   // this.props.setCurrentChosen(Math.floor(Math.random() * 2))
-    //
-    //   if (this.props.currentChosen !== -1){
-    //     this.props.makeSelection(this.props.currentChosen )
-    //
-    //   }
-    //
-    // }
-
-    // toggleLoading(){
-    //
-    //   this.setState({loading:!this.state.loading})
-    // }
-
-    componentWillReceiveProps(nextProp){
-
-      if (!devMode){
-        this.setState({loading:true})
-        setTimeout(()=>this.toggleLoading(), rn(1,2000))
-      }
-    }
 
     render() {
         const {
@@ -92,7 +59,6 @@ class DecisionPage extends Component {
             featurePreference,
             features,
             labels,
-            parms,
             randomChoices,
             n_trials,
             mouseOverState,
@@ -105,14 +71,7 @@ class DecisionPage extends Component {
 
         const percent = (labels.length/n_trials) * 100
 
-        let view
-        if (Object.keys(parms).length === 0) return (<Redirect to="/"/>)
-        const {decType,indiff,preferenceOrdering} = parms
-
-
-
-
-        return (
+        let view = labels.length/n_trials < 1? (
 
           <FlexContainer>
           <MainViewContainer>
@@ -137,8 +96,6 @@ class DecisionPage extends Component {
                 <MainView person={person}
                         currentChosen={currentChosen}
                         makeSelection={makeSelection}
-                        showingFeatures={showingFeatures}
-                        availableFeatures={availableFeatures}
                         mouseOver={mouseOver}
                         mouseOverState={mouseOverState}
                         currentChosen={currentChosen}
@@ -146,36 +103,22 @@ class DecisionPage extends Component {
                         setCurrentRandom={setCurrentRandom}
                         makeSelection={makeSelection}
                         currentRandom={currentRandom}
+                        trial={{n:n_trials,index:labels.length}}
+                        percent={percent}
                       />
-                <Divider/>
-                {/* <ButtonGroup>
-                  {currentChosen===0?<CheckIcon style={checkIconStyle}
-                    onClick={()=>setCurrentChosen(0)}
-                  />:
-                  <BlankCircle style={checkIconStyle}
-                      onClick={()=>setCurrentChosen(0)}
-                  />}
-                  <div >
-                    <Button onClick={this.beIndfferent}>
-                      Flip a coin
-                    </Button>
-                    <Button primary onClick={this.handleConfirm}>
-                      Confirm
-                    </Button>
-                  </div>
-
-                    {currentChosen===1?<CheckIcon style={checkIconStyle}
-                      onClick={()=>setCurrentChosen(1)}
-                    />:
-                      <BlankCircle style={checkIconStyle}
-                        onClick={()=>setCurrentChosen(1)}
-                      />}
-
-                </ButtonGroup> */}
 
             </MainViewContainer>
           </FlexContainer>
         )
+        : (
+          <ResultPage
+            labels={labels}
+            features={features}
+            randomChoices={randomChoices}
+
+          />
+        );
+        return view;
     }
 
 }

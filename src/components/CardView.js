@@ -6,6 +6,7 @@ import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
 import ChildIcon from 'react-icons/lib/fa/child'
+import CoinIcon from 'react-icons/lib/fa/adjust'
 import { translationList,featureList} from '../DilemmaMaker'
 
 import {
@@ -20,7 +21,9 @@ import {
   StatContent,
   StatData,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  ProgressBar,
+  Progress
 } from './StyledComponents'
 
 const iconStyle = {
@@ -123,9 +126,9 @@ export default class CardView extends Component {
 
 
       if (this.props.currentRandom===1){
-        this.props.makeSelection(Math.floor(Math.random() * 2))
+        this.props.makeSelection(Math.floor(Math.random() * 2),1)
       }else if  (this.props.currentChosen !== -1){
-        this.props.makeSelection(this.props.currentChosen)
+        this.props.makeSelection(this.props.currentChosen,0)
       }
 
 
@@ -140,7 +143,7 @@ export default class CardView extends Component {
           mouseOver,
           setCurrentChosen,
           setCurrentRandom,
-          currentRandom
+          currentRandom,trial,percent
         } = this.props
 
     return (
@@ -169,6 +172,9 @@ export default class CardView extends Component {
             >
           Flip a coin
         </Button>
+        <ProgressBar>
+          <Progress percent = {percent}></Progress>{trial.n-trial.index>0?<span style={{margin:'auto'}}>{trial.n-trial.index}</span>:null}
+        </ProgressBar>
         <Button
           onClick={this.handleConfirm}
           onMouseOver={()=>mouseOver("confirm")}

@@ -25,7 +25,7 @@ import {random as rn} from 'lodash'
 import BlankCircle from 'react-icons/lib/fa/circle'
 import CheckIcon from 'react-icons/lib/md/check-circle'
 
-
+import DataTable from './Table'
 
 
 
@@ -92,53 +92,58 @@ class DecisionPage extends Component {
 
         const percent = (labels.length/n_trials) * 100
 
-        let view = labels.length/n_trials < 1? (
+        let view
+        if (displayMode === "table") view = <DataTable/>
+        else {
+          view = labels.length/n_trials < 1? (
 
-          <FlexContainer>
-          <MainViewContainer>
-            <MessageTop>
-              Both of these individuals are in need of a kidney, but there is only one.
-            </MessageTop>
-              <QuestionTop>
-                Who should receive
-              </QuestionTop>
-              <QuestionBottom>
-                the kidney ?
-              </QuestionBottom>
-              <MessageContainer>
+            <FlexContainer>
+            <MainViewContainer>
+              <MessageTop>
+                Both of these individuals are in need of a kidney, but there is only one.
+              </MessageTop>
+                <QuestionTop>
+                  Who should receive
+                </QuestionTop>
+                <QuestionBottom onClick={()=>changeDisplay("table")}>
+                  the kidney ?
+                </QuestionBottom>
+                <MessageContainer>
 
-                <MessageBottom>
-                  {MouseOverHelper(mouseOverState)}
-                </MessageBottom>
+                  <MessageBottom>
+                    {MouseOverHelper(mouseOverState)}
+                  </MessageBottom>
 
 
-              </MessageContainer>
+                </MessageContainer>
 
-                <MainView person={person}
-                        currentChosen={currentChosen}
-                        makeSelection={makeSelection}
-                        mouseOver={mouseOver}
-                        mouseOverState={mouseOverState}
-                        currentChosen={currentChosen}
-                        setCurrentChosen={setCurrentChosen}
-                        setCurrentRandom={setCurrentRandom}
-                        makeSelection={makeSelection}
-                        currentRandom={currentRandom}
-                        trial={{n:n_trials,index:labels.length}}
-                        percent={percent}
-                      />
+                  <MainView person={person}
+                          currentChosen={currentChosen}
+                          makeSelection={makeSelection}
+                          mouseOver={mouseOver}
+                          mouseOverState={mouseOverState}
+                          currentChosen={currentChosen}
+                          setCurrentChosen={setCurrentChosen}
+                          setCurrentRandom={setCurrentRandom}
+                          makeSelection={makeSelection}
+                          currentRandom={currentRandom}
+                          trial={{n:n_trials,index:labels.length}}
+                          percent={percent}
+                        />
 
-            </MainViewContainer>
-          </FlexContainer>
-        )
-        : (
-          <ResultPage
-            labels={labels}
-            features={features}
-            randomChoices={randomChoices}
+              </MainViewContainer>
+            </FlexContainer>
+          )
+          : (
+            <ResultPage
+              labels={labels}
+              features={features}
+              randomChoices={randomChoices}
 
-          />
-        );
+            />
+          );
+        }
+
         return view;
     }
 

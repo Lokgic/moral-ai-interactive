@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import DecisionPage from './containers/DecisionPage'
 import Controller from './containers/Controller'
-import Table from './containers/Table'
+
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 
@@ -52,8 +52,8 @@ class App extends Component {
       <BrowserRouter>
         <div>
 
-          <Route exact path = {'/table'} component = {Table}/>
-          <Route exact path = {'/'} component = {Controller}/>
+          {/* <Route exact path = {'/table'} component = {Table}/> */}
+          <Route  path = {'/'} component = {Controller}/>
 
           {/* <SetUpScreen/> */}
       </div>

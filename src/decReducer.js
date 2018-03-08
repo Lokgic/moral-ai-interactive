@@ -1,20 +1,14 @@
-import {DilemmaMaker,featureList} from './DilemmaMaker'
+import {DilemmaMaker,featureList} from './DilemmaMaker';
+import {v1} from 'uuid';
 
 const person  = DilemmaMaker()
-
-
-
-
-
-const makeTrueFalse = id=>[
-  {key:id+"y", 'text': "Yes", "value":true},
-  {key:id+"n", "text":'No',"value":false}
-]
-
+const uuid = v1()
 
 
 export const initialState = {
+  uuid,
   person,
+  DPSubmitted:0,
   availableFeatures:{...featureList},
   currentChosen:-1,
   currentRandom:0,
@@ -23,7 +17,9 @@ export const initialState = {
   randomChoices:[],
   displayMode:"MainView",
   n_trials:13,
-  mouseOverState:"default"
+  mouseOverState:"default",
+  timestamp:Date.now(),
+  delay:[]
 }
 
 
@@ -39,16 +35,19 @@ export const reducer = (state = initialState, action)=>{
         ...state,
         mouseOverState:action.input
       }
+    case "DATAPOINT_POSTED":
+      return{
+        ...state,
+        DPSubmitted:state.DPSubmitted + 1
+      }
     case "CHOOSE_FEATURE":
       return {
         ...state,
         currentChosen:"More Info",
         nextFeature: action.feature
       }
-    case "SELECTION":
-
-
-
+    case "SELECTION":{
+      const newTS = Date.now() - state.timestamp;
        return {
          ...state,
          labels:[...state.labels, action.choice],
@@ -56,10 +55,14 @@ export const reducer = (state = initialState, action)=>{
          currentChosen:-1,
          currentRandom:0,
          randomChoices:[...state.randomChoices,action.random],
+         delay:[...state.delay, newTS],
          mouseOverState:"default",
-        person:DilemmaMaker()
+         timestamp:Date.now(),
+        person:DilemmaMaker(),
+        datapointSubmitted:0
 
        }
+     }
     case "CHANGE_DISPLAY":
       return {
         ...state,

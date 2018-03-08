@@ -7,8 +7,8 @@ import { Provider } from 'react-redux'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import decReducer,{initialState} from './decReducer'
-import uiReducer from './uiReducers'
-
+import mySagas from './sagas'
+import createSagaMiddleware from 'redux-saga'
 // import Menu from './components/Menu'
 
 import {
@@ -18,20 +18,24 @@ import {
 } from 'react-router-dom'
 
 const loggerMiddleware = createLogger()
+const sagaMiddleware = createSagaMiddleware()
+
 
 const reducers = {
-  dec:decReducer,
-  ui:uiReducer
+  dec:decReducer
 }
 export const reducer = combineReducers(reducers);
 
 
 
-export const sdStore = createStore(
-          reducer,{dec:initialState,ui:{page:"SetUp"}},applyMiddleware(loggerMiddleware)
+export const store = createStore(
+          reducer,{dec:initialState},
+          applyMiddleware(sagaMiddleware,loggerMiddleware)
+
         )
 
 
+sagaMiddleware.run(mySagas)
 
 const {NODE_ENV,PUBLIC_URL} = process.env
 
@@ -41,7 +45,7 @@ class App extends Component {
 
 
     return (
-      <Provider store={sdStore}>
+      <Provider store={store}>
       <BrowserRouter>
         <div>
 

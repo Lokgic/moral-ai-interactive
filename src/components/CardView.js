@@ -173,7 +173,8 @@ export default class CardView extends Component {
           Flip a coin
         </Button>
         <ProgressBar>
-          <Progress percent = {percent}></Progress>{trial.n-trial.index>0?<span style={{margin:'auto'}}>{trial.n-trial.index}</span>:null}
+          <Progress percent = {percent}></Progress>
+          {/* {trial.n-trial.index>0?<span style={{margin:'auto'}}>{trial.n-trial.index}</span>:null} */}
         </ProgressBar>
         <Button
           onClick={this.handleConfirm}

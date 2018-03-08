@@ -41,10 +41,31 @@ const checkIconStyle = {
   cursor:'pointer'
 };
 
+
+
 class DecisionPage extends Component {
 
 
+    componentWillReceiveProps(nextProps){
+    try{
+      const {features, DPSubmitted, labels, randomChoices,delay,postDps,uuid} = nextProps;
+      console.log(randomChoices)
 
+          if (features.length>DPSubmitted){
+            postDps(
+              {features:features[DPSubmitted],
+              index:DPSubmitted,
+              labels:labels[DPSubmitted],
+              random:randomChoices[DPSubmitted],
+              delay:delay[DPSubmitted],
+              uuid} )
+          }
+    } catch(e){
+      console.log(e)
+      return e
+    }
+
+    }
     render() {
         const {
             person,
@@ -136,8 +157,9 @@ const mapDispatchToProps = dispatch => {
         changeDisplay: displayMode => dispatch({type: "CHANGE_DISPLAY", displayMode}),
         mouseOver:input=> dispatch({type: "MOUSE_OVER", input}),
         setCurrentChosen:input=>dispatch({type:"SET_CURRENT_CHOSEN",input}),
-        setCurrentRandom:()=>dispatch({type:"SET_CURRENT_RANDOM"})
-
+        setCurrentRandom:()=>dispatch({type:"SET_CURRENT_RANDOM"}),
+        getAllDps:()=>dispatch({type:"GET_ALL_DPS"}),
+        postDps:data=>dispatch({type:"POST_DPS",data}),
 
     }
 }

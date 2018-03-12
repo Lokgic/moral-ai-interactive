@@ -1,4 +1,4 @@
-import {DilemmaMaker,featureList} from './DilemmaMaker'
+import {DilemmaMaker,featureList} from './Scenario'
 
 const person  = DilemmaMaker()
 

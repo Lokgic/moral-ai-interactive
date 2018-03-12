@@ -15,8 +15,7 @@ const Controller = ({labels, n_trials}) => {
 
 
 
-const mapStateToProps = ({dec}) => {
-    const {labels, n_trials} = dec
+const mapStateToProps = ({labels, n_trials}) => {
     return {labels, n_trials}
 }
 

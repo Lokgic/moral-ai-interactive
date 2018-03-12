@@ -10,6 +10,9 @@
     "react-scripts": "1.0.14"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
+    "@fortawesome/fontawesome-free-solid": "^5.0.8",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "chance": "^1.0.13",
     "d3": "^4.13.0",
     "gh-pages": "^1.1.0",

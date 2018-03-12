@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+
+
+
 import styled from 'styled-components';
 import UserIconRaw from 'react-icons/lib/fa/user'
 import CakeIcon from 'react-icons/lib/fa/birthday-cake'
@@ -6,7 +9,7 @@ import DrinkIcon from 'react-icons/lib/md/local-drink'
 import RunnerIcon from 'react-icons/lib/md/directions-run'
 import HealthIcon from 'react-icons/lib/fa/heartbeat'
 import ChildIcon from 'react-icons/lib/fa/child'
-import { translationList,featureList} from '../DilemmaMaker'
+import { Icon,translationList,featureList} from '../Scenario'
 
 import {
   CardContainer,
@@ -24,8 +27,8 @@ import {
 } from './StyledComponents'
 
 const iconStyle = {
-  width:45,
-  height:45
+  width:35,
+  height:35
 }
 
 export const icons = {
@@ -91,7 +94,7 @@ class PersonCard extends Component{
                   onMouseOut={()=>mouseOver("default")}
                   focused = {d===mouseOverState}
                   >
-                  {icons[d]}
+                  <Icon icon={d} style={iconStyle}/>
                 </FeatureIcon>
 
                 <StatContent>

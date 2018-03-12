@@ -74,7 +74,7 @@ export const StatBox = styled.div`
   display: flex;
   margin-left: 0px;
   width: 250px;
-  font-size: 1.3em;
+  font-size: 1em;
   flex-wrap:wrap;
   justify-content: center;
 
@@ -112,7 +112,7 @@ export const CardContainer = styled.div`
 export const PatientName = styled.div`
   font-family: 'Open Sans', sans-serif;
   margin: 5px 0 20px 5px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: right;
   color:#dbd2c5;
   ${'' /* float:right; */}
@@ -150,8 +150,8 @@ export const CardHead = styled.span`
 export const FeatureIcon = styled.div`
   display: inline-block;
   color: #fffdde;
-  width:50px;
-  height: 50px;
+  width:40px;
+  height: 40px;
   margin-right: 15px;
   &: hover {
     color:white

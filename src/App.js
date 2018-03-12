@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import decReducer,{initialState} from './decReducer'
-import uiReducer from './uiReducers'
 
 // import Menu from './components/Menu'
 
@@ -20,15 +19,14 @@ import {
 const loggerMiddleware = createLogger()
 
 const reducers = {
-  dec:decReducer,
-  ui:uiReducer
+  dec:decReducer
 }
 export const reducer = combineReducers(reducers);
 
 
 
 export const sdStore = createStore(
-          reducer,{dec:initialState,ui:{page:"SetUp"}},applyMiddleware(loggerMiddleware)
+          decReducer,initialState,applyMiddleware(loggerMiddleware)
         )
 
 

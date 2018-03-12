@@ -18,7 +18,7 @@ import MouseOverHelper from '../components/MouseOverHelper'
 
 import {  Redirect } from 'react-router'
 
-import {iconList as icons} from '../DilemmaMaker'
+import {iconList as icons} from '../Scenario'
 
 import {random as rn} from 'lodash'
 
@@ -171,7 +171,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
 
-    return state.dec
+    return state
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DecisionPage)

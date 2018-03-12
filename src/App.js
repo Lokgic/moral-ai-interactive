@@ -30,10 +30,8 @@ export const reducer = combineReducers(reducers);
 
 
 
-export const store = createStore(
-          reducer,{dec:initialState},
-          applyMiddleware(sagaMiddleware,loggerMiddleware)
-
+export const sdStore = createStore(
+          decReducer,initialState,applyMiddleware(loggerMiddleware)
         )
 
 

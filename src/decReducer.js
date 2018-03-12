@@ -1,5 +1,4 @@
-import {DilemmaMaker,featureList} from './DilemmaMaker';
-import {v1} from 'uuid';
+import {DilemmaMaker,featureList} from './Scenario'
 
 const person  = DilemmaMaker()
 const uuid = v1()

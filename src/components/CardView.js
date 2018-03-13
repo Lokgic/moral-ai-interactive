@@ -25,32 +25,23 @@ import {
   Button,
   ButtonGroup,
   ProgressBar,
-  Progress
+  Progress,
+  PatientIcon
 } from './StyledComponents'
 
 const iconStyle = {
-  width:35,
-  height:35
+  // width:35,
+  // height:35
 }
 
-export const icons = {
-    age: <CakeIcon style={iconStyle}/>,
-    health: <HealthIcon style={iconStyle}/>,
-    exercising: <RunnerIcon style={iconStyle}/>,
-    dependents: <ChildIcon style={iconStyle}/>,
-    drinking: <DrinkIcon style={iconStyle}/>
+const userIconStyle = {
+  width:'40px',
+  height:'40px',
+  color:'#fffdde',
+  // float: 'right',
+  margin:"auto"
 }
 
-
-
-
-
-const UserIcon = styled(UserIconRaw)`
-  width:70px;
-  height:70px;
-  fill:#fffdde;
-  float: right;
-`
 
 
 
@@ -76,9 +67,11 @@ class PersonCard extends Component{
 
         <div>
         <CardHead>
+          <PatientIcon>
+            <Icon icon="user" style={userIconStyle}/>
+          </PatientIcon>
 
-          <UserIcon/>
-          <PatientName>Patient {name}</PatientName>
+          <PatientName>{name}</PatientName>
         </CardHead>
       </div>
 

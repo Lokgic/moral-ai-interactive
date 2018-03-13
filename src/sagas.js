@@ -1,5 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import axios from 'axios';
+import {featureNames} from './Scenario'
 
 // const PostDPSApi = (DPArray)=>{
 //     fetch('http://localhost:5000/post-dp', {
@@ -38,21 +39,54 @@ function* fetchDPS(){
 }
 
 function* postDPS(action){
+  console.log(action)
+  const {
+    features,
+    DPSubmitted,
+    labels,
+    random,
+    delay,
+    postDps,
+    uuid,
+    startend,
+    scenarioType,
+    trial
+  } = action.data
 
-  const {features, index, labels, random,delay,postDps,uuid} = action.data
-  const payload = [0,1].map(
-    d=>{
-      return {
-        ...features[d],
-        index,
-        label:labels[d],
-        random,
-        delay,
-        session_id:uuid
-      }
+  let payload = {
+    scenario_type:scenarioType,
+    random,
+    delay,
+    start:startend[0],
+    end:startend[1],
+    trial,
+    decision:labels.indexOf(1),
+    user_id:uuid,
+    left_name:features[0].name,
+    right_name:features[1].name,
+  }
+  const order = ["left","right"]
+  for (let i = 0;i<2;i++){
+      payload[order[i]] = featureNames.map(d=>features[i][d])
     }
-  )
+
   console.log(payload)
+  // const payload = [0,1].map(
+  //   d=>{
+  //     return {
+  //       ...features[d],
+  //       index,
+  //       label:labels[d],
+  //       random,
+  //       delay,
+  //       session_id:uuid
+  //     }
+  //   }
+  // )
+  // const payload = [0,1].reduce((obj,d)=>{
+  //   const loc = d? "right":"left"
+  // },{})
+  // console.log(payload)
   const d = {
       method: 'post',
       // mode: 'no-cors',

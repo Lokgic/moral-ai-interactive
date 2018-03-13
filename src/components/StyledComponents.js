@@ -1,6 +1,38 @@
+
 import styled from 'styled-components';
 
+// SVG Icons
+
+
+export const FeatureIcon = styled.div`
+  display: inline-block;
+  color: #fffdde;
+  width:40px;
+  height: 40px;
+  margin-right: 15px;
+  &: hover {
+    color:white
+  }
+  @media (max-width: 700){
+    width:25px;
+  }
+
+`
+export const PatientIcon = styled.span`
+  ${'' /* display: inline-block; */}
+  color: #fffdde;
+  width:50px;
+  height: 50px;
+  margin:auto;
+  padding: 0 0 10px 0;
+  @media (max-width: 799){
+    width:35px;
+  }
+
+
+`
 // Decision Page
+
 export const QuestionTop = styled.h1`
   font-weight: 1000;
   text-align: justify;
@@ -42,6 +74,61 @@ export const AutoMarginWrapper = styled.div`
 export const MainViewContainer = styled.section`
       margin: 0 auto;
       min-width:1000px;
+      @media (max-width: 1000px){
+        width:100%;
+        min-width:500px;
+      }
+
+`
+
+
+export const PersonCardSty = styled.div`
+  border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
+  width:40%;
+  margin: auto;
+  background: #608796;
+  padding: 10px;
+  border-radius: 0px;
+  border-width: 20px;
+  border-style: solid;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+             0 1px 5px 0 rgba(0, 0, 0, 0.12),
+             0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor:pointer;
+@media (max-width: 1000px){
+  width:100%;
+  ${'' /* min-width:500px; */}
+}
+ &:hover {
+   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
+ }
+`
+
+export const CardContainer = styled.div`
+  display: flex;
+  @media (max-width: 1100px){
+    width:100%;
+    padding:0;
+    margin:0;
+    ${'' /* flex-direction: column; */}
+  }
+`
+
+export const StatBox = styled.div`
+  display: flex;
+  margin-left: 0px;
+  width: 250px;
+  font-size: .8em;
+  flex-wrap:wrap;
+  justify-content: center;
+  @media (max-width: 1100px){
+    width:100%;
+    padding:0;
+    margin:0;
+    font-size: .6em;
+    ${'' /* flex-direction: column; */}
+  }
+
 `
 
 export const MessageContainer = styled.div`
@@ -70,15 +157,7 @@ export const MessageBottom = styled.h3`
   margin-top:5px;
 `
 
-export const StatBox = styled.div`
-  display: flex;
-  margin-left: 0px;
-  width: 250px;
-  font-size: 1em;
-  flex-wrap:wrap;
-  justify-content: center;
 
-`
 export const StatGroup = styled.div`
   margin: 10px;
   width 100%;
@@ -104,59 +183,35 @@ export const StatContent = styled.div`
 
 `
 
-export const CardContainer = styled.div`
-  display: flex;
-`
-
 
 export const PatientName = styled.div`
   font-family: 'Open Sans', sans-serif;
-  margin: 5px 0 20px 5px;
+  margin:auto;
   font-size: 1.2em;
-  text-align: right;
+  text-align: center;
   color:#dbd2c5;
   ${'' /* float:right; */}
+  @media (max-width:1100px) {
+    font-size: 1em;
+  }
 
 
 `
 
-export const PersonCardSty = styled.div`
-  border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
-  width:40%;
-  margin: auto;
-  background: #608796;
-  padding: 10px;
-  border-radius: 0px;
-  border-width: 20px;
-  border-style: solid;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-             0 1px 5px 0 rgba(0, 0, 0, 0.12),
-             0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  cursor:pointer;
- &:hover {
-   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
- }
-`
 
 export const CardHead = styled.span`
     ${'' /* display:inline-block; */}
     ${'' /* margin:auto */}
+    display:flex;
     float: right;
+    flex-direction: column;
+    @media (max-width:1100px) {
+      float: none;
+    }
 
 `
 
 
-
-export const FeatureIcon = styled.div`
-  display: inline-block;
-  color: #fffdde;
-  width:40px;
-  height: 40px;
-  margin-right: 15px;
-  &: hover {
-    color:white
-  }
-`
 
 export const Divider = styled.hr`
 margin: 1rem 0;

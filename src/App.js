@@ -30,8 +30,10 @@ export const reducer = combineReducers(reducers);
 
 
 
-export const sdStore = createStore(
-          decReducer,initialState,applyMiddleware(loggerMiddleware)
+export const store = createStore(
+          decReducer,
+          initialState,
+          applyMiddleware(sagaMiddleware,loggerMiddleware)
         )
 
 
@@ -48,13 +50,12 @@ class App extends Component {
     return (
       <Provider store={store}>
       <BrowserRouter>
-        <div>
 
           {/* <Route exact path = {'/table'} component = {Table}/> */}
           <Route  path = {'/'} component = {Controller}/>
 
           {/* <SetUpScreen/> */}
-      </div>
+
       </BrowserRouter>
   </Provider>
 

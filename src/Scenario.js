@@ -7,6 +7,7 @@ import faBirthdayCake  from '@fortawesome/fontawesome-free-solid/faBirthdayCake'
 import glassMartini  from '@fortawesome/fontawesome-free-solid/faGlassMartini'
 import faGavel from '@fortawesome/fontawesome-free-solid/faGavel'
 import faFootballBall   from '@fortawesome/fontawesome-free-solid/faFootballBall'
+import faUser  from '@fortawesome/fontawesome-free-solid/faUser'
 import faUsers  from '@fortawesome/fontawesome-free-solid/faUsers'
 import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
 
@@ -15,7 +16,8 @@ import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
   drinking:glassMartini,
   crime:faGavel,
   exercising: faFootballBall,
-  dependents:faUsers
+  dependents:faUsers,
+  user:faUser
 }
 
 
@@ -23,7 +25,7 @@ import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
 export const Icon = ({icon,style})=>(
   <FontAwesomeIcon
     icon={getIcon[icon]}
-    style={style}
+    style={{width:"100%",height:"100%"}}
   />)
 
 
@@ -43,7 +45,7 @@ const runif = (a=0,b=4)=>{
 const chance = new Chance()
 
 
-
+export const featureNames = ["age","drinking","crime","exercising","dependents"]
 
 export const featureList = {
   "age":"age",
@@ -79,7 +81,7 @@ export const translationList = {
   drinking:d=>["never","rare","social drinker","recovering alcholic","alchol abuser"][d],
   crime:d=>["none","minor non-violent","minor violent","major non-violent","major violent"][d],
   exercising:d=>["never","monthly","weekly","daily","professional athlete'"][d],
-  dependents:d=>["none","one child","one elderly","one child; one elderly","two child; two elderly"][d],
+  dependents:d=>["children: 0 elderly: 0","children: 1 elderly: 0","children: 0 elderly: 1","children: 1 elderly: 1","children: 2 elderly: 2"][d],
   random:d=>["choice","random"][d],
   label:d=>["not chosen","chosen"][d]
 

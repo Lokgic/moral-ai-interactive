@@ -1,4 +1,5 @@
 import {DilemmaMaker,featureList} from './Scenario'
+import {v1} from 'uuid';
 
 const person  = DilemmaMaker()
 const uuid = v1()
@@ -17,8 +18,12 @@ export const initialState = {
   displayMode:"MainView",
   n_trials:13,
   mouseOverState:"default",
+  initiated:Date.now(),
   timestamp:Date.now(),
-  delay:[]
+  startend:[],
+  delay:[],
+  scenarioType:0,
+  trial:0
 }
 
 
@@ -46,7 +51,9 @@ export const reducer = (state = initialState, action)=>{
         nextFeature: action.feature
       }
     case "SELECTION":{
-      const newTS = Date.now() - state.timestamp;
+      const end = Date.now();
+      const start = state.timestamp
+      const delay = end - start
        return {
          ...state,
          labels:[...state.labels, action.choice],
@@ -54,7 +61,8 @@ export const reducer = (state = initialState, action)=>{
          currentChosen:-1,
          currentRandom:0,
          randomChoices:[...state.randomChoices,action.random],
-         delay:[...state.delay, newTS],
+         delay:[...state.delay, delay],
+         startend:[...state.startend,[start,end]],
          mouseOverState:"default",
          timestamp:Date.now(),
         person:DilemmaMaker(),

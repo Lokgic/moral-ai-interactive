@@ -22,8 +22,7 @@ import {iconList as icons} from '../Scenario'
 
 import {random as rn} from 'lodash'
 
-import BlankCircle from 'react-icons/lib/fa/circle'
-import CheckIcon from 'react-icons/lib/md/check-circle'
+
 
 import DataTable from './Table'
 
@@ -48,17 +47,33 @@ class DecisionPage extends Component {
 
     componentWillReceiveProps(nextProps){
     try{
-      const {features, DPSubmitted, labels, randomChoices,delay,postDps,uuid} = nextProps;
-      console.log(randomChoices)
+      const {
+        features,
+        DPSubmitted,
+        labels,
+        randomChoices,
+        delay,
+        postDps,
+        uuid,
+        startend,
+        scenarioType,
+        trial
+      } = nextProps;
+
 
           if (features.length>DPSubmitted){
             postDps(
-              {features:features[DPSubmitted],
+              {
+              features:features[DPSubmitted],
               index:DPSubmitted,
               labels:labels[DPSubmitted],
               random:randomChoices[DPSubmitted],
               delay:delay[DPSubmitted],
-              uuid} )
+              startend:startend[DPSubmitted],
+              uuid,
+              scenarioType,
+              trial
+            } )
           }
     } catch(e){
       console.log(e)
@@ -111,7 +126,8 @@ class DecisionPage extends Component {
                 <MessageContainer>
 
                   <MessageBottom>
-                    {MouseOverHelper(mouseOverState)}
+                    {/* {MouseOverHelper(mouseOverState)} */}
+                    Click for explanation
                   </MessageBottom>
 
 

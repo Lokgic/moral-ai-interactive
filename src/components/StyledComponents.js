@@ -1,6 +1,8 @@
 
 import styled from 'styled-components';
 
+const breakpoint1 = "768px"
+const breakpoint2 = "1200px"
 // SVG Icons
 
 
@@ -13,7 +15,10 @@ export const FeatureIcon = styled.div`
   &: hover {
     color:white
   }
-  @media (max-width: 700){
+  @media (max-width: ${breakpoint1}){
+    width:25px;
+  }
+  @media (max-width: ${breakpoint1}){
     width:25px;
   }
 
@@ -25,8 +30,8 @@ export const PatientIcon = styled.span`
   height: 50px;
   margin:auto;
   padding: 0 0 10px 0;
-  @media (max-width: 799){
-    width:35px;
+  @media (max-width: ${breakpoint1}){
+    width:45px;
   }
 
 
@@ -36,12 +41,23 @@ export const PatientIcon = styled.span`
 export const QuestionTop = styled.h1`
   font-weight: 1000;
   text-align: justify;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color:#177a9d;
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   margin-bottom: 0;
   margin-top:20px;
+  @media (max-width: ${breakpoint1}){
+    ${'' /* display: inline;
+    margin:auto; */}
+    text-align: center;
+    font-size: 1em;
+  }
+  @media (max-width: ${breakpoint1}){
+    margin-left: 25px;
+
+  }
+
 
 `
 
@@ -50,10 +66,20 @@ export const QuestionBottom = styled.h1`
   margin-bottom: 0;
   font-weight: 1000;
   text-align: left;
-  font-size: 5em;
+  font-size: 2em;
   color:#9d1748;
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
+  @media (max-width: ${breakpoint1}){
+    ${'' /* display: inline;
+    margin:auto; */}
+    text-align: center;
+    font-size: 1em;
+  }
+  @media (max-width: ${breakpoint1}){
+    margin-left: 25px;
+
+  }
 
 `
 
@@ -73,14 +99,17 @@ export const AutoMarginWrapper = styled.div`
 
 export const MainViewContainer = styled.section`
       margin: 0 auto;
-      min-width:1000px;
-      @media (max-width: 1000px){
+      min-width:1200px;
+      @media (max-width: ${breakpoint2}){
         width:100%;
-        min-width:500px;
+        min-width:450px;
+      }
+      @media (max-width: ${breakpoint1}){
+        width:100%;
+
       }
 
 `
-
 
 export const PersonCardSty = styled.div`
   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
@@ -95,10 +124,13 @@ export const PersonCardSty = styled.div`
              0 1px 5px 0 rgba(0, 0, 0, 0.12),
              0 3px 1px -2px rgba(0, 0, 0, 0.2);
   cursor:pointer;
-@media (max-width: 1000px){
-  width:100%;
-  ${'' /* min-width:500px; */}
-}
+  @media (max-width: ${breakpoint2}){
+    flex-grow: 2
+  }
+  @media (max-width: ${breakpoint1}){
+
+    width:35%;
+  }
  &:hover {
    border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
  }
@@ -106,11 +138,15 @@ export const PersonCardSty = styled.div`
 
 export const CardContainer = styled.div`
   display: flex;
-  @media (max-width: 1100px){
+  @media (max-width: ${breakpoint1}){
     width:100%;
     padding:0;
     margin:0;
-    ${'' /* flex-direction: column; */}
+
+  }
+  @media (max-width: ${breakpoint1}){
+
+    flex-wrap: wrap;
   }
 `
 
@@ -121,7 +157,7 @@ export const StatBox = styled.div`
   font-size: .8em;
   flex-wrap:wrap;
   justify-content: center;
-  @media (max-width: 1100px){
+  @media (max-width: ${breakpoint1}){
     width:100%;
     padding:0;
     margin:0;
@@ -191,7 +227,7 @@ export const PatientName = styled.div`
   text-align: center;
   color:#dbd2c5;
   ${'' /* float:right; */}
-  @media (max-width:1100px) {
+  @media (max-width:${breakpoint1}) {
     font-size: 1em;
   }
 
@@ -205,7 +241,7 @@ export const CardHead = styled.span`
     display:flex;
     float: right;
     flex-direction: column;
-    @media (max-width:1100px) {
+    @media (max-width:${breakpoint1}) {
       float: none;
     }
 
@@ -232,6 +268,9 @@ export const ProgressBar = styled.div`
   width:100%;
   height:10%;
   display:flex;
+  @media(max-width:${breakpoint1}){
+
+  }
 `
 
 export const Progress = styled.div`
@@ -243,6 +282,7 @@ export const Progress = styled.div`
   transition: width .5s;
   font-size: 1.2em;
   font-family: 'Open Sans', sans-serif;
+
 `
 
 export const ButtonGroup = styled.div`
@@ -250,6 +290,13 @@ export const ButtonGroup = styled.div`
   justify-content:space-evenly; */}
   max-width: 150px;
   order:2;
+  @media (max-width:${breakpoint1}) {
+    max-width: ${breakpoint1};
+    width:100%;
+    display:flex;
+    flex-wrap: wrap;
+    order:3;
+  }
 `
 
 export const Button = styled.button`
@@ -271,6 +318,9 @@ export const Button = styled.button`
              0 1px 5px 0 rgba(0, 0, 0, 0.12),
              0 3px 1px -2px rgba(0, 0, 0, 0.2);
   cursor:pointer;
+  @media (max-width:${breakpoint1}) {
+    font-size: 0.8em;
+  }
  &:hover {
    border-color: ${props => props.disabled? 'rgba(0, 0, 0, 0)':props.focused? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
  }
@@ -352,4 +402,92 @@ export const XLabel = styled.div`
   color:grey;
   text-align: right;
   margin-top: 0;
+`
+
+// MODAL
+
+export const ModalBackground = styled.div`
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+
+export const ModalContent = styled.div`
+  background-color: #f4f7f8;
+  width:300px;
+  margin: auto;
+  padding: 0 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+             0 1px 5px 0 rgba(0, 0, 0, 0.12),
+             0 3px 1px -2px rgba(0, 0, 0, 0.2);
+   @media (max-width:${breakpoint1}) {
+     ${'' /* width:90%;
+     height:50%; */}
+   }
+
+`
+
+export const ModalHeader = styled.h3`
+  justify-content: center;
+`
+
+export const Form = styled.form`
+font-family: 'Open Sans', sans-serif;
+  width:200px;
+
+  margin:auto;
+  padding:5% 5%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+`
+export const InputField = styled.input`
+  width:100%;
+  height:20px;
+margin:auto;
+
+`
+
+export const InputSubmit = styled.input`
+width:80px;
+height:20px;
+margin:auto;
+border-radius: 3px;
+border:none;
+cursor: pointer;
+background: #608796;
+color:white;
+
+
+`
+export const ModalText = styled.p`
+  font-size: 0.8em;
+  color:grey;
+  text-align: justify;
+`
+
+export const FormLabel = styled.label`
+  width:100%;
+  margin:20px auto;
+  color:grey;
+  font-weight: bold;
+  text-transform: uppercase;
+
+`
+export const ExitModal = styled.button`
+  padding-top: 20px;
+float: right;
+background: none;
+border: none;
+cursor: pointer;
+color:grey;
+font-size: 1em;
 `

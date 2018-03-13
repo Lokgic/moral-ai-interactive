@@ -15,15 +15,16 @@ export const initialState = {
   labels:[],
   features:[],
   randomChoices:[],
-  displayMode:"MainView",
   n_trials:13,
-  mouseOverState:"default",
   initiated:Date.now(),
   timestamp:Date.now(),
   startend:[],
   delay:[],
   scenarioType:0,
-  trial:0
+  trial:0,
+  displayMode:"MainView",
+  modal:1,
+  mouseOverState:"default"
 }
 
 
@@ -38,6 +39,21 @@ export const reducer = (state = initialState, action)=>{
       return{
         ...state,
         mouseOverState:action.input
+      }
+    case "CHANGE_DISPLAY":
+      return {
+        ...state,
+        displayMode:action.displayMode
+      }
+    case "BEGIN_SESSION":
+      return {
+        ...state,
+        modal:action.value
+      }
+    case "SET_MODAL":
+      return {
+        ...state,
+        modal:action.value
       }
     case "DATAPOINT_POSTED":
       return{
@@ -70,11 +86,6 @@ export const reducer = (state = initialState, action)=>{
 
        }
      }
-    case "CHANGE_DISPLAY":
-      return {
-        ...state,
-        displayMode:action.displayMode
-      }
     case "CHANGE_PARAMETER":
       return {
         ...state,

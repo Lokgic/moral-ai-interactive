@@ -4,3 +4,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: #dbd2c5;
 }
+
+#modal-root {
+  position: relative;
+  z-index: 999;
+}

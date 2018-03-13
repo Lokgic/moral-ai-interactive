@@ -39,73 +39,56 @@ function* fetchDPS(){
 }
 
 function* postDPS(action){
-  console.log(action)
-  const {
-    features,
-    DPSubmitted,
-    labels,
-    random,
-    delay,
-    postDps,
-    uuid,
-    startend,
-    scenarioType,
-    trial
-  } = action.data
-
-  let payload = {
-    scenario_type:scenarioType,
-    random,
-    delay,
-    start:startend[0],
-    end:startend[1],
-    trial,
-    decision:labels.indexOf(1),
-    user_id:uuid,
-    left_name:features[0].name,
-    right_name:features[1].name,
-  }
-  const order = ["left","right"]
-  for (let i = 0;i<2;i++){
-      payload[order[i]] = featureNames.map(d=>features[i][d])
-    }
-
-  console.log(payload)
-  // const payload = [0,1].map(
-  //   d=>{
-  //     return {
-  //       ...features[d],
-  //       index,
-  //       label:labels[d],
-  //       random,
-  //       delay,
-  //       session_id:uuid
-  //     }
+  // const {
+  //   features,
+  //   DPSubmitted,
+  //   labels,
+  //   random,
+  //   delay,
+  //   postDps,
+  //   uuid,
+  //   startend,
+  //   scenarioType,
+  //   trial
+  // } = action.data
+  //
+  // let payload = {
+  //   scenario_type:scenarioType,
+  //   random,
+  //   delay,
+  //   start:startend[0],
+  //   end:startend[1],
+  //   trial,
+  //   decision:labels.indexOf(1),
+  //   user_id:uuid,
+  //   left_name:features[0].name,
+  //   right_name:features[1].name,
+  // }
+  // const order = ["left","right"]
+  // for (let i = 0;i<2;i++){
+  //     payload[order[i]] = featureNames.map(d=>features[i][d])
   //   }
-  // )
-  // const payload = [0,1].reduce((obj,d)=>{
-  //   const loc = d? "right":"left"
-  // },{})
+  //
   // console.log(payload)
-  const d = {
-      method: 'post',
-      // mode: 'no-cors',
-      url:postURL ,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: payload,
-    }
-  try{
-    const resp = yield axios(d)
-         .then((res) => {
-           console.log(res)
-           return res
-         })
-          yield put({type:"DATAPOINT_POSTED"})
-        } catch(e){
-          console.log(e)
-        }
+  // const d = {
+  //     method: 'post',
+  //     // mode: 'no-cors',
+  //     url:postURL ,
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     data: payload,
+  //   }
+  // try{
+  //   const resp = yield axios(d)
+  //        .then((res) => {
+  //          console.log(res)
+  //          return res
+  //        })
+  //         yield put({type:"DATAPOINT_POSTED"})
+  //       } catch(e){
+  //         console.log(e)
+  //       }
 
 
 }

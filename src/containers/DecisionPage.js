@@ -13,7 +13,6 @@ import {
   MessageBottom,
   Divider
 } from '../components/StyledComponents'
-import MouseOverHelper from '../components/MouseOverHelper'
 
 
 import {  Redirect } from 'react-router'
@@ -114,13 +113,14 @@ class DecisionPage extends Component {
 
             <FlexContainer>
             <MainViewContainer>
-              <MessageTop>
+              {/* <MessageTop>
                 Both of these individuals are in need of a kidney, but there is only one.
-              </MessageTop>
+              </MessageTop> */}
                 <QuestionTop>
                   Who should receive
                 </QuestionTop>
-                <QuestionBottom onClick={()=>changeDisplay("table")}>
+                {/* <QuestionBottom onClick={()=>changeDisplay("table")}> */}
+                <QuestionBottom>
                   the kidney ?
                 </QuestionBottom>
                 <MessageContainer>

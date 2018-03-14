@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const breakpoint1 = "768px"
 const breakpoint2 = "1200px"
+const phoneBreakpoint = "520px"
 // SVG Icons
 
 
@@ -15,11 +16,14 @@ export const FeatureIcon = styled.div`
   &: hover {
     color:white
   }
-  @media (max-width: ${breakpoint1}){
+  @media (max-width: ${breakpoint2}){
     width:25px;
   }
-  @media (max-width: ${breakpoint1}){
-    width:25px;
+  @media (max-width: ${phoneBreakpoint}){
+    visibility:hidden;
+    width:0px;
+    height: 0px;
+    margin-right: 0px;
   }
 
 `
@@ -31,7 +35,12 @@ export const PatientIcon = styled.span`
   margin:auto;
   padding: 0 0 10px 0;
   @media (max-width: ${breakpoint1}){
-    width:45px;
+    width:35px;
+    padding: 0 0 5px 0;
+  }
+  @media (max-width: ${phoneBreakpoint}){
+    width:25px;
+    padding: 0 0 2px 0;
   }
 
 
@@ -99,10 +108,14 @@ export const AutoMarginWrapper = styled.div`
 
 export const MainViewContainer = styled.section`
       margin: 0 auto;
-      min-width:1200px;
+      max-width:1200px;
       @media (max-width: ${breakpoint2}){
         width:100%;
-        min-width:450px;
+        min-width:300px;
+      }
+      @media (max-width: ${breakpoint1}){
+        width:100%;
+
       }
       @media (max-width: ${breakpoint1}){
         width:100%;
@@ -115,6 +128,7 @@ export const PersonCardSty = styled.div`
   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, 0)'};
   width:40%;
   margin: auto;
+  height:100%;
   background: #608796;
   padding: 10px;
   border-radius: 0px;
@@ -126,10 +140,12 @@ export const PersonCardSty = styled.div`
   cursor:pointer;
   @media (max-width: ${breakpoint2}){
     flex-grow: 2
+    border-width: 5px;
   }
   @media (max-width: ${breakpoint1}){
-
+    padding: 2px;
     width:35%;
+    padding: 10px;
   }
  &:hover {
    border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
@@ -153,7 +169,8 @@ export const CardContainer = styled.div`
 export const StatBox = styled.div`
   display: flex;
   margin-left: 0px;
-  width: 250px;
+
+  height:400px;
   font-size: .8em;
   flex-wrap:wrap;
   justify-content: center;
@@ -161,9 +178,12 @@ export const StatBox = styled.div`
     width:100%;
     padding:0;
     margin:0;
-    font-size: .6em;
-    ${'' /* flex-direction: column; */}
+    font-size: .8em;
   }
+  @media(max-width:${phoneBreakpoint}){
+    height:auto;
+  }
+
 
 `
 
@@ -196,21 +216,33 @@ export const MessageBottom = styled.h3`
 
 export const StatGroup = styled.div`
   margin: 10px;
-  width 100%;
+  width: 100%;
   display: flex;
+  @media (max-width:${breakpoint1}) {
+    margin: 0px;
+  }
 `
 
 export const StatTitle = styled.div`
-  font-size: 0.6em;
+  font-size: 1em;
   color:#dbd2c5;
   margin-bottom: 5px;
+  @media (max-width:${breakpoint1}) {
+    font-size: .8em;
+  }
 
 
 `
 
 export const StatData = styled.div`
-  font-size: 1.2em;
+  font-size: 2em;
   color:#fffdde;
+  @media (max-width:${breakpoint2}) {
+    font-size: 1.5em;
+  }
+  @media (max-width:${phoneBreakpoint}) {
+    font-size: .8em;
+  }
 `
 
 export const StatContent = styled.div`
@@ -320,6 +352,10 @@ export const Button = styled.button`
   cursor:pointer;
   @media (max-width:${breakpoint1}) {
     font-size: 0.8em;
+    border-width: 5px;
+  }
+  @media (max-width:${phoneBreakpoint}) {
+    font-size: 0.6em;
   }
  &:hover {
    border-color: ${props => props.disabled? 'rgba(0, 0, 0, 0)':props.focused? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};

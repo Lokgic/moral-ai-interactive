@@ -83,7 +83,7 @@ class Controller extends Component {
       </ModalBackground>
     </Modal>)
     : null;
-    return (<div style={{overflow: 'hidden'}}>
+    return (<div>
             <DecisionPage/>
             {modal}
           </div>)

@@ -125,10 +125,10 @@ class DecisionPage extends Component {
                 </QuestionBottom>
                 <MessageContainer>
 
-                  <MessageBottom>
-                    {/* {MouseOverHelper(mouseOverState)} */}
-                    Click for explanation
-                  </MessageBottom>
+                  {/* <MessageBottom>
+                    {MouseOverHelper(mouseOverState)}
+
+                  </MessageBottom> */}
 
 
                 </MessageContainer>

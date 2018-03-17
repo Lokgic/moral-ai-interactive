@@ -39,56 +39,56 @@ function* fetchDPS(){
 }
 
 function* postDPS(action){
-  // const {
-  //   features,
-  //   DPSubmitted,
-  //   labels,
-  //   random,
-  //   delay,
-  //   postDps,
-  //   uuid,
-  //   startend,
-  //   scenarioType,
-  //   trial
-  // } = action.data
-  //
-  // let payload = {
-  //   scenario_type:scenarioType,
-  //   random,
-  //   delay,
-  //   start:startend[0],
-  //   end:startend[1],
-  //   trial,
-  //   decision:labels.indexOf(1),
-  //   user_id:uuid,
-  //   left_name:features[0].name,
-  //   right_name:features[1].name,
-  // }
-  // const order = ["left","right"]
-  // for (let i = 0;i<2;i++){
-  //     payload[order[i]] = featureNames.map(d=>features[i][d])
-  //   }
-  //
-  // console.log(payload)
-  // const d = {
-  //     method: 'post',
-  //     // mode: 'no-cors',
-  //     url:postURL ,
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     data: payload,
-  //   }
-  // try{
-  //   const resp = yield axios(d)
-  //        .then((res) => {
-  //          console.log(res)
-  //          return res
-  //        })
-  //         yield put({type:"DATAPOINT_POSTED"})
-  //       } catch(e){
-  //         console.log(e)
-  //       }
+  const {
+    features,
+    DPSubmitted,
+    labels,
+    random,
+    delay,
+    postDps,
+    uuid,
+    startend,
+    scenarioId,
+    trial
+  } = action.data
+
+  let payload = {
+    scenario_id:scenarioId,
+    random,
+    delay,
+    start:startend[0],
+    end:startend[1],
+    trial,
+    decision:labels.indexOf(1),
+    user_id:uuid,
+    left_name:features[0].name,
+    right_name:features[1].name,
+  }
+  const order = ["left","right"]
+  for (let i = 0;i<2;i++){
+      payload[order[i]] = featureNames.map(d=>features[i][d])
+    }
+
+
+  const d = {
+      method: 'post',
+      // mode: 'no-cors',
+      url:postURL ,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: payload,
+    }
+  try{
+    const resp = yield axios(d)
+         .then((res) => {
+           console.log(res)
+           return res
+         })
+          yield put({type:"DATAPOINT_POSTED"})
+        } catch(e){
+          console.log(e)
+        }
 
 
 }

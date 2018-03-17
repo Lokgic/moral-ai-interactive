@@ -1,13 +1,23 @@
-import {DilemmaMaker,featureList} from './Scenario'
+import {DataGenerator,featureList, featureNames} from './Scenario'
 import {v1} from 'uuid';
+import dataSource from "./data/MockData"
 
-const person  = DilemmaMaker()
-const uuid = v1()
+
+
+
+
+
+
+
+const dg = new DataGenerator(dataSource)
+
+
+
 
 
 export const initialState = {
-  uuid,
-  person,
+  uuid: v1(),
+  person:dg.next(),
   DPSubmitted:0,
   availableFeatures:{...featureList},
   currentChosen:-1,
@@ -15,12 +25,12 @@ export const initialState = {
   labels:[],
   features:[],
   randomChoices:[],
-  n_trials:13,
+  n_trials:dg.getTrialLength(),
   initiated:Date.now(),
   timestamp:Date.now(),
   startend:[],
   delay:[],
-  scenarioType:0,
+  scenarioId:0,
   trial:0,
   displayMode:"MainView",
   modal:1,
@@ -46,9 +56,14 @@ export const reducer = (state = initialState, action)=>{
         displayMode:action.displayMode
       }
     case "BEGIN_SESSION":
+      const uuid =  action.uuid === "" | null? state.uuid:action.uuid
+      const trial =  action.trial === "" | null? state.trial:action.trial
+
       return {
         ...state,
-        modal:action.value
+        modal:0,
+        timestamp:Date.now(),
+        uuid,trial
       }
     case "SET_MODAL":
       return {
@@ -81,8 +96,9 @@ export const reducer = (state = initialState, action)=>{
          startend:[...state.startend,[start,end]],
          mouseOverState:"default",
          timestamp:Date.now(),
-        person:DilemmaMaker(),
-        datapointSubmitted:0
+        person:dg.next(),
+        datapointSubmitted:0,
+        scenarioId:state.scenarioId+1
 
        }
      }

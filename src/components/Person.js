@@ -7,12 +7,13 @@ const chance = new Chance()
 export default class Person {
   constructor(featureList,features){
 
-
-    const name = chance.name().split(' ')
+    const name = Object.keys(features).indexOf('name') === -1? chance.name().split(' ')
+:  features.name.split(' ')
+  console.log(name[0][0])
 
     this.features = {
-                    name:`${name[0][0]}. ${name[1][0]}.`,
                     ...features,
+                    name:`${name[0][0]}. ${name[1][0]}.`
                   }
 
   }

@@ -18,7 +18,7 @@ class IntroForm extends Component{
  }
 
  handleSubmit(event) {
-   this.props.beginSession(0)
+   this.props.beginSession(this.state.uid, this.state.trial);
    event.preventDefault();
  }
 
@@ -27,12 +27,17 @@ class IntroForm extends Component{
      <Form onSubmit={this.handleSubmit}>
 
        <FormLabel>
-         email
-         <InputField type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
+         User ID
+         <InputField placeholder = "email or your own username" type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
        </FormLabel>
        <FormLabel>
          trial id
-         <InputField type="text" value={this.state.trial} onChange={e=>this.handleChange("trial",e)} />
+         <InputField
+           type="text"
+           value={this.state.trial}
+           onChange={e=>this.handleChange("trial",e)}
+           placeholder="optional"
+         />
        </FormLabel>
        <InputSubmit type="submit" value="Begin"/>
      </Form>
@@ -95,7 +100,7 @@ class Controller extends Component {
 const mapDispatchToProps = dispatch =>{
   return {
     closeModal:()=>dispatch({type:"SET_MODAL",value:0}),
-    beginSession:value=>dispatch({type:"BEGIN_SESSION",value})
+    beginSession:(uuid,trial)=>dispatch({type:"BEGIN_SESSION",uuid,trial})
   }
 }
 

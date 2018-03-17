@@ -8,18 +8,15 @@ import {
   MainViewContainer,
   QuestionTop,
   QuestionBottom,
-  MessageContainer,
-  MessageTop,
-  MessageBottom,
-  Divider
+  MessageContainer
 } from '../components/StyledComponents'
 
 
-import {  Redirect } from 'react-router'
+
 
 import {iconList as icons} from '../Scenario'
 
-import {random as rn} from 'lodash'
+
 
 
 
@@ -31,14 +28,6 @@ import '../css/decision-page.css'
 
 
 const devMode = true
-
-const checkIconStyle = {
-  width:70,
-  height:70,
-  color:'#608796',
-  cursor:'pointer'
-};
-
 
 
 class DecisionPage extends Component {
@@ -55,7 +44,7 @@ class DecisionPage extends Component {
         postDps,
         uuid,
         startend,
-        scenarioType,
+        scenarioId,
         trial
       } = nextProps;
 
@@ -70,7 +59,7 @@ class DecisionPage extends Component {
               delay:delay[DPSubmitted],
               startend:startend[DPSubmitted],
               uuid,
-              scenarioType,
+              scenarioId,
               trial
             } )
           }
@@ -85,12 +74,7 @@ class DecisionPage extends Component {
             person,
             currentChosen,
             makeSelection,
-            chooseFeature,
-            showingFeatures,
-            availableFeatures,
-            nextFeature,
             displayMode,
-            changeDisplay,
             featurePreference,
             features,
             labels,

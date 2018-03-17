@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 
 import styled from 'styled-components';
 
-import { Icon,translationList,featureList} from '../Scenario'
+import { Icon,translationList,featureList, featureNames} from '../Scenario'
 
 import {
   CardContainer,
@@ -42,6 +42,7 @@ class PersonCard extends Component{
   render(){
     const props = this.props
     const {features} = props.person
+    console.log(features)
     const {name} = features
     const { chosen,mouseOver,mouseOverState,setCurrentChosen,loc} = props
 
@@ -69,7 +70,7 @@ class PersonCard extends Component{
           <StatBox
             >
 
-            {Object.keys(featureList).map((d,i)=>(
+            {featureNames.map((d,i)=>(
 
               <StatGroup key = {d}>
 

@@ -527,3 +527,41 @@ cursor: pointer;
 color:grey;
 font-size: 1em;
 `
+// Result page
+
+export const ResultTableEl = styled.table`
+  font-family: 'Open Sans', sans-serif;
+  margin: auto;
+`
+
+export const ResultTableHead = styled.th`
+    border: 1px solid #ddd;
+    padding: 8px;
+    background-color: #333;
+    color:#fffdde;
+    text-align: center;
+
+
+`
+
+export const ResultTableRow = styled.tr`
+
+`
+
+const cellColor = {
+
+  a:'#9d1748',
+  b:'#608796'
+}
+
+export const ResultTableCell = styled.td`
+    ${'' /* border: .5px solid #fffdde; */}
+    padding: 10px 5px;
+    color:#fffdde;
+    background-color: ${({type})=>cellColor[type]};
+    text-align: center;
+    ${'' /* &: nth-child(even) {
+      background-color: #60879644
+    } */}
+
+`

@@ -32,7 +32,7 @@ export const initialState = {
   delay:[],
   scenarioId:0,
   trial:0,
-  displayMode:"MainView",
+  displayMode:"decision",
   modal:1,
   mouseOverState:"default"
 }
@@ -85,6 +85,8 @@ export const reducer = (state = initialState, action)=>{
       const end = Date.now();
       const start = state.timestamp
       const delay = end - start
+      const person = dg.next();
+      const displayMode = person === null? "result" : "decision";
        return {
          ...state,
          labels:[...state.labels, action.choice],
@@ -96,7 +98,8 @@ export const reducer = (state = initialState, action)=>{
          startend:[...state.startend,[start,end]],
          mouseOverState:"default",
          timestamp:Date.now(),
-        person:dg.next(),
+        person,
+        displayMode,
         datapointSubmitted:0,
         scenarioId:state.scenarioId+1
 

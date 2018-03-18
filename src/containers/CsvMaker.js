@@ -1,5 +1,4 @@
 import React,{Component} from "react"
-import {csvFormat} from 'd3-dsv'
 import {connect} from 'react-redux'
 
 const getURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/get-dps':'https://moralai.herokuapp.com/get-dps';
@@ -12,21 +11,37 @@ class CsvMaker extends Component{
     this.state = {csv:null}
   }
   componentDidMount(){
+    const t = {
+      left_1:"age",
+      left_2:"health",
+      left_3:"drinking",
+      left_4:"crime",
+      left_5:"dependents",
+      right_1:"age",
+      right_2:"health",
+      right_3:"drinking",
+      right_4:"crime",
+      right_5:"dependents",
+    }
     const data = getShit()
               .then((res) => { return res.json() })
-              .then((d) => {
-                const headings = Object.keys(d[0])
-                const newState = {headings:headings,data:d}
+              .then((data) => {
+                const headings = Object.keys(data[0])
 
+                const headingsCSV = headings
+                                    .map(d=>Object.keys(t).indexOf(d) !== -1? t[d]:d)
+                                    .join(",");
                 let csvContent = "data:text/csv;charset=utf-8,";
-                newState.data.forEach(function(rowArray){
+                csvContent += headingsCSV + "\r\n";
+                data.forEach(function(rowArray){
 
-                   let row = Object.values(rowArray).join(",");
+                   let row = headings.map(h=>rowArray[h])
+                                      .join(",");
                    csvContent += row + "\r\n";
                 });
                 var encodedUri = encodeURI(csvContent);
                 this.setState({csv:encodedUri})
-                 return d
+                 return data
                   });
   }
   render(){

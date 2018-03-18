@@ -1,0 +1,139 @@
+import React, {Component} from 'react'
+// import Table, { tb, td, th, tr } from 'material-ui/Table';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import {Icon,translationList} from '../Scenario'
+import {ResultTableEl,ResultTableHead,ResultTableRow,ResultTableCell} from './StyledComponents'
+const getURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/get-stat':'https://moralai.herokuapp.com/get-stat';
+
+const getShit = async ()=> await fetch(getURL,{method:'get'})
+
+const loading = (<FontAwesomeIcon
+  icon={faSpinner}
+  style={{width:"10px",height:"10px"}}
+  spin
+/>)
+
+// const styles = theme => ({
+//   root: {
+//     width: '100%',
+//     maxWidth:'1200px',
+//     maxHeight:'1200px',
+//     margin: 'auto',
+//     overflowX: 'auto',
+//   },
+//   table: {
+//     minWidth: '700px',
+//   },
+// });
+
+
+export default class ResultTable extends Component{
+  constructor(props){
+    super(props)
+    const {features, labels, randomChoices} = props;
+    const columns = ["scenario",
+      "name","age","health","crime","drinking","dependents",
+      "random(all)", "left(all)","right(all)","your decision"
+                ]
+
+
+    const rows = features.reduce((acc,d,i)=>{
+
+
+      // out["your_decision"] = randomChoices[i]===1? 1: labels[i].indexOf(1) ;
+      // out["inner"] = [{},{}]
+      for (let person in d){
+        // for (let feat in d[person]){
+        //   out["inner"][person][feat] = d[person][feat]
+        // }
+        let cell ={}
+
+        for (let feat in d[person]){
+
+          cell[feat] = translationList[feat](d[person][feat])
+        }
+        acc.push(cell)
+      }
+
+      return acc;
+
+    },[])
+
+
+    this.state={rows,columns,stat:null,statReady:false}
+  }
+  componentDidMount(){
+    const {labels, randomChoices} = this.props
+    getShit()
+    .then((res) => { return res.json() })
+    .then(d=>{
+      const stat = d.map((d,i)=>{
+        const random = Math.round(d.random/d.total / 100 * 10000) + "%"
+        const left = Math.round(d.left/d.total / 100 * 10000)
+        const right = Math.round(100 - left) + "%"
+        const decision = randomChoices[i]===1? "random": ["left","right"][labels[i].indexOf(1)]
+        return {
+          random, left:left+"%", right , decision
+
+        }
+      })
+      this.setState({stat,statReady:true})
+      return d;
+    })
+  }
+  render(){
+    const {rows,columns,stat,statReady} = this.state
+    // const {root,table} = this.props.classes
+    const innerRowFeat = ["name","age","health","crime","drinking","dependents"]
+
+    return rows===null?null:
+    (
+      <div>
+      <ResultTableEl>
+        <ResultTableRow>
+
+
+            {columns.map(d=><ResultTableHead key={`${d}_column`}>{d}</ResultTableHead>)}
+
+        </ResultTableRow>
+
+          {
+            rows.map((row,ri)=>{
+              const subI = ri%2
+              const mainI = (Math.floor(ri/2) + 1)
+              const type = mainI%2===0?"a":"b"
+            return  (
+              <ResultTableRow>
+                {subI===0?<ResultTableCell
+                  type={type}
+                  rowSpan="2">{mainI}</ResultTableCell>:null}
+                {innerRowFeat.map(d=>
+                  (<ResultTableCell
+                      type={type}
+                    >{row[d]}</ResultTableCell>)
+                )}
+                {subI===0?
+                    ["random","left","right","decision"].map(h=>(<ResultTableCell type={type} rowSpan="2">{statReady?stat[mainI-1][h]:loading}</ResultTableCell>))
+                  :null}
+              </ResultTableRow>
+            )}
+          )
+          }
+
+      </ResultTableEl>
+
+    </div>
+    )
+
+  }
+}
+
+// ResultTable.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
+//
+// withStyles(styles)(ResultTable);

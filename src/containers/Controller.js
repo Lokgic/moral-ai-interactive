@@ -1,10 +1,18 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom';
-import {ModalText,ExitModal,ModalContent,ModalBackground,ModalHeader,Form,InputField,InputSubmit,FormLabel} from '../components/StyledComponents'
+import ModalWrapper from '../components/ModalWrapper'
+import {
+  ModalText,
+  ExitModal,
+  ModalContent,
+  ModalBackground,
+  ModalHeader,
+  Form,
+  InputField,
+  InputSubmit,
+  FormLabel} from '../components/StyledComponents'
 import {connect} from 'react-redux'
 import DecisionPage from './DecisionPage'
 
-const modalRoot = document.getElementById('modal-root');
 
 class IntroForm extends Component{
   constructor(props){
@@ -28,7 +36,7 @@ class IntroForm extends Component{
 
        <FormLabel>
          User ID
-         <InputField placeholder = "email or your own username" type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
+         <InputField placeholder = "email or username" type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
        </FormLabel>
        <FormLabel>
          trial id
@@ -46,25 +54,7 @@ class IntroForm extends Component{
 }
 
 
-class Modal extends Component{
-  constructor(props){
-    super(props)
-    this.el = document.createElement('div')
-  }
-  componentDidMount() {
-    modalRoot.appendChild(this.el);
-  }
 
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
-  }
-  render() {
-    return ReactDOM.createPortal(
-      this.props.children,
-      this.el,
-    );
-  }
-}
 
 class Controller extends Component {
   constructor(props){
@@ -74,19 +64,13 @@ class Controller extends Component {
   render(){
 
     const modal = this.props.modal?
-    (<Modal>
-      <ModalBackground>
-
-        <ModalContent>
-             <ExitModal onClick={()=>this.props.closeModal()}>&#10005;</ExitModal>
-          <ModalHeader>The Kidney Exchange Problem</ModalHeader>
-
-          <ModalText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </ModalText>
-          <IntroForm beginSession = {this.props.beginSession}/>
-        </ModalContent>
-      </ModalBackground>
-    </Modal>)
+    (<ModalWrapper
+      header = "The Kidney Exchange Problem"
+      text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      exitFn = {this.props.closeModal}
+    >
+    <IntroForm beginSession = {this.props.beginSession}/>
+  </ModalWrapper>)
     : null;
     return (<div>
             <DecisionPage/>

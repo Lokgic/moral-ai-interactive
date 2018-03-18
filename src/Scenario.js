@@ -139,10 +139,10 @@ export class DataGenerator{
     this.featureNames = featureNames;
   }
   next(){
-    const out = this.loc + 1 >= this.source.length? null : [this.source[this.loc],this.source[this.loc + 1]];
+    const out = this.loc + 1 >= this.source.length? null : [this.source[this.loc],this.source[this.loc + 1]].map(d=>new Person(featureNames,d));
     this.loc += 2;
     // console.log(this.source[this.loc])
-    return out.map(d=>new Person(featureNames,d));
+    return out;
   }
   getTrialLength(){
     return Math.floor(this.source.length/2)

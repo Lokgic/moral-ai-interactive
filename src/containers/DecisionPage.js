@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import ResultPage from '../components/ResultPage'
+import ResultPage from '../components/ResultTable'
 
 import MainView from '../components/CardView'
 import {
@@ -20,7 +20,7 @@ import {iconList as icons} from '../Scenario'
 
 
 
-import DataTable from './Table'
+import DataTable from '../components/Table'
 
 
 
@@ -75,7 +75,6 @@ class DecisionPage extends Component {
             currentChosen,
             makeSelection,
             displayMode,
-            featurePreference,
             features,
             labels,
             randomChoices,
@@ -86,14 +85,19 @@ class DecisionPage extends Component {
             setCurrentRandom,
             currentRandom
         } = this.props
-        const names = person.map(d=>d.features.name)
 
-        const percent = (labels.length/n_trials) * 100
 
         let view
-        if (displayMode === "table") view = <DataTable/>
+        if (displayMode === "result") view = <ResultPage
+                                                features={features}
+                                                labels={labels}
+                                                randomChoices={randomChoices}
+                                                  />
         else {
-          view = labels.length/n_trials < 1? (
+          const names = person.map(d=>d.features.name)
+
+          const percent = (labels.length/n_trials) * 100
+          view = (
 
             <FlexContainer>
             <MainViewContainer>
@@ -133,14 +137,6 @@ class DecisionPage extends Component {
 
               </MainViewContainer>
             </FlexContainer>
-          )
-          : (
-            <ResultPage
-              labels={labels}
-              features={features}
-              randomChoices={randomChoices}
-
-            />
           );
         }
 

@@ -19,31 +19,9 @@ import {
 } from '../components/StyledComponents'
 
 
-import CakeIcon from 'react-icons/lib/fa/birthday-cake'
-import DrinkIcon from 'react-icons/lib/md/local-drink'
-import RunnerIcon from 'react-icons/lib/md/directions-run'
-import HealthIcon from 'react-icons/lib/fa/heartbeat'
-import ChildIcon from 'react-icons/lib/fa/child'
-import CoinIcon from 'react-icons/lib/fa/adjust'
-import ConfirmIcon from 'react-icons/lib/fa/arrow-circle-right'
-
-
 import {randomNormal as rnorm, randomUniform as runif} from 'd3-random'
 
 import ResultPlot from '../components/ResultPlot'
-
-
-const iconStyle = {margin:"auto",width:30, height:30}
-
-const icons = {
-    age: <CakeIcon style={iconStyle}/>,
-    health: <HealthIcon style={iconStyle}/>,
-    exercising: <RunnerIcon style={iconStyle}/>,
-    dependents: <ChildIcon style={iconStyle}/>,
-    drinking: <DrinkIcon style={iconStyle}/>,
-    random: <CoinIcon style={iconStyle}/>,
-    confirm:<ConfirmIcon style={iconStyle}/>
-}
 
 
 
@@ -54,8 +32,8 @@ const makeSamples = (n=500) =>{
   for (let i = 0;i<n;i++){
     samples.push(Math.max(8,Math.min(90,gen())))
   }
-  console.log(samples)
-  return samples
+
+  return samples;
 }
 
 const descDict = {
@@ -76,18 +54,18 @@ const xLabs = {
   "random":["low","high"]
 }
 
-const Badge = props=>{
-  console.log(props)
-  const {id,title,desc} = props.data
-
-
-
-  return (<BadgeContainer>
-    <BadgeHeading>{title}</BadgeHeading>
-    <div style={{margin:'auto'}}>{icons[id]}</div>
-    <BadgeDesc>{desc}</BadgeDesc>
-  </BadgeContainer>)
-}
+// const Badge = props=>{
+//   console.log(props)
+//   const {id,title,desc} = props.data
+//
+//
+//
+//   return (<BadgeContainer>
+//     <BadgeHeading>{title}</BadgeHeading>
+//     <div style={{margin:'auto'}}>{icons[id]}</div>
+//     <BadgeDesc>{desc}</BadgeDesc>
+//   </BadgeContainer>)
+// }
 
 
 
@@ -127,6 +105,7 @@ export default ({features,labels,randomChoices})=>{
     return arr.concat(temp)
   },[])
   const total = data.length
+  console.log(data)
 
 
 
@@ -150,34 +129,6 @@ export default ({features,labels,randomChoices})=>{
   })
   stats["random"] = randomChoices.reduce((count,d)=>count+d,0) /n *100
 
-  const badgeDic = {}
-  const badges = Object.keys(stats).reduce((b,d)=>{
-    if (d==="random") {
-      let badge = null
-      if (stats[d]<10) badge = {"title":"The Decider",id:"random","desc":"Less than 10% of decisions made with coinflips"}
-      else if (stats[d]>50)  badge = {"title":"Indecisive",id:"random","desc":"More than 50% of decisions made with coinflips"}
-      if (badge !== null) b.push(badge)
-    } else if (d==="dependents") {
-      let badge = null
-      if (stats[d]>70) badge = {"title":"Dependable",id:"dependents","desc":"Prefer patients with more dependents 70% of the time"}
-      if (badge !== null) b.push(badge)
-    } else if (d==="drinking") {
-      let badge = null
-      if (stats[d]>70) badge = {"title":"Prefer Drinkers",id:d,"desc":"Prefer patients that drink more frequently 70% of the time"}
-      else if (stats[d]<30)  badge = {"title":"Dislike Drinkers",id:d,"desc":"Prefer patients that drink less frequently 70% of the time"}
-      if (badge !== null) b.push(badge)
-    }else if (d==="age") {
-      let badge = null
-      if (stats[d]<15) badge = {"title":"Children Lover",id:d,"desc":"Prefer patients younger than 15" }
-      else if (stats[d]>50)  badge = {"title":"Respect Elders ",id:d,"desc":"Prefer patients older than 50" }
-      if (badge !== null) b.push(badge)
-    }
-    return b
-  },[])
-
-  console.log(data)
-  console.log(stats)
-
   return (
       <FlexContainer>
         <AutoMarginWrapper style={{maxWidth:1000}}>
@@ -186,7 +137,7 @@ export default ({features,labels,randomChoices})=>{
           ABOUT YOU..
         </MessageTop>
         <ResultPageFlex>
-          {badges.map(obj=>(<Badge data={obj} key = {obj.id+"badge"}/>))}
+          {/* {badges.map(obj=>(<Badge data={obj} key = {obj.id+"badge"}/>))} */}
         </ResultPageFlex>
         <MessageTop style={{textAlign:"center","marginBottom":50}}>
           YOU VS EVERYONE ELSE

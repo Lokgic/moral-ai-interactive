@@ -113,7 +113,7 @@ export default class ResultTable extends Component{
                 {subI===0?<ResultTableCell
                   type={type}
                   rowSpan="2"
-                  >{mainI}</ResultTableCell>:null}
+                  >{mainI+1}</ResultTableCell>:null}
                 {innerRowFeat.map(d=>
                   (<ResultTableCell
                       type={type}

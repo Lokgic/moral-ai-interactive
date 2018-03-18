@@ -50,6 +50,8 @@ class DecisionPage extends Component {
 
 
           if (features.length>DPSubmitted){
+            console.log(features.length)
+            console.log(DPSubmitted)
             postDps(
               {
               features:features[DPSubmitted],

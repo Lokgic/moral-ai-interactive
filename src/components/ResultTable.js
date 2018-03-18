@@ -71,6 +71,7 @@ export default class ResultTable extends Component{
     getShit()
     .then((res) => { return res.json() })
     .then(d=>{
+      // console.log(d)
       const stat = d.map((d,i)=>{
         const random = Math.round(d.random/d.total / 100 * 10000) + "%"
         const left = Math.round(d.left/d.total / 100 * 10000)
@@ -94,6 +95,7 @@ export default class ResultTable extends Component{
     (
       <div>
       <ResultTableEl>
+        <tbody>
         <ResultTableRow>
 
 
@@ -104,26 +106,28 @@ export default class ResultTable extends Component{
           {
             rows.map((row,ri)=>{
               const subI = ri%2
-              const mainI = (Math.floor(ri/2) + 1)
-              const type = mainI%2===0?"a":"b"
+              const mainI = Math.floor(ri/2)
+              const type = (mainI+1)%2===0?"a":"b"
             return  (
-              <ResultTableRow>
+              <ResultTableRow key={`${ri}row`}>
                 {subI===0?<ResultTableCell
                   type={type}
-                  rowSpan="2">{mainI}</ResultTableCell>:null}
+                  rowSpan="2"
+                  >{mainI}</ResultTableCell>:null}
                 {innerRowFeat.map(d=>
                   (<ResultTableCell
                       type={type}
+                      key={`${d}_feat_${ri}`}
                     >{row[d]}</ResultTableCell>)
                 )}
                 {subI===0?
-                    ["random","left","right","decision"].map(h=>(<ResultTableCell type={type} rowSpan="2">{statReady?stat[mainI-1][h]:loading}</ResultTableCell>))
+                    ["random","left","right","decision"].map(h=>(<ResultTableCell key={`${h}_cell${ri}`} type={type} rowSpan="2">{statReady?stat[mainI][h]:loading}</ResultTableCell>))
                   :null}
               </ResultTableRow>
             )}
           )
           }
-
+      </tbody>
       </ResultTableEl>
 
     </div>

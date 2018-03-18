@@ -42,7 +42,7 @@ class PersonCard extends Component{
   render(){
     const props = this.props
     const {features} = props.person
-    console.log(features)
+    // console.log(features)
     const {name} = features
     const { chosen,mouseOver,mouseOverState,setCurrentChosen,loc} = props
 

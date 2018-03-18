@@ -9,7 +9,7 @@ export default class Person {
 
     const name = Object.keys(features).indexOf('name') === -1? chance.name().split(' ')
 :  features.name.split(' ')
-  console.log(name[0][0])
+  // console.log(name[0][0])
 
     this.features = {
                     ...features,

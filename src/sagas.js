@@ -2,23 +2,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import axios from 'axios';
 import {featureNames} from './Scenario'
 
-// const PostDPSApi = (DPArray)=>{
-//     fetch('http://localhost:5000/post-dp', {
-//         method: 'POST',
-//         headers : new Headers(),
-//         body:JSON.stringify({
-//         	"session_id":"2323213",
-//         	"name":"WKK",
-//         	"age":55,
-//         	"health":3,
-//         	"exercise":2,
-//         	"dependents":2,
-//         	"delay":323
-//         })
-//     }).then((res) => res.json())
-//     .then((data) =>  console.log(data))
-//     .catch((err)=>console.log(err))
-// }
+
 
 const postURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/post-dps':'https://moralai.herokuapp.com/post-dps';
 const getURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/getAllDps':'https://moralai.herokuapp.com/get-dps';
@@ -38,38 +22,55 @@ function* fetchDPS(){
 
 }
 
-function* postDPS(action){
-  const {
-    features,
-    DPSubmitted,
-    labels,
-    random,
-    delay,
-    postDps,
-    uuid,
-    startend,
-    scenarioId,
-    trial
-  } = action.data
 
+
+function* postDPS(action){
+
+  // const {
+  //   features,
+  //   DPSubmitted,
+  //   labels,
+  //   random,
+  //   delay,
+  //   postDps,
+  //   uuid,
+  //   startend,
+  //   scenarioId,
+  //   trial
+  // } = action.payload
+
+    const {data} = action;
+    yield put({type:"SELECTION",data})
+    const {
+      left,
+      right,
+      decision,
+      random,
+      scenarioId,
+      uuid,
+      delay,
+      start,
+      end,
+      trial
+    } = action.data
   let payload = {
     scenario_id:scenarioId,
     random,
     delay,
-    start:startend[0],
-    end:startend[1],
+    start,
+    end,
     trial,
-    decision:labels.indexOf(1),
+    decision,
     user_id:uuid,
-    left_name:features[0].name,
-    right_name:features[1].name,
+    left_name:left.name,
+    right_name:right.name,
   }
   const order = ["left","right"]
-  for (let i = 0;i<2;i++){
-      payload[order[i]] = featureNames.map(d=>features[i][d])
+  for (let o of order){
+      payload[o] = featureNames.map(d=>data[o][d])
     }
 
-
+console.log(payload)
   const d = {
       method: 'post',
       // mode: 'no-cors',
@@ -96,7 +97,7 @@ function* postDPS(action){
 
 function* mySaga(){
   yield takeEvery("GET_ALL_DPS",fetchDPS)
-  yield takeEvery("POST_DPS",postDPS)
+  yield takeEvery("SEND_SELECTION",postDPS)
 }
 
 

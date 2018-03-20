@@ -507,7 +507,7 @@ color:white;
 export const ModalText = styled.p`
   font-size: 0.8em;
   color:grey;
-  text-align: justify;
+  text-align:left;
 `
 
 export const FormLabel = styled.label`
@@ -526,6 +526,12 @@ border: none;
 cursor: pointer;
 color:grey;
 font-size: 1em;
+`
+
+
+export const InstructionContainer = styled.div`
+  height:200px;
+
 `
 // Result page
 

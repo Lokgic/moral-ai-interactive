@@ -31,46 +31,41 @@ const devMode = true
 
 
 class DecisionPage extends Component {
+  constructor(props){
+    super(props)
+    this.handleSelection = this.handleSelection.bind(this)
+  }
+  handleSelection(decision,random){
+    const {
+      person,
+      uuid,
+      trial,
+      makeSelection,
+      timestamp
+    } = this.props
+    const end = Date.now();
+    const start = timestamp;
+    const delay = end - start;
+    const left = person[0].features;
+    const scenarioId = left.scenarioId;
+    const right = person[1].features;
+    makeSelection({
+      left,
+      right,
+      decision,
+      random,
+      scenarioId,
+      uuid,
+      delay,
+      start,
+      end,
+      uuid,
+      trial
+    })
+
+  }
 
 
-    componentWillReceiveProps(nextProps){
-    try{
-      const {
-        features,
-        DPSubmitted,
-        labels,
-        randomChoices,
-        delay,
-        postDps,
-        uuid,
-        startend,
-        scenarioId,
-        trial
-      } = nextProps;
-
-
-          if (features.length>DPSubmitted){
-            console.log(features.length)
-            console.log(DPSubmitted)
-            postDps(
-              {
-              features:features[DPSubmitted],
-              index:DPSubmitted,
-              labels:labels[DPSubmitted],
-              random:randomChoices[DPSubmitted],
-              delay:delay[DPSubmitted],
-              startend:startend[DPSubmitted],
-              uuid,
-              scenarioId,
-              trial
-            } )
-          }
-    } catch(e){
-      console.log(e)
-      return e
-    }
-
-    }
     render() {
         const {
             person,
@@ -85,7 +80,8 @@ class DecisionPage extends Component {
             mouseOver,
             setCurrentChosen,
             setCurrentRandom,
-            currentRandom
+            currentRandom,
+            delay
         } = this.props
 
 
@@ -94,6 +90,7 @@ class DecisionPage extends Component {
                                                 features={features}
                                                 labels={labels}
                                                 randomChoices={randomChoices}
+                                                delay={delay}
                                                   />
         else {
           const names = person.map(d=>d.features.name)
@@ -131,7 +128,7 @@ class DecisionPage extends Component {
                           currentChosen={currentChosen}
                           setCurrentChosen={setCurrentChosen}
                           setCurrentRandom={setCurrentRandom}
-                          makeSelection={makeSelection}
+                          makeSelection={this.handleSelection}
                           currentRandom={currentRandom}
                           trial={{n:n_trials,index:labels.length}}
                           percent={percent}
@@ -149,10 +146,9 @@ class DecisionPage extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        makeSelection: (sel,random=0) => {
-            let choice = [0,0]
-            choice[sel] = 1
-            return dispatch({type: "SELECTION", choice,random})
+        makeSelection: (data) => {
+
+            return dispatch({type: "SEND_SELECTION", data})
               },
         chooseFeature: feature => dispatch({type: "CHOOSE_FEATURE", feature}),
         addFeature: feature => dispatch({type: "ADD_FEATURE", feature}),

@@ -82,26 +82,25 @@ export const reducer = (state = initialState, action)=>{
         nextFeature: action.feature
       }
     case "SELECTION":{
-      const end = Date.now();
-      const start = state.timestamp
-      const delay = end - start
+      // const end = Date.now();
+      // const start = state.timestamp
+      // const delay = end - start
+      const {data} = action;
       const person = dg.next();
       const displayMode = person === null? "result" : "decision";
        return {
          ...state,
-         labels:[...state.labels, action.choice],
-         features:[...state.features, [state.person[0].features,state.person[1].features]],
+         labels:[...state.labels, data.decision],
+         features:[...state.features, [data.left,data.right]],
          currentChosen:-1,
          currentRandom:0,
-         randomChoices:[...state.randomChoices,action.random],
-         delay:[...state.delay, delay],
-         startend:[...state.startend,[start,end]],
+         randomChoices:[...state.randomChoices,data.random],
+         delay:[...state.delay, data.delay],
+         startend:[...state.startend,[data.start,data.end]],
          mouseOverState:"default",
          timestamp:Date.now(),
         person,
-        displayMode,
-        datapointSubmitted:0,
-        scenarioId:state.scenarioId+1
+        displayMode
 
        }
      }

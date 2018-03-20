@@ -5,7 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import {Icon,translationList} from '../Scenario'
+import {Icon,translationList, featureNames} from '../Scenario'
 import {ResultTableEl,ResultTableHead,ResultTableRow,ResultTableCell} from './StyledComponents'
 const getURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/get-stat':'https://moralai.herokuapp.com/get-stat';
 
@@ -17,18 +17,7 @@ const loading = (<FontAwesomeIcon
   spin
 />)
 
-// const styles = theme => ({
-//   root: {
-//     width: '100%',
-//     maxWidth:'1200px',
-//     maxHeight:'1200px',
-//     margin: 'auto',
-//     overflowX: 'auto',
-//   },
-//   table: {
-//     minWidth: '700px',
-//   },
-// });
+
 
 
 export default class ResultTable extends Component{
@@ -37,7 +26,7 @@ export default class ResultTable extends Component{
     const {features, labels, randomChoices} = props;
     const columns = ["scenario",
       "name","age","health","crime","drinking","dependents",
-      "random(all)", "left(all)","right(all)","your decision"
+      "random(all)", "left(all)","right(all)","your decision","seconds(average)","seconds(you)"
                 ]
 
 
@@ -52,10 +41,11 @@ export default class ResultTable extends Component{
         // }
         let cell ={}
 
-        for (let feat in d[person]){
+        for (let feat of featureNames){
 
           cell[feat] = translationList[feat](d[person][feat])
         }
+        cell["name"] = d[person].name
         acc.push(cell)
       }
 
@@ -67,7 +57,7 @@ export default class ResultTable extends Component{
     this.state={rows,columns,stat:null,statReady:false}
   }
   componentDidMount(){
-    const {labels, randomChoices} = this.props
+    const {labels, randomChoices, features,delay} = this.props
     getShit()
     .then((res) => { return res.json() })
     .then(d=>{
@@ -76,9 +66,11 @@ export default class ResultTable extends Component{
         const random = Math.round(d.random/d.total / 100 * 10000) + "%"
         const left = Math.round(d.left/d.total / 100 * 10000)
         const right = Math.round(100 - left) + "%"
-        const decision = randomChoices[i]===1? "random": ["left","right"][labels[i].indexOf(1)]
+        const decision = randomChoices[i]===1? "random": [`${features[i][0].name}(L)`,`${features[i][1].name}(R)`][labels[i]]
+        const avgDelay = d.delay
+        const yourDelay = delay[i]/1000
         return {
-          random, left:left+"%", right , decision
+          random, left:left+"%", right , decision, avgDelay, yourDelay
 
         }
       })
@@ -121,7 +113,7 @@ export default class ResultTable extends Component{
                     >{row[d]}</ResultTableCell>)
                 )}
                 {subI===0?
-                    ["random","left","right","decision"].map(h=>(<ResultTableCell key={`${h}_cell${ri}`} type={type} rowSpan="2">{statReady?stat[mainI][h]:loading}</ResultTableCell>))
+                    ["random","left","right","decision","avgDelay","yourDelay"].map(h=>(<ResultTableCell key={`${h}_cell${ri}`} type={type} rowSpan="2">{statReady?stat[mainI][h]:loading}</ResultTableCell>))
                   :null}
               </ResultTableRow>
             )}

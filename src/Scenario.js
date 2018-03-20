@@ -27,7 +27,13 @@ import faBlind  from '@fortawesome/fontawesome-free-solid/faBlind'
 export const Icon = ({icon,style})=>(
   <FontAwesomeIcon
     icon={getIcon[icon]}
-    style={{width:"100%",height:"100%"}}
+    style={
+      {
+        width:"100%",
+        height:"100%",
+        ...style
+      }
+    }
   />)
 
 
@@ -110,7 +116,7 @@ export const translationList = {
   name:d=>d,
   age:d=>d,
   health:d=>["none","minor","serious"][d],
-  drinking:d=>["none", "moderate pre-diagnosis", "abusive pre-diagnosis", "moderate post-diagnosis", "abusive post-diagnosis"][d],
+  drinking:d=>["none", "moderate(pre-diagnosis)", "abusive(pre-diagnosis)", "moderate(post-diagnosis)", "abusive(post-diagnosis)"][d],
   crime:d=>["none","misdemeanor","non-violent felony","violent felony","multiple violent felonies"][d],
   dependents:d=>makeDepIcons(d),
   random:d=>["choice","random"][d],

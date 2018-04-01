@@ -35,7 +35,7 @@ class Modal extends Component{
 export default props=>(
   <Modal>
     <ModalBackground>
-      <ModalContent>
+      <ModalContent style={props.contentStyle}>
            <ExitModal onClick={props.exitFn}>&#10005;</ExitModal>
            {props.header? (<ModalHeader>{props.header}</ModalHeader>):null}
            {props.text? <ModalText>{props.text}</ModalText>:null}

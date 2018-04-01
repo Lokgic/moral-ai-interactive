@@ -10,12 +10,19 @@ import {
   InputField,
   InputSubmit,
   FormLabel,
-  InstructionContainer
+  InstructionContainer,
+  ExplanationContainer,
+  ExpCard,
+  ExpText
 } from '../components/StyledComponents'
 import {connect} from 'react-redux'
 import DecisionPage from './DecisionPage'
 import Carousel from 'nuka-carousel';
-import {Icon,translationList} from '../Scenario'
+import {Icon,translationList,featureNames,featureExplanation} from '../Scenario'
+
+
+
+
 class IntroForm extends Component{
   constructor(props){
     super(props);
@@ -65,37 +72,64 @@ class Controller extends Component {
   }
 
   render(){
+    const Intro =   (<ModalWrapper
+        header = "The Kidney Exchange Problem"
+        exitFn = {this.props.closeModal}
+        contentStyle = {{  width:'300px'}}
+      >
+        <InstructionContainer>
+          <ModalText>Who should get the kidney? You will be shown two patients, both in need the same kidney, and you get to decide who gets it. After a number of scenarios, you will see a summary of your judgements and how it compares to others. Enter a user name and a trial ID (optional) to begin.
+          </ModalText>
+        </InstructionContainer>
+      <IntroForm beginSession = {this.props.beginSession}/>
+    </ModalWrapper>)
+    const Exp = (
+      <ModalWrapper
+        header = "Categories"
+        exitFn = {this.props.closeModal}>
 
-    const modal = this.props.modal?
-    (<ModalWrapper
-      header = "The Kidney Exchange Problem"
-      // text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      exitFn = {this.props.closeModal}
-    >
-    <Carousel>
-      <InstructionContainer>
-        <ModalText>[Introduction example] Who should get the kidney? You will be shown two patients, both in need a kidney of the same type. User ID and trial ID are optional. If no user id is entered, a random ID will be assigned in the database. 
-        </ModalText>
-        <ModalText> Press "Next" for more information.
-        </ModalText>
-      </InstructionContainer>
-      <InstructionContainer>
-      <ModalText>  [Explanation goes here] The number of dependents is represented by the icon. For instance, {translationList['dependents'](2)} means one elderly dependent, and  {translationList['dependents'](3)} means one young and one old.
+        <ExplanationContainer>
 
-      </ModalText>
-      </InstructionContainer>
-      <InstructionContainer>
-        <ModalText>There are currently 20 preset scenarios. After 20 scenarios a summary of decisions and comparison will be given.
-        </ModalText>
-      </InstructionContainer>
-      <InstructionContainer>
-        <ModalText>Further explanation will be added.
-        </ModalText>
-      </InstructionContainer>
-    </Carousel>
-    <IntroForm beginSession = {this.props.beginSession}/>
-  </ModalWrapper>)
-    : null;
+          {featureNames.map(d=>{
+            return (
+              <ExpCard key={`expCard_${d}`}>
+                <h3
+                  style={{  textAlign: 'center'}}
+                  >{d}</h3>
+                <Icon
+                  icon={d}
+                  style={
+                    {
+                      width:30,
+                      height:30,
+                      margin:"auto"
+                    }
+                    }/>
+                <ExpText>
+                  {featureExplanation[d]}
+                </ExpText>
+              </ExpCard>)
+          })}
+        </ExplanationContainer>
+
+      </ModalWrapper>
+    )
+    let modal
+    switch(this.props.modal){
+      case 1:
+        modal = Intro;
+        break;
+      case 2:
+        modal = Exp;
+        break;
+      default:
+        modal = null
+    }
+    // const modal = this.props.modal?
+    // Intro
+    // : null;
+
+
     return (<div>
             <DecisionPage/>
             {modal}

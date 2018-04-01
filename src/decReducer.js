@@ -3,16 +3,7 @@ import {v1} from 'uuid';
 import dataSource from "./data/MockData"
 
 
-
-
-
-
-
-
 const dg = new DataGenerator(dataSource)
-
-
-
 
 
 export const initialState = {
@@ -61,7 +52,7 @@ export const reducer = (state = initialState, action)=>{
 
       return {
         ...state,
-        modal:0,
+        modal:2,
         timestamp:Date.now(),
         uuid,trial
       }

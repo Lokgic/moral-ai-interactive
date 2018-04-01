@@ -14,7 +14,7 @@ import {
 
 
 
-import {iconList as icons} from '../Scenario'
+import {Icon} from '../Scenario'
 
 
 
@@ -81,7 +81,8 @@ class DecisionPage extends Component {
             setCurrentChosen,
             setCurrentRandom,
             currentRandom,
-            delay
+            delay,
+            setModal
         } = this.props
 
 
@@ -111,6 +112,11 @@ class DecisionPage extends Component {
                   the kidney ?
                 </QuestionBottom>
                 <MessageContainer>
+                  <span   onClick = {()=>setModal(2)}>  <Icon
+                      icon="question"
+                      style = {{height:20,cursor:'pointer'}}
+
+                    /></span>
 
                   {/* <MessageBottom>
                     {MouseOverHelper(mouseOverState)}
@@ -159,6 +165,7 @@ const mapDispatchToProps = dispatch => {
         setCurrentRandom:()=>dispatch({type:"SET_CURRENT_RANDOM"}),
         getAllDps:()=>dispatch({type:"GET_ALL_DPS"}),
         postDps:data=>dispatch({type:"POST_DPS",data}),
+        setModal:value=>dispatch({type:"SET_MODAL",value})
 
     }
 }

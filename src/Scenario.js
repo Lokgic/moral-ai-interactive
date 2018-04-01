@@ -11,6 +11,8 @@ import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
 import faStethoscope from '@fortawesome/fontawesome-free-solid/faStethoscope'
 import faChild  from '@fortawesome/fontawesome-free-solid/faChild'
 import faBlind  from '@fortawesome/fontawesome-free-solid/faBlind'
+import faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle'
+
 
 
  const getIcon = {
@@ -19,7 +21,10 @@ import faBlind  from '@fortawesome/fontawesome-free-solid/faBlind'
   crime:faGavel,
   dependents:faUsers,
   user:faUser,
-  health:faStethoscope
+  health:faStethoscope,
+  child:faChild,
+  elder:faBlind,
+  question:faQuestionCircle
 }
 
 
@@ -36,7 +41,15 @@ export const Icon = ({icon,style})=>(
     }
   />)
 
-
+export const featureExplanation = {
+  "age":"Should age matter? Are younger or older patient more deserving of a kidney? You have to decide!",
+  drinking:"Should we consider a patient's drinking habits? You will know patient's drinking habit before and after the diagnosis. ",
+  crime:"Should we judge someone by his/her criminal record? Does the nature of the crime matter?",
+  dependents:(<span>Sometimes a patient has someone depending on them - it could be a child or an elderly person such as a parent.
+    Each dependent is represented with an icon. For example,
+    <Icon icon="child" style={{"width":15}}/><Icon icon="elder" style={{"width":15}}/> means the patient has one child dependent and one elder dependent.</span>),
+  health:"A patient might have additional non-kidney related health problems. This may affect how healthy they will be after receving a kidney."
+}
 
 const rnorm = (mu=2,sigma=1,min=0,max=4)=>{
   const gen = randomNormal(mu,sigma)
@@ -58,7 +71,7 @@ export const featureNames = ["age","health","drinking","crime","dependents"]
 
 export const featureList = {
   "age":"age",
-  drinking:"drinking habit",
+  drinking:"pre|post diagnosis drinking habit",
   crime:"criminal record",
   exercising: "exercising habit",
   dependents:"dependents",
@@ -112,11 +125,22 @@ const makeDepIcons = i=>{
 }
 
 
+const makeDrinkIcons = d=>{
+
+  const pre = ["none","moderate","abusive","none","none"]
+  const post = ["none","none","none","moderate","abusive"]
+  return (
+    <div><span> {pre[d] }</span> <span> | </span><span> {post[d]} </span></div>
+  )
+}
+
+
 export const translationList = {
   name:d=>d,
   age:d=>d,
   health:d=>["none","minor","serious"][d],
-  drinking:d=>["none", "moderate(pre-diagnosis)", "abusive(pre-diagnosis)", "moderate(post-diagnosis)", "abusive(post-diagnosis)"][d],
+  drinking:d=>makeDrinkIcons(d),
+  // drinking:d=>["none", "moderate(pre-diagnosis)", "abusive(pre-diagnosis)", "moderate(post-diagnosis)", "abusive(post-diagnosis)"][d],
   crime:d=>["none","misdemeanor","non-violent felony","violent felony","multiple violent felonies"][d],
   dependents:d=>makeDepIcons(d),
   random:d=>["choice","random"][d],

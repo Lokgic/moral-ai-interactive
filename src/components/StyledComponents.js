@@ -457,7 +457,6 @@ export const ModalBackground = styled.div`
 
 export const ModalContent = styled.div`
   background-color: #f4f7f8;
-  width:300px;
   margin: auto;
   padding: 0 20px;
   border-radius: 10px;
@@ -532,6 +531,62 @@ font-size: 1em;
 export const InstructionContainer = styled.div`
   height:200px;
 
+`
+
+
+export const ExplanationContainer = styled.div`
+  width:80vh;
+  max-width: 1000px;
+  max-height: 80vh;
+  display: flex;
+  flex-wrap:wrap;
+  padding:20px;
+  overflow-y: scroll;
+  @media (max-width:${breakpoint2}) {
+    width:800px;
+    padding:5;
+
+  }
+  @media (max-width:${breakpoint1}) {
+    width:350px;
+    padding:0px;
+
+  }
+
+`
+export const ExpText = styled.div`
+  margin: auto;
+  font-size: 12px;
+  text-align: justify;
+
+
+`
+export const ExpCard = styled.div`
+  width:250px;
+  margin: auto;
+  height:250px;
+
+  ${'' /* background: #608796; */}
+  ${'' /* padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+             0 1px 5px 0 rgba(0, 0, 0, 0.12),
+             0 3px 1px -2px rgba(0, 0, 0, 0.2); */}
+  cursor:pointer;
+  display:flex;
+  flex-direction: column;
+  ${'' /* @media (max-width: ${breakpoint2}){
+    flex-grow: 2
+    border-width: 5px;
+  }
+  @media (max-width: ${breakpoint1}){
+    padding: 2px;
+    width:35%;
+    padding: 10px;
+  }
+ &:hover {
+   border-color: ${props => props.focused ? 'rgba(0, 0, 0, 0.5)' :'rgba(0, 0, 0, .2)'};
+ } */}
 `
 // Result page
 

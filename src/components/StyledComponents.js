@@ -558,6 +558,7 @@ export const ExpText = styled.div`
   margin: auto;
   font-size: 12px;
   text-align: justify;
+  padding: 0 5px;
 
 
 `

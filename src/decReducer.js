@@ -7,7 +7,7 @@ const dg = new DataGenerator(dataSource)
 
 
 export const initialState = {
-  uuid: v1(),
+  uuid: "",
   person:dg.next(),
   DPSubmitted:0,
   availableFeatures:{...featureList},
@@ -22,7 +22,7 @@ export const initialState = {
   startend:[],
   delay:[],
   scenarioId:0,
-  trial:0,
+  trial:"",
   displayMode:"decision",
   modal:1,
   mouseOverState:"default"

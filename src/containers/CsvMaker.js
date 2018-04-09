@@ -1,6 +1,11 @@
 import React,{Component} from "react"
 import {connect} from 'react-redux'
-
+import {
+  Form,
+  InputField,
+  InputSubmit,
+  FormLabel
+} from '../components/StyledComponents'
 const getURL = process.env.NODE_ENV ==="development"? 'http://localhost:5000/get-dps':'https://moralai.herokuapp.com/get-dps';
 
 const getShit = async ()=> await fetch(getURL,{method:'get'})
@@ -8,7 +13,9 @@ const getShit = async ()=> await fetch(getURL,{method:'get'})
 class CsvMaker extends Component{
   constructor(props){
     super(props)
-    this.state = {csv:null}
+    this.state = {csv:null,ok:"BycfRbMVJSEnPLWjg",passed:false,"input":''}
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount(){
     const t = {
@@ -44,11 +51,36 @@ class CsvMaker extends Component{
                  return data
                   });
   }
+  handleChange(event) {
+   this.setState({input:event.target.value})
+ }
+
+ handleSubmit(event) {
+
+   if (this.state.ok === this.state.input){
+     this.setState({passed:true})
+   }
+   event.preventDefault();
+ }
   render(){
-    return this.state.csv === null? (<p>fetching...</p>)
-    :<a href={this.state.csv} download="data.csv">
-      Click here to download csv file
-    </a>
+
+    if (!this.state.passed){
+      return (
+        <Form  onSubmit={this.handleSubmit}>
+          <FormLabel>Hello there</FormLabel>
+          <InputField type="password" onChange={this.handleChange}/>
+          <InputSubmit type="submit" value="Hello"/>
+
+        </Form>
+      )
+    } else{
+      return this.state.csv === null? (<p>fetching...</p>)
+      :<a href={this.state.csv} download="data.csv">
+        Click here to download csv file
+      </a>
+    }
+
+
   }
 }
 

@@ -6,6 +6,21 @@ const breakpoint2 = "1200px"
 const phoneBreakpoint = "520px"
 // SVG Icons
 
+export const TopBar = styled.div`
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: right;
+  padding-right: 10px;
+  font-family: 'Open Sans', sans-serif;
+
+
+`
+
+export const TopBarLink = styled.a`
+text-decoration: none;
+color:#177a9d;
+`
 
 export const FeatureIcon = styled.div`
   display: inline-block;
@@ -471,7 +486,8 @@ export const ModalContent = styled.div`
 `
 
 export const ModalHeader = styled.h3`
-  justify-content: center;
+  text-align: center;
+  width:100%;
 `
 
 export const Form = styled.form`
@@ -529,7 +545,24 @@ font-size: 1em;
 
 
 export const InstructionContainer = styled.div`
-  height:200px;
+width:80vh;
+max-width: 1000px;
+max-height: 80vh;
+display: flex;
+flex-wrap:wrap;
+padding:20px;
+overflow-y: scroll;
+@media (max-width:${breakpoint2}) {
+  width:800px;
+  padding:5;
+
+}
+@media (max-width:${breakpoint1}) {
+  width:350px;
+  padding:0px;
+
+}
+
 
 `
 

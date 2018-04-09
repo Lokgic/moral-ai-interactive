@@ -8,7 +8,9 @@ import {
   MainViewContainer,
   QuestionTop,
   QuestionBottom,
-  MessageContainer
+  MessageContainer,
+  TopBar,
+  TopBarLink
 } from '../components/StyledComponents'
 
 
@@ -100,6 +102,7 @@ class DecisionPage extends Component {
           view = (
 
             <FlexContainer>
+              <TopBar><TopBarLink href="http://moralai.cs.duke.edu/about.html">Duke Moral AI Group</TopBarLink></TopBar>
             <MainViewContainer>
               {/* <MessageTop>
                 Both of these individuals are in need of a kidney, but there is only one.
@@ -118,10 +121,6 @@ class DecisionPage extends Component {
 
                     /></span>
 
-                  {/* <MessageBottom>
-                    {MouseOverHelper(mouseOverState)}
-
-                  </MessageBottom> */}
 
 
                 </MessageContainer>

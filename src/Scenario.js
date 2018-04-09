@@ -74,7 +74,7 @@ export const featureList = {
   drinking:"pre|post diagnosis drinking habit",
   crime:"criminal record",
   exercising: "exercising habit",
-  dependents:"dependents",
+  dependents:"young|old dependents",
   health:"additional health problems"
 }
 
@@ -118,6 +118,7 @@ const makeDepIcons = i=>{
         for (let k = 0; k<value;k++){
           acc.push(<FontAwesomeIcon key = {`${['faChild','faBlind'][i]}_${k}`}icon = {[faChild,faBlind][i]} style={{width:"20px",height:"20px"}}/>)
       }
+      if (i===0) acc.push("|")
       return acc;
       },[])
     }

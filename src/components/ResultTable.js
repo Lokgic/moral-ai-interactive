@@ -86,6 +86,17 @@ export default class ResultTable extends Component{
     return rows===null?null:
     (
       <div>
+        <div
+          style={
+            {
+              fontFamily:'Open Sans',
+              textAlign:"center",
+              color:"177a9d",
+              fontSize:'1.5em'
+            }
+          }
+
+          >Thank you for participating! You can see how you compare to others below. Please take our <a href="https://goo.gl/forms/fIHzYfJ2LvKNOyVH2">survey</a>.</div>
       <ResultTableEl>
         <tbody>
         <ResultTableRow>

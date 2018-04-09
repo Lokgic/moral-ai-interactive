@@ -19,7 +19,7 @@ import {connect} from 'react-redux'
 import DecisionPage from './DecisionPage'
 import Carousel from 'nuka-carousel';
 import {Icon,translationList,featureNames,featureExplanation} from '../Scenario'
-
+import WeRobotIntro from '../data/WeRobotIntro'
 
 
 
@@ -44,11 +44,11 @@ class IntroForm extends Component{
      <Form onSubmit={this.handleSubmit}>
 
        <FormLabel>
-         User ID
-         <InputField placeholder = "email or username" type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
+         Email
+         <InputField placeholder = "email" type="text" value={this.state.uid} onChange={e=>this.handleChange("uid",e)} />
        </FormLabel>
        <FormLabel>
-         trial id
+         display name
          <InputField
            type="text"
            value={this.state.trial}
@@ -69,18 +69,23 @@ const  iconSty = {"height":"15x","weight":"15px"}
 class Controller extends Component {
   constructor(props){
     super(props);
+    console.log(props)
+
   }
 
   render(){
+    const {weRobot} = this.props
     const Intro =   (<ModalWrapper
-        header = "The Kidney Exchange Problem"
+        header = "Who should get the kidney? "
         exitFn = {this.props.closeModal}
-        contentStyle = {{  width:'300px'}}
+        // contentStyle = {{  width:'300px'}}
       >
+      { weRobot?
+           <WeRobotIntro/>:
         <InstructionContainer>
           <ModalText>Who should get the kidney? You will be shown two patients, both in need the same kidney, and you get to decide who gets it. After a number of scenarios, you will see a summary of your judgements and how it compares to others. Enter a user name and a trial ID (optional) to begin.
           </ModalText>
-        </InstructionContainer>
+        </InstructionContainer>}
       <IntroForm beginSession = {this.props.beginSession}/>
     </ModalWrapper>)
     const Exp = (

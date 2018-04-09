@@ -55,6 +55,7 @@ class App extends Component {
           <Switch>
           <Route exact path = '/' component = {Controller}/>
           <Route path = '/csv' component = {CsvMaker}/>
+          <Route path = '/werobot2018' render = {props=><Controller {...props} weRobot={true}/>}/>
           <Route component={Controller}/>
           </Switch>
 

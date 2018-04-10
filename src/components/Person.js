@@ -1,27 +1,20 @@
-import Chance from 'chance'
-const chance = new Chance()
-
-
-
+import Chance from 'chance';
+const chance = new Chance();
 
 export default class Person {
-  constructor(featureList,features){
-
-    const name = Object.keys(features).indexOf('name') === -1? chance.name().split(' ')
-:  features.name.split(' ')
-  // console.log(name[0][0])
+  constructor(featureList, features) {
+    const name =
+      Object.keys(features).indexOf('name') === -1
+        ? chance.name().split(' ')
+        : features.name.split(' ');
 
     this.features = {
-                    ...features,
-                    name:`${name[0][0]}. ${name[1][0]}.`
-                  }
-
+      ...features,
+      name: `${name[0][0]}. ${name[1][0]}.`
+    };
   }
 
-  getFeatures(){
-    return this.features
+  getFeatures() {
+    return this.features;
   }
-
-
-
 }

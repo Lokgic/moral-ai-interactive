@@ -120,8 +120,11 @@ export default class ResultTable extends Component {
             fontSize: '1.5em'
           }}
         >
-          Thank you for participating! You can see how you compare to others
-          below. Please take our{' '}
+          Thanks for participating! Be on the look out for an email with your
+          results and individual preference model and cluster membership. Don’t
+          forget to pick up your cluster sticker on the 14th and come to our
+          discussion! In the meantime feel free to give us some more feedback on
+          this{' '}
           <a href="https://goo.gl/forms/fIHzYfJ2LvKNOyVH2">optional survey</a>.
         </div>
         <ResultTableEl>

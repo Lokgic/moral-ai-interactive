@@ -47,8 +47,8 @@ export const featureExplanation = {
       Sometimes a patient has someone depending on them - it could be a child or
       an elderly person such as a parent. Each dependent is represented with an
       icon. For example,
-      <Icon icon="child" style={{ width: 15 }} />
-      <Icon icon="elder" style={{ width: 15 }} /> means the patient has one
+      <Icon icon="child" style={{ width: 10 }} /> |
+      <Icon icon="elder" style={{ width: 10 }} /> means the patient has one
       child dependent and one elder dependent. Should the number and relative
       age of the people depending on the patient affect whether they get
       priority in kidney exchanges?

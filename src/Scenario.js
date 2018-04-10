@@ -37,12 +37,11 @@ export const Icon = ({ icon, style }) => (
 );
 
 export const featureExplanation = {
-  age:
-    'Should age matter? Are younger or older patient more deserving of a kidney? You have to decide!',
+  age: 'Should age matter? Should preference be given to younger patients?',
   drinking:
-    "Should we consider a patient's drinking habits? You will know patient's drinking habit before and after the diagnosis. ",
+    "Should we consider a patient's drinking habits when allocating a kidney? Does it matter if the patient’s drinking habits changed after they were diagnosed with a kidney problem? You will know the drinking habits of a patient both before and after the diagnosis.  ",
   crime:
-    'Should we judge someone by his/her criminal record? Does the nature of the crime matter?',
+    'Should we judge someone by his/her criminal record when distributing kidneys? Does the nature of the crime matter? Or patterns of behavior?',
   dependents: (
     <span>
       Sometimes a patient has someone depending on them - it could be a child or
@@ -50,11 +49,13 @@ export const featureExplanation = {
       icon. For example,
       <Icon icon="child" style={{ width: 15 }} />
       <Icon icon="elder" style={{ width: 15 }} /> means the patient has one
-      child dependent and one elder dependent.
+      child dependent and one elder dependent. Should the number and relative
+      age of the people depending on the patient affect whether they get
+      priority in kidney exchanges?
     </span>
   ),
   health:
-    'A patient might have additional non-kidney related health problems. This may affect how healthy they will be after receving a kidney.'
+    'A patient might have additional non-kidney related health problems, which might affect how healthy they will be after receiving a kidney. Should their non-kidney-related health be taken into account in allocating a kidney?'
 };
 
 const rnorm = (mu = 2, sigma = 1, min = 0, max = 4) => {

@@ -521,11 +521,12 @@ export const InstructionContainer = styled.div`
 
 export const ExplanationContainer = styled.div`
   width: 80vh;
-  max-width: 1000px;
+  max-width: 600px;
   max-height: 80vh;
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
+  margin-bottom: 20px;
   overflow-y: scroll;
   @media (max-width: ${breakpoint2}) {
     width: 800px;

@@ -90,11 +90,8 @@ class DecisionPage extends Component {
             </TopBarLink>
           </TopBar>
           <MainViewContainer>
-            {/* <MessageTop>
-                Both of these individuals are in need of a kidney, but there is only one.
-              </MessageTop> */}
             <QuestionTop>Who should get</QuestionTop>
-            {/* <QuestionBottom onClick={()=>changeDisplay("table")}> */}
+
             <QuestionBottom>the kidney ?</QuestionBottom>
             <MessageContainer>
               <span onClick={() => setModal(2)}>
